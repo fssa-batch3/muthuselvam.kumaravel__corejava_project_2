@@ -64,4 +64,3 @@ public static boolean LoginUser(String email, String password) throws ServiceExc
 	}
 }
 }     
-//]ihbmh8umyngfb
