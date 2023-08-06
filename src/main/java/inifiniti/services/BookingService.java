@@ -3,6 +3,7 @@ package inifiniti.services;
 import java.sql.SQLException;
 
 import inifiniti.dao.UserDao;
+import inifiniti.dao.exceptions.DaoException;
 import inifiniti.dao.*;
 import inifiniti.model.Booking;
 import inifiniti.model.User;
@@ -15,9 +16,12 @@ public class BookingService {
 
 	public static boolean registerBooking(Booking booking) throws ServiceException {
 		BookingDao bookingdao =  new BookingDao();
-		
 		try {
 		BookingValidator.ValidateBooking(booking);	
+		if(bookingdao.seatNumAlreadyExists(booking.getShuttle_id(), booking.getSeatNum())== true) {
+			System.out.println("Seat num already exists");
+			return false;
+		} else {
 			if( bookingdao.insertBooking(booking)){
 				System.out.println(booking.getUserName() +" and seat num: "+ booking.getSeatNum() + " successful");
 				return true;
@@ -25,10 +29,34 @@ public class BookingService {
 				System.out.println("booking not successful");
 				return false;
 			}
+		}
 		
 		}
 		 catch (SQLException | InvalidUserException e) {
 			
+			throw new ServiceException(e);
+		}
+	}
+	
+	public static boolean editBooking(int shuttle_id , String email , int seatNum , int changeSeatNum) throws ServiceException {
+		BookingDao bookingdao =  new BookingDao();
+		UserDao user = new UserDao();
+		try {
+		BookingValidator.validateSeatNum(seatNum);	
+		BookingValidator.validateSeatNum(changeSeatNum);
+		if(UserValidator.validateEmail(email)) {
+			Booking booking = bookingdao.findUserForEditSeatNum(shuttle_id, email, seatNum);
+			System.out.println(booking);
+			booking.setSeatNum(changeSeatNum);
+			bookingdao.inserteditBooking(booking);
+			System.out.println("Edit Seat Num : Successful");
+			return true;
+		} else {
+				System.out.println("Edit Seat Num : Not Successful");
+				return false;
+		}
+		}
+		 catch (InvalidUserException e) {
 			throw new ServiceException(e);
 		}
 	}

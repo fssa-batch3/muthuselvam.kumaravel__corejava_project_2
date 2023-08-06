@@ -5,18 +5,36 @@ public class Booking {
 	private int shuttle_id;
 	private String userName;
 	private String destination;
+	private String email;
 	private int seatNum;
+	private int changeSeatNum;
 	
-	public Booking(int shuttle_id, String userName, String destination, int seatNum) {
+	public Booking(int shuttle_id, String userName,String email, String destination, int seatNum) {
 		this.shuttle_id = shuttle_id;
 		this.userName = userName;
 		this.destination = destination;
+		this.email  = email;
 		this.seatNum = seatNum;
+	}
+	
+	public Booking (int shuttle_id , String email , int seatNum , int changeSeatNum) {
+		this.shuttle_id = shuttle_id;
+		this.email = email;
+		this.seatNum = seatNum;
+		this.changeSeatNum = changeSeatNum;
 	}
 	
 	public Booking() {
 		
 		
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
@@ -51,11 +69,22 @@ public class Booking {
 		this.seatNum = seatNum;
 	}
 	
+	public int getChangeSeatNum() {
+		return changeSeatNum;
+	}
+
+	public void setChangeSeatNum(int changeSeatNum) {
+		this.changeSeatNum = changeSeatNum;
+	}
+
 	@Override
 	public String toString() {
 		return "Booking [shuttle_id=" + shuttle_id + ", userName=" + userName + ", destination=" + destination
-				+ ", seatNum=" + seatNum + "]";
+				+ ", email=" + email + ", seatNum=" + seatNum + ", changeSeatNum=" + changeSeatNum + "]";
 	}
+	
+	
+	
 	
 	
 
