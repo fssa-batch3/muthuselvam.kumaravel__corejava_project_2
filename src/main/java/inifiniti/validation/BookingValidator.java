@@ -24,7 +24,7 @@ public static boolean ValidateBooking(Booking booking) throws InvalidUserExcepti
 
 	public static  boolean validateName(String name) {
 		boolean match = false;
-		try {
+		
 			String regex = "^[A-Za-z]\\w{2,29}$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
@@ -34,15 +34,12 @@ public static boolean ValidateBooking(Booking booking) throws InvalidUserExcepti
 			} else {
 				System.out.println("The user name is not valid");
 			}
-		} catch (Exception e) {
-			System.out.println("user name is not valid");
-		}
 		return match;
 	}
 	
 	public static  boolean validateDestination(String destination) {
 		boolean match = false;
-		try {
+		
 			String regex = "^[A-Za-z]\\w{2,29}$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(destination);
@@ -52,9 +49,6 @@ public static boolean ValidateBooking(Booking booking) throws InvalidUserExcepti
 			} else {
 				System.out.println("destination is not valid");
 			}
-		} catch (Exception e) {
-			System.out.println("destination is not valid");
-		}
 		return match;
 	}
 	
@@ -63,15 +57,11 @@ public static boolean ValidateBooking(Booking booking) throws InvalidUserExcepti
 		if(seatNum>=1 && seatNum<=7) {
 			match = true;
 		}
-		try {
 			if (match) {
 				System.out.println("seatNum is valid.");
 			} else {
 				System.out.println("seatNum is not valid");
 			}
-		} catch (Exception e) {
-			System.out.println("seatNum is not valid");
-		}
 		return match;
 	}
 }

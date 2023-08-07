@@ -85,6 +85,21 @@ public class BookingDao {
 		}
 	}
 	
+	public static boolean deleteBooking(int shuttle_id , String email) throws InvalidUserException {
+		UserDao userDao = new UserDao();
+		try {
+		Connection connection = userDao.getConnection();
+		String insert_query = "DELETE FROM  BOOKINGS WHERE EMAIL = ? AND SHUTTLE_ID=?";
+		PreparedStatement pst = connection.prepareStatement(insert_query);
+		pst.setString(1, email);
+		pst.setInt(2, shuttle_id);
+		int rows = pst.executeUpdate();
+		return (rows == 1) ;
+		} catch (SQLException e ) {
+			throw new InvalidUserException(e);
+		}
+	}
+	
 	
 	
 

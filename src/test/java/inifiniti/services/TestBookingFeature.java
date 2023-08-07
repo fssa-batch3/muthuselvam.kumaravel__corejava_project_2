@@ -7,7 +7,7 @@ import inifiniti.model.*;
 import org.junit.jupiter.api.Test;
 
 import inifiniti.services.exceptions.ServiceException;
-
+import inifiniti.dao.*;
 public class TestBookingFeature {
 
 //@Test
@@ -44,11 +44,27 @@ public class TestBookingFeature {
 //}
 
 	
+//	@Test
+//
+//	public void testEditSeatNum() {
+//	        try {
+//				assertTrue(BookingService.editBooking(1,"sriyaasha@gmail.com",1,6));
+//			}  	
+//			 catch (ServiceException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				fail();
+//			}
+//		
+//		
+//	}
+	
 	@Test
 
-	public void testEditSeatNum() {
+	public void testDeleteBooking() {
+		Booking booking = new Booking(1,"sriyaasha@gmail.com");
 	        try {
-				assertTrue(BookingService.editBooking(1,"sriyaasha@gmail.com",1,6));
+				assertTrue(BookingService.deleteBooking(booking));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block

@@ -46,13 +46,32 @@ public class BookingService {
 		BookingValidator.validateSeatNum(changeSeatNum);
 		if(UserValidator.validateEmail(email)) {
 			Booking booking = bookingdao.findUserForEditSeatNum(shuttle_id, email, seatNum);
-			System.out.println(booking);
 			booking.setSeatNum(changeSeatNum);
 			bookingdao.inserteditBooking(booking);
 			System.out.println("Edit Seat Num : Successful");
 			return true;
 		} else {
 				System.out.println("Edit Seat Num : Not Successful");
+				return false;
+		}
+		}
+		 catch (InvalidUserException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	
+	
+	public static boolean deleteBooking(Booking booking) throws ServiceException {
+		BookingDao bookingdao =  new BookingDao();
+		UserDao user = new UserDao();
+		try {
+		if(UserValidator.validateEmail(booking.getEmail())) {
+			BookingDao.deleteBooking(booking.getShuttle_id(),booking.getEmail());
+			System.out.println("Delete Booking : Successful");
+			return true;
+		} else {
+				System.out.println("Delete Booking : Not Successful");
 				return false;
 		}
 		}
