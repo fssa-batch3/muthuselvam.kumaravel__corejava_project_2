@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import inifiniti.model.Booking;
-import inifiniti.model.User;
-import inifiniti.validationexceptions.InvalidUserException;
+import inifiniti.validationexceptions.InvalidBookingException;
 
 public class BookingDao {
 
@@ -25,7 +24,7 @@ public class BookingDao {
 		return (rows == 1) ;
 	}
 	
-	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  InvalidUserException {
+	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  InvalidBookingException {
 		try {
 			Booking booking = new Booking();
 			UserDao userdao = new UserDao();
@@ -37,12 +36,12 @@ public class BookingDao {
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
 		} catch (SQLException e) {
-			throw new InvalidUserException(e);
+			throw new InvalidBookingException(e);
 			
 		}
 	}
 	
-	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  InvalidUserException {
+	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  InvalidBookingException {
 		try {
 			Booking booking = new Booking();
 			UserDao userdao = new UserDao();
@@ -62,12 +61,12 @@ public class BookingDao {
                    }
         return booking;
 		} catch (SQLException e) {
-			throw new InvalidUserException(e);
+			throw new InvalidBookingException(e);
 			
 		}
 	}
 	
-	public boolean inserteditBooking(Booking booking) throws InvalidUserException {
+	public boolean inserteditBooking(Booking booking) throws InvalidBookingException {
 		UserDao userDao = new UserDao();
 		try {
 		Connection connection = userDao.getConnection();
@@ -81,11 +80,11 @@ public class BookingDao {
 		int rows = pst.executeUpdate();
 		return (rows == 1) ;
 		} catch (SQLException e ) {
-			throw new InvalidUserException(e);
+			throw new InvalidBookingException(e);
 		}
 	}
 	
-	public static boolean deleteBooking(int shuttle_id , String email) throws InvalidUserException {
+	public static boolean deleteBooking(int shuttle_id , String email) throws InvalidBookingException {
 		UserDao userDao = new UserDao();
 		try {
 		Connection connection = userDao.getConnection();
@@ -96,8 +95,24 @@ public class BookingDao {
 		int rows = pst.executeUpdate();
 		return (rows == 1) ;
 		} catch (SQLException e ) {
-			throw new InvalidUserException(e);
+			throw new InvalidBookingException(e);
 		}
+	}
+	
+	public static boolean viewBookingsByUser(Booking booking) throws InvalidBookingException {
+		try {
+			Connection connection = UserDao.getConnection();
+			String insert_query = "SELECT * FROM  BOOKINGS WHERE EMAIL = ?";
+			PreparedStatement pst = connection.prepareStatement(insert_query);
+			pst.setString(1, booking.getEmail());
+			int rows = pst.executeUpdate();
+			return (rows>1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new InvalidBookingException(e);
+		}
+	
+		
 	}
 	
 	

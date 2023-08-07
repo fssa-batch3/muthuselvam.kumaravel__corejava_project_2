@@ -10,6 +10,7 @@ import inifiniti.model.User;
 import inifiniti.services.exceptions.ServiceException;
 import inifiniti.validation.BookingValidator;
 import inifiniti.validation.UserValidator;
+import inifiniti.validationexceptions.InvalidBookingException;
 import inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingService {
@@ -32,7 +33,7 @@ public class BookingService {
 		}
 		
 		}
-		 catch (SQLException | InvalidUserException e) {
+		 catch (SQLException | InvalidBookingException e) {
 			
 			throw new ServiceException(e);
 		}
@@ -55,7 +56,7 @@ public class BookingService {
 				return false;
 		}
 		}
-		 catch (InvalidUserException e) {
+		 catch (InvalidBookingException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -75,7 +76,26 @@ public class BookingService {
 				return false;
 		}
 		}
-		 catch (InvalidUserException e) {
+		 catch (InvalidBookingException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	
+	public static boolean readBookingByUser(Booking booking) throws ServiceException {
+		BookingDao bookingdao =  new BookingDao();
+		UserDao user = new UserDao();
+		try {
+		if(UserValidator.validateEmail(booking.getEmail())) {
+			BookingDao.viewBookingsByUser(booking);
+			System.out.println("Booking History - User: Successful");
+			return true;
+		} else {
+				System.out.println("Booking History - User: Not Successful");
+				return false;
+		}
+		}
+		 catch (InvalidBookingException e) {
 			throw new ServiceException(e);
 		}
 	}

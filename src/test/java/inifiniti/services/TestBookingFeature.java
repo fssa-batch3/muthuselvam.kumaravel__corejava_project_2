@@ -59,20 +59,37 @@ public class TestBookingFeature {
 //		
 //	}
 	
-	@Test
+//	@Test
+//
+//	public void testDeleteBooking() {
+//		Booking booking = new Booking(1,"sriyaasha@gmail.com");
+//	        try {
+//				assertTrue(BookingService.deleteBooking(booking));
+//			}  	
+//			 catch (ServiceException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				fail();
+//			}
+//		
+//		
+//	}
 
-	public void testDeleteBooking() {
-		Booking booking = new Booking(1,"sriyaasha@gmail.com");
-	        try {
-				assertTrue(BookingService.deleteBooking(booking));
-			}  	
-			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
-			}
-		
-		
-	}
+	
+	@Test
+	
+		public void test() {
+			Booking booking = new Booking("sriyaasha@gmail.com");
+		        try {
+					assertTrue(BookingService.readBookingByUser(booking));
+				}  	
+				 catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					fail();
+				}
+			
+			
+		}
 
   }

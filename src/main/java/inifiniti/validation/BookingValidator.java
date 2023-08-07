@@ -5,19 +5,20 @@ import java.util.regex.Pattern;
 
 import inifiniti.model.Booking;
 import inifiniti.model.User;
+import inifiniti.validationexceptions.InvalidBookingException;
 import inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingValidator {
 	
 	
 	
-public static boolean ValidateBooking(Booking booking) throws InvalidUserException {
+public static boolean ValidateBooking(Booking booking) throws InvalidBookingException {
 		
 		if( booking!=null&&validateName(booking.getUserName())&&validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
 			
 			return true;
 		} else {
-			throw new InvalidUserException("Booking details are invalid");
+			throw new InvalidBookingException("Booking details are invalid");
 		}
 		
 	}

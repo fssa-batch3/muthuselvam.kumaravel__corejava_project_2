@@ -17,6 +17,10 @@ public class Booking {
 		this.seatNum = seatNum;
 	}
 	
+	public Booking(String email) {
+		this.email = email;
+	}
+	
 	public Booking(int shuttle_id, String email) {
 		this.shuttle_id= shuttle_id;
 		this.email=email;
