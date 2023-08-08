@@ -3,13 +3,12 @@ package inifiniti.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import inifiniti.dao.exceptions.*;
-import inifiniti.model.User;
-import inifiniti.services.exceptions.ServiceException;
-import inifiniti.validationexceptions.InvalidUserException;
-
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import inifiniti.dao.exceptions.DaoException;
+import inifiniti.model.User;
+import inifiniti.validationexceptions.InvalidUserException;
 
 public class UserDao {
 

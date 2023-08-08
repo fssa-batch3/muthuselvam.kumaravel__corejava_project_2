@@ -4,9 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import inifiniti.model.Booking;
-import inifiniti.model.User;
 import inifiniti.validationexceptions.InvalidBookingException;
-import inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingValidator {
 	

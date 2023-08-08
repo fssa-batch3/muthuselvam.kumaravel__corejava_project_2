@@ -1,14 +1,13 @@
 package inifiniti.services;
 
-import inifiniti.validation.UserValidator;
-import inifiniti.validationexceptions.InvalidUserException;
-
 import java.sql.SQLException;
 
-import inifiniti.dao.*;
+import inifiniti.dao.UserDao;
 import inifiniti.dao.exceptions.DaoException;
-import inifiniti.model.*;
+import inifiniti.model.User;
 import inifiniti.services.exceptions.ServiceException;
+import inifiniti.validation.UserValidator;
+import inifiniti.validationexceptions.InvalidUserException;
 
 public class UserService {
 

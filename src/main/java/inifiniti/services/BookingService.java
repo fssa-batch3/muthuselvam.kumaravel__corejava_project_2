@@ -2,16 +2,13 @@ package inifiniti.services;
 
 import java.sql.SQLException;
 
+import inifiniti.dao.BookingDao;
 import inifiniti.dao.UserDao;
-import inifiniti.dao.exceptions.DaoException;
-import inifiniti.dao.*;
 import inifiniti.model.Booking;
-import inifiniti.model.User;
 import inifiniti.services.exceptions.ServiceException;
 import inifiniti.validation.BookingValidator;
 import inifiniti.validation.UserValidator;
 import inifiniti.validationexceptions.InvalidBookingException;
-import inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingService {
 

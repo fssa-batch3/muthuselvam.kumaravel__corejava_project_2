@@ -1,17 +1,12 @@
 package inifiniti.services;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
 import inifiniti.App;
 import inifiniti.model.User;
-import inifiniti.services.UserService;
 import inifiniti.services.exceptions.ServiceException;
-import inifiniti.model.*;
 public class TestRegisterFeature {
 	@Test
 	public  void testRegisterSuccess() {

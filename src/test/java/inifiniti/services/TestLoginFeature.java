@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import inifiniti.dao.exceptions.DaoException;
-import inifiniti.model.User;
 import inifiniti.services.exceptions.ServiceException;
 
 public class TestLoginFeature {

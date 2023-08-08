@@ -1,13 +1,9 @@
 package inifiniti.dao;
-import inifiniti.dao.UserDao;
-import inifiniti.model.CompanyCard;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import inifiniti.dao.exceptions.*;
-import inifiniti.model.User;
-import java.sql.ResultSet;
+
+import inifiniti.model.CompanyCard;
 
 public class CompanyDao {
 
