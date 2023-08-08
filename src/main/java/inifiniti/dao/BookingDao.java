@@ -99,14 +99,25 @@ public class BookingDao {
 		}
 	}
 	
-	public static boolean viewBookingsByUser(Booking booking) throws InvalidBookingException {
+	public static String viewBookingsByUser(Booking booking) throws InvalidBookingException {
+		Booking bookingSet = new Booking();
 		try {
 			Connection connection = UserDao.getConnection();
 			String insert_query = "SELECT * FROM  BOOKINGS WHERE EMAIL = ?";
 			PreparedStatement pst = connection.prepareStatement(insert_query);
 			pst.setString(1, booking.getEmail());
-			int rows = pst.executeUpdate();
-			return (rows>1);
+			StringBuilder str = new StringBuilder();
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				  String userName = rs.getString("username");
+		           int shuttle_id= rs.getInt("shuttle_id");
+		          int seat_num =rs.getInt("seat_num");
+		          String destination = rs.getString("destination");
+		          
+		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttle_id).append(", Seat NO:").append(seat_num).append(", Destination").append(destination);
+		            
+			}
+			return str.toString();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new InvalidBookingException(e);

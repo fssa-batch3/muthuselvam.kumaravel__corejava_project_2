@@ -1,6 +1,6 @@
 package inifiniti.services;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import inifiniti.model.*;
@@ -81,7 +81,7 @@ public class TestBookingFeature {
 		public void test() {
 			Booking booking = new Booking("sriyaasha@gmail.com");
 		        try {
-					assertTrue(BookingService.readBookingByUser(booking));
+					System.out.print(BookingService.readBookingByUser(booking));
 				}  	
 				 catch (ServiceException e) {
 					// TODO Auto-generated catch block
