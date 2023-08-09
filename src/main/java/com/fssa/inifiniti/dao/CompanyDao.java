@@ -1,9 +1,4 @@
 package com.fssa.inifiniti.dao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import com.fssa.inifiniti.model.CompanyCard;
 
 public class CompanyDao {
 

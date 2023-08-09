@@ -29,7 +29,7 @@ public boolean registerUser(User user) throws ServiceException {
 		return false;
 	}
 	}
-	 catch (SQLException | InvalidUserException e) {
+	 catch (DaoException | InvalidUserException e) {
 		
 		throw new ServiceException(e);
 	}
