@@ -1,19 +1,20 @@
 package com.fssa.inifiniti.services;
 
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.inifiniti.services.UserService;
+
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 
-public class TestLoginFeature {
+ class TestLoginFeature {
 
 @Test
 	
-	public void testloginSuccess() {
+	 void testloginSuccess() {
 			try {
 				assertTrue(UserService.LoginUser("sriyaasha@gmail.com","Muthu@456"));
 			}  	
@@ -27,7 +28,7 @@ public class TestLoginFeature {
 	}
 @Test
 
-public void testInvalidPassword() {
+ void testInvalidPassword() {
 	try {
 		assertFalse(UserService.LoginUser("sriyaasha@gmail.com","Muthu#458"));
 	}  	
@@ -40,7 +41,7 @@ public void testInvalidPassword() {
 }
 
 @Test
-public void testNullInput() {
+ void testNullInput() {
    
     try {
 		assertFalse(UserService.LoginUser(null,null));
@@ -52,7 +53,7 @@ public void testNullInput() {
 
 @Test
 
-public void testInvalidEmail() {
+ void testInvalidEmail() {
 	try {
 		assertFalse(UserService.LoginUser("sriyaasha#gmail.com","Muthu@458"));
 	}  	
