@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.validation.UserValidator;
 
-public class TestValidatePassword {
+class TestValidatePassword {
 
 	@Test
 	
-	public void testValidPassword() {
+	void testValidPassword() {
 		
 		assertTrue(UserValidator.validatePassword("Muthu@143"));
 	}
@@ -19,28 +19,28 @@ public class TestValidatePassword {
 
 	@Test
 	
-	public void testInvalidPasswordWithoutSpecChar() {
+	 void testInvalidPasswordWithoutSpecChar() {
 		
 		assertFalse(UserValidator.validatePassword("Muthu143"));
 	}
 	
 	@Test
 	
-	public void testInvalidPasswordWithoutNum() {
+	 void testInvalidPasswordWithoutNum() {
 		
 		assertFalse(UserValidator.validatePassword("Muthu@"));
 	}
 	
 	@Test
 	
-	public void testInvalidPasswordWithoutCap() {
+	 void testInvalidPasswordWithoutCap() {
 		
 		assertFalse(UserValidator.validatePassword("muthu@143"));
 	}
 
 	@Test
 
-	public void testInvalidPasswordWithoutsmall() {
+	 void testInvalidPasswordWithoutsmall() {
 	
 	assertFalse(UserValidator.validatePassword("MUTHU@143"));
 }
