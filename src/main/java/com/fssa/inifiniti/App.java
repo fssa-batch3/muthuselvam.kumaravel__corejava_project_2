@@ -11,22 +11,22 @@ public class App {
 	public static Connection getConnection() throws SQLException{
 
 		Connection connect = null ;
-		String DB_URL;
-		String DB_USER;
-		String DB_PASSWORD;
+		String db_Url;
+		String db_User;
+		String db_Password;
 
 		if (System.getenv("CI") != null) {
-			DB_URL = System.getenv("DB_URL");
-			DB_USER = System.getenv("DB_USER");
-			DB_PASSWORD = System.getenv("DB_PASSWORD");
+			db_Url = System.getenv("db_Url");
+			db_User = System.getenv("db_User");
+			db_Password = System.getenv("db_Password");
 		} else {
 			Dotenv env = Dotenv.load();
-			DB_URL = env.get("DB_URL");
-			DB_USER = env.get("DB_USER");
-			DB_PASSWORD = env.get("DB_PASSWORD");
+			db_Url = env.get("db_Url");
+			db_User = env.get("db_User");
+			db_Password = env.get("db_Password");
 		}
         try {
-            connect = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            connect = DriverManager.getConnection(db_Url, db_User, db_Password);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to connect to the database");
