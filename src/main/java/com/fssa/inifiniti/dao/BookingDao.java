@@ -99,7 +99,7 @@ public class BookingDao {
 		UserDao userDao = new UserDao();
 		String insert_query = "DELETE FROM  BOOKINGS WHERE EMAIL = ? AND SHUTTLE_ID=?";
 		try (
-		Connection connection = userDao.getConnection();
+		Connection connection = UserDao.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insert_query)){
 		pst.setString(1, email);
 		pst.setInt(2, shuttle_id);
@@ -112,10 +112,10 @@ public class BookingDao {
 	
 	public static String viewBookingsByUser(Booking booking) throws InvalidBookingException {
 		Booking bookingSet = new Booking();
-		try {
+		String insert_query = "SELECT * FROM  BOOKINGS WHERE EMAIL = ?";
+		try (
 			Connection connection = UserDao.getConnection();
-			String insert_query = "SELECT * FROM  BOOKINGS WHERE EMAIL = ?";
-			PreparedStatement pst = connection.prepareStatement(insert_query);
+			PreparedStatement pst = connection.prepareStatement(insert_query)){
 			pst.setString(1, booking.getEmail());
 			StringBuilder str = new StringBuilder();
 			ResultSet rs = pst.executeQuery();

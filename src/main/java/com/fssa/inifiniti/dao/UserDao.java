@@ -30,15 +30,20 @@ public class UserDao {
 	
 
 	
-	public boolean insertUser(User user) throws SQLException {
-		Connection connection = getConnection();
+	public boolean insertUser(User user) throws DaoException {
 		String insert_query = "INSERT INTO USER (USERNAME , EMAIL , PASSWORD) VALUES (?,?,?)";
+		try (
+		Connection connection = getConnection();
 		PreparedStatement pst = connection.prepareStatement(insert_query);
+				){
 		pst.setString(1, user.getUserName());
 		pst.setString(2, user.getEmail());
 		pst.setString(3, user.getPassword());
 		int rows = pst.executeUpdate();
-		return (rows == 1) ;
+		return (rows == 1); }
+		catch (SQLException e ) {
+			throw new DaoException(e);
+		}
 	}
 	
 	
