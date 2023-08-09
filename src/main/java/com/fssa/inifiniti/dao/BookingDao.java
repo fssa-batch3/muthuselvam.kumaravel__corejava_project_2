@@ -12,7 +12,6 @@ import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
 public class BookingDao {
 
 	public boolean insertBooking(Booking booking) throws DaoException{
-		UserDao userDao = new UserDao();
 		String insert_query = "INSERT INTO BOOKINGS (SHUTTLE_ID , USERNAME , EMAIL, DESTINATION , SEAT_NUM ) VALUES (?,?,?,?,?)";
 		try(Connection connection = UserDao.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insert_query)){
@@ -31,8 +30,6 @@ public class BookingDao {
 	}
 	
 	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  InvalidBookingException {
-		Booking booking = new Booking();
-		UserDao userdao = new UserDao();
 		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=?";
 		try 
 			(
@@ -51,11 +48,11 @@ public class BookingDao {
 	
 	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  InvalidBookingException {
 		Booking booking = new Booking();
-		UserDao userdao = new UserDao();
+		
 		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=? AND EMAIL=?";
 		try (
 			
-		Connection connection = userdao.getConnection();
+		Connection connection = UserDao.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(insert_query)){
 		pst.setInt(1, shuttleId);

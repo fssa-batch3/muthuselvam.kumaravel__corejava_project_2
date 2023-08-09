@@ -37,7 +37,6 @@ public class BookingService {
 	
 	public static boolean editBooking(int shuttle_id , String email , int seatNum , int changeSeatNum) throws ServiceException {
 		BookingDao bookingdao =  new BookingDao();
-		UserDao user = new UserDao();
 		try {
 		BookingValidator.validateSeatNum(seatNum);	
 		BookingValidator.validateSeatNum(changeSeatNum);
@@ -60,8 +59,6 @@ public class BookingService {
 	
 	
 	public static boolean deleteBooking(Booking booking) throws ServiceException {
-		BookingDao bookingdao =  new BookingDao();
-		UserDao user = new UserDao();
 		try {
 		if(UserValidator.validateEmail(booking.getEmail())) {
 			BookingDao.deleteBooking(booking.getShuttle_id(),booking.getEmail());
@@ -79,8 +76,6 @@ public class BookingService {
 
 	
 	public static boolean readBookingByUser(Booking booking) throws ServiceException {
-		BookingDao bookingdao =  new BookingDao();
-		UserDao user = new UserDao();
 		try {
 		if(UserValidator.validateEmail(booking.getEmail())) {
 			BookingDao.viewBookingsByUser(booking);

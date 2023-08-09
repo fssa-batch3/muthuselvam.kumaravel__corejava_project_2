@@ -68,7 +68,6 @@ public class UserDao {
 	}
 	
 	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
-		User user = new User();
 		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
 		try (
 		Connection connection = getConnection();

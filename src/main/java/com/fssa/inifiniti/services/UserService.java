@@ -1,6 +1,5 @@
 package com.fssa.inifiniti.services;
 
-import java.sql.SQLException;
 
 import com.fssa.inifiniti.dao.UserDao;
 import com.fssa.inifiniti.dao.exceptions.DaoException;

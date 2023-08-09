@@ -52,16 +52,11 @@ public class UserValidator {
 	public static boolean validatePassword(String password) {
 		boolean match = false;
 		
-//			String pattern_string = "(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
-//			String pattern_string = "(?=.*[0-9])(?=.*[A-Z])(?=\\S+$).{8,}";
 			String pattern_string = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
 			match = Pattern.matches(pattern_string, password);
-//			boolean match = pattern.matches(password);
-//			Pattern pattern = Pattern.compile(pattern_string);
-//			Matcher m = pattern.matcher(password);
+
 
 			if (match) {
-//			if (m.matches()) {
 				System.out.println("Valid password.");
 			} else {
 				System.out.println("Invalid password.");
