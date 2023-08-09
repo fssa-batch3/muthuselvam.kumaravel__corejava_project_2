@@ -13,9 +13,9 @@ public class BookingDao {
 
 	public boolean insertBooking(Booking booking) throws DaoException{
 		UserDao userDao = new UserDao();
-		try(Connection connection = userDao.getConnection()){
-			String insert_query = "INSERT INTO BOOKINGS (SHUTTLE_ID , USERNAME , EMAIL, DESTINATION , SEAT_NUM ) VALUES (?,?,?,?,?)";
-			PreparedStatement pst = connection.prepareStatement(insert_query);
+		String insert_query = "INSERT INTO BOOKINGS (SHUTTLE_ID , USERNAME , EMAIL, DESTINATION , SEAT_NUM ) VALUES (?,?,?,?,?)";
+		try(Connection connection = UserDao.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insert_query)){
 			pst.setInt(1, booking.getShuttle_id());
 			pst.setString(2, booking.getUserName());
 			pst.setString(3, booking.getEmail());
@@ -31,12 +31,14 @@ public class BookingDao {
 	}
 	
 	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  InvalidBookingException {
-		try {
-			Booking booking = new Booking();
-			UserDao userdao = new UserDao();
-		Connection connection = userdao.getConnection();
+		Booking booking = new Booking();
+		UserDao userdao = new UserDao();
 		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=?";
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		try 
+			(
+			Connection connection = UserDao.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insert_query))
+				{
 		pst.setInt(1, shuttleId);
 		pst.setInt(2, seatNum);
 		ResultSet rs = pst.executeQuery();
@@ -48,12 +50,14 @@ public class BookingDao {
 	}
 	
 	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  InvalidBookingException {
-		try {
-			Booking booking = new Booking();
-			UserDao userdao = new UserDao();
-		Connection connection = userdao.getConnection();
+		Booking booking = new Booking();
+		UserDao userdao = new UserDao();
 		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=? AND EMAIL=?";
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		try (
+			
+		Connection connection = userdao.getConnection();
+		
+		PreparedStatement pst = connection.prepareStatement(insert_query)){
 		pst.setInt(1, shuttleId);
 		pst.setInt(2, seatNum);
 		pst.setString(3, email);
@@ -74,10 +78,11 @@ public class BookingDao {
 	
 	public boolean inserteditBooking(Booking booking) throws InvalidBookingException {
 		UserDao userDao = new UserDao();
-		try {
-		Connection connection = userDao.getConnection();
 		String insert_query = "UPDATE  BOOKINGS " + "  SET SEAT_NUM=? " + " WHERE  USERNAME=? " + "AND EMAIL=? " + "AND DESTINATION=?"+"AND SHUTTLE_ID=?";
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		try (
+		Connection connection = userDao.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insert_query)
+				){
 		pst.setInt(1, booking.getSeatNum());
 		pst.setString(2, booking.getUserName());
 		pst.setString(3, booking.getEmail());
@@ -92,10 +97,10 @@ public class BookingDao {
 	
 	public static boolean deleteBooking(int shuttle_id , String email) throws InvalidBookingException {
 		UserDao userDao = new UserDao();
-		try {
-		Connection connection = userDao.getConnection();
 		String insert_query = "DELETE FROM  BOOKINGS WHERE EMAIL = ? AND SHUTTLE_ID=?";
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		try (
+		Connection connection = userDao.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insert_query)){
 		pst.setString(1, email);
 		pst.setInt(2, shuttle_id);
 		int rows = pst.executeUpdate();

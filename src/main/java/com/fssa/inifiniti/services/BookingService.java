@@ -1,9 +1,8 @@
 package com.fssa.inifiniti.services;
 
-import java.sql.SQLException;
-
 import com.fssa.inifiniti.dao.BookingDao;
 import com.fssa.inifiniti.dao.UserDao;
+import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 import com.fssa.inifiniti.validation.BookingValidator;
@@ -30,7 +29,7 @@ public class BookingService {
 		}
 		
 		}
-		 catch (SQLException | InvalidBookingException e) {
+		 catch (DaoException  | InvalidBookingException e) {
 			
 			throw new ServiceException(e);
 		}

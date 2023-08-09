@@ -43,11 +43,12 @@ public class UserDao {
 	
 	
 	public  User findUserByEmail(String email) throws  DaoException {
-		try {
-			User user = new User();
-		Connection connection = getConnection();
+		User user = new User();
 		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		try (
+			
+		Connection connection = getConnection();
+		PreparedStatement pst = connection.prepareStatement(insert_query)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
@@ -62,11 +63,11 @@ public class UserDao {
 	}
 	
 	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
-		try {
-			User user = new User();
-		Connection connection = getConnection();
+		User user = new User();
 		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		try (
+		Connection connection = getConnection();
+		PreparedStatement pst = connection.prepareStatement(insert_query)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
