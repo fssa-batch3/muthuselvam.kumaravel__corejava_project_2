@@ -8,10 +8,11 @@ import java.sql.SQLException;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
+import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingDao {
 
-	public boolean insertBooking(Booking booking) throws DaoException{
+	public boolean createBooking(Booking booking) throws DaoException{
 		String insert_query = "INSERT INTO BOOKINGS (SHUTTLE_ID , USERNAME , EMAIL, DESTINATION , SEAT_NUM ) VALUES (?,?,?,?,?)";
 		try(Connection connection = UserDao.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insert_query)){
@@ -29,6 +30,21 @@ public class BookingDao {
 		
 	}
 	
+	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
+		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
+		try (
+		Connection connection = UserDao.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		pst.setString(1, email);
+		ResultSet rs = pst.executeQuery();
+		 return  rs.next();
+       
+		} catch (SQLException e) {
+			throw new InvalidUserException("Invalid in Email Already Exists");
+			
+		}
+	}
+	
 	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  InvalidBookingException {
 		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=?";
 		try 
@@ -41,7 +57,7 @@ public class BookingDao {
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
 		} catch (SQLException e) {
-			throw new InvalidBookingException(e);
+			throw new InvalidBookingException("Invalid in seat num exists");
 			
 		}
 	}
@@ -73,11 +89,10 @@ public class BookingDao {
 		}
 	}
 	
-	public boolean inserteditBooking(Booking booking) throws InvalidBookingException {
-		UserDao userDao = new UserDao();
+	public boolean editBooking(Booking booking) throws InvalidBookingException {
 		String insert_query = "UPDATE  BOOKINGS " + "  SET SEAT_NUM=? " + " WHERE  USERNAME=? " + "AND EMAIL=? " + "AND DESTINATION=?"+"AND SHUTTLE_ID=?";
 		try (
-		Connection connection = userDao.getConnection();
+		Connection connection = UserDao.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insert_query)
 				){
 		pst.setInt(1, booking.getSeatNum());
@@ -93,7 +108,6 @@ public class BookingDao {
 	}
 	
 	public static boolean deleteBooking(int shuttle_id , String email) throws InvalidBookingException {
-		UserDao userDao = new UserDao();
 		String insert_query = "DELETE FROM  BOOKINGS WHERE EMAIL = ? AND SHUTTLE_ID=?";
 		try (
 		Connection connection = UserDao.getConnection();
@@ -107,8 +121,7 @@ public class BookingDao {
 		}
 	}
 	
-	public static String viewBookingsByUser(Booking booking) throws InvalidBookingException {
-		Booking bookingSet = new Booking();
+	public static boolean viewBookingsByUser(Booking booking) throws InvalidBookingException {
 		String insert_query = "SELECT * FROM  BOOKINGS WHERE EMAIL = ?";
 		try (
 			Connection connection = UserDao.getConnection();
@@ -122,10 +135,35 @@ public class BookingDao {
 		          int seat_num =rs.getInt("seat_num");
 		          String destination = rs.getString("destination");
 		          
-		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttle_id).append(", Seat NO:").append(seat_num).append(", Destination").append(destination);
-		            
+		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttle_id).append(", Seat NO: ").append(seat_num).append(", Destination: ").append(destination);
+		            System.out.println(str);
 			}
-			return str.toString();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new InvalidBookingException(e);
+		}
+	
+		
+	}
+	
+	public static boolean viewBookingsByAdmin() throws InvalidBookingException {
+		String insert_query = "SELECT * FROM  BOOKINGS";
+		try (
+			Connection connection = UserDao.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insert_query)){
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				StringBuilder str = new StringBuilder();
+				  String userName = rs.getString("username");
+		           int shuttle_id= rs.getInt("shuttle_id");
+		          int seat_num =rs.getInt("seat_num");
+		          String destination = rs.getString("destination");
+		          
+		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttle_id).append(", Seat NO: ").append(seat_num).append(", Destination: ").append(destination);
+		            System.out.println(str);
+			}
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new InvalidBookingException(e);

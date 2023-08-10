@@ -13,7 +13,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
  class TestRegisterFeature {
 	@Test
 	  void testRegisterSuccess() {
-		User user1 = new User("muthu123","muthu@gmail.com","Muthu@456");
+		User user1 = new User("muthu123","muthu@gmail.com.com","Muthu@456");
 		UserService  UserService = new UserService();
 		try {
 			assertTrue(UserService.registerUser(user1));

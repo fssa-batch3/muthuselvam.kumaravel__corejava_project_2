@@ -6,6 +6,7 @@ public class User {
 	private String email;
 	private String password;
 	private  int id=1;
+	private boolean loggedIn ;
 	
 
 	public User(String username,String email , String password) {
@@ -50,12 +51,17 @@ public class User {
 	public void setId(int id) {
 	this.id = id;
 	}
+	@Override
 	public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + userName + '\'' +
-                ", number=" + email +
-                ", password='" + password + '\'' +
-                '}';
-    }
+		return "User [userName=" + userName + ", email=" + email + ", password=" + password + ", id=" + id
+				+ ", loggedIn=" + loggedIn + "]";
+	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
 }

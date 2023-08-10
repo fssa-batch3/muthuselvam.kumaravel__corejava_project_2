@@ -31,7 +31,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	@Test
 	
 	 void testSeatNumAlreadyExists() {
-	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",1);
+	Booking booking = new Booking(1,"muthu","muthu@gmail.com", "Taramani",4);
 	        try {
 				assertFalse(BookingService.registerBooking(booking));
 			}  	
@@ -49,7 +49,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 
 	 void testEditSeatNum() {
 	        try {
-				assertTrue(BookingService.editBooking(1,"sriyaasha@gmail.com",1,6));
+				assertTrue(BookingService.updateBooking(1,"sriyaasha@gmail.com",1,6));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
@@ -63,7 +63,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	@Test
 
 	 void testDeleteBooking() {
-		Booking booking = new Booking(1,"sriyaasha@gmail.com");
+		Booking booking = new Booking(1,"muthu@gmail.com");
 	        try {
 				assertTrue(BookingService.deleteBooking(booking));
 			}  	
@@ -79,7 +79,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	@Test
 	
-		 void test() {
+		 void testReadBookings() {
 			Booking booking = new Booking("sriyaasha@gmail.com");
 		        try {
 					assertTrue(BookingService.readBookingByUser(booking));
@@ -92,5 +92,21 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 			
 			
 		}
+	
+	
+	@Test
+
+	 void testViewBookingsByAdmin() {
+	        try {
+				assertTrue(BookingService.readBookingByAdmin());
+			}  	
+			 catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				fail();
+			}
+		
+		
+	}
 
   }

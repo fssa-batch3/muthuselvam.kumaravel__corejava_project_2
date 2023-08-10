@@ -12,7 +12,7 @@ public class BookingValidator {
 	
 public static boolean ValidateBooking(Booking booking) throws InvalidBookingException {
 		
-		if( booking!=null&&validateName(booking.getUserName())&&validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
+		if( booking!=null&&validateName(booking.getUserName())&&validateEmail(booking.getEmail())&& validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
 			
 			return true;
 		} else {
@@ -20,6 +20,7 @@ public static boolean ValidateBooking(Booking booking) throws InvalidBookingExce
 		}
 		
 	}
+
 
 	public static  boolean validateName(String name) {
 		boolean match = false;
@@ -62,5 +63,19 @@ public static boolean ValidateBooking(Booking booking) throws InvalidBookingExce
 				System.out.println("seatNum is not valid");
 			}
 		return match;
+	}
+	
+	public static  boolean validateEmail(String email) {
+		boolean isMatch = false;
+		
+			String regex = "^.*@.*\\..*$";
+			isMatch = Pattern.matches(regex, email);
+			if (isMatch) {
+				System.out.println("The email address is: Valid");
+			} else {
+				System.out.println("The email address is: Invalid");
+			}
+			return isMatch;
+		
 	}
 }

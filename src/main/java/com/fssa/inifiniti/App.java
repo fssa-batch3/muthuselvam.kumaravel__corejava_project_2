@@ -26,7 +26,7 @@ public class App {
 			db_Password = env.get("db_Password");
 		}
         try {
-            connect = DriverManager.getConnection(db_Url, db_User, db_Password);
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/inifiniti","root", "123456");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to connect to the database");

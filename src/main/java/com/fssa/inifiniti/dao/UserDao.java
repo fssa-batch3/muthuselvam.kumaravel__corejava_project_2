@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.User;
@@ -31,7 +32,7 @@ public class UserDao {
 
 	
 	public boolean insertUser(User user) throws DaoException {
-		String insert_query = "INSERT INTO USER (USERNAME , EMAIL , PASSWORD) VALUES (?,?,?)";
+		String insert_query = "INSERT INTO USER (username , email , password) VALUES (?,?,?)";
 		try (
 		Connection connection = getConnection();
 		PreparedStatement pst = connection.prepareStatement(insert_query);
@@ -42,7 +43,7 @@ public class UserDao {
 		int rows = pst.executeUpdate();
 		return (rows == 1); }
 		catch (SQLException e ) {
-			throw new DaoException(e);
+			throw new DaoException("Invalid details for register");
 		}
 	}
 	
@@ -59,10 +60,11 @@ public class UserDao {
 		if(rs.next()){
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
+            user.setLoggedIn(rs.getBoolean("logged_in"));
                    }
         return user;
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new DaoException("Cannot find email by user");
 			
 		}
 	}
@@ -77,9 +79,24 @@ public class UserDao {
 		 return  rs.next();
        
 		} catch (SQLException e) {
-			throw new InvalidUserException(e);
+			throw new InvalidUserException("Invalid in Email Already Exists");
 			
 		}
+	}
+	
+	public  boolean setLoggedIn(String email) throws InvalidUserException {
+		
+		String insert_query = "UPDATE USER SET LOGGED_IN ='1' WHERE EMAIL=?";
+		try (
+		Connection connection = getConnection();
+		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		pst.setString(1, email);
+		int count  = pst.executeUpdate();
+		 return (count==1);
+		} catch (SQLException e) {
+			throw new InvalidUserException("Invalid in logging In");
+		}
+		
 	}
 	
 	
