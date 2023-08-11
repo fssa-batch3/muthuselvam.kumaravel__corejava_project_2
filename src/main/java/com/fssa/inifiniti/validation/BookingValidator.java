@@ -30,11 +30,11 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 			Matcher m = p.matcher(name);
 			match = m.matches();
 			if (match) {
-				System.out.println("The user name is valid.");
+				return match;
 			} else {
 				throw new InvalidBookingException("Invalid Name");
 			}
-		return match;
+		
 	}
 	
 	public static  boolean validateDestination(String destination) throws InvalidBookingException {
@@ -45,11 +45,11 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 			Matcher m = p.matcher(destination);
 			match = m.matches();
 			if (match) {
-				System.out.println("destination is valid.");
+				return match;
 			} else {
 				throw new InvalidBookingException("Invalid destination");
 			}
-		return match;
+		
 	}
 	
 	public static  boolean validateSeatNum(int seatNum) throws InvalidBookingException {
@@ -58,11 +58,11 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 			match = true;
 		}
 			if (match) {
-				System.out.println("seatNum is valid.");
+				return match;
 			} else {
 				throw new InvalidBookingException("Invalid Seat Number");
 			}
-		return match;
+		
 	}
 	
 	public static  boolean validateEmail(String email) throws InvalidBookingException {
@@ -71,11 +71,11 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 			String regex = "^.*@.*\\..*$";
 			isMatch = Pattern.matches(regex, email);
 			if (isMatch) {
-				System.out.println("The email address is: Valid");
+				return isMatch;
 			} else {
 				throw new InvalidBookingException("Invalid Email");
 			}
-			return isMatch;
+			
 		
 	}
 }

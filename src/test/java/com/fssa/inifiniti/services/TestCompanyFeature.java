@@ -4,12 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import com.fssa.inifiniti.model.*;
-import com.fssa.inifiniti.services.*;
-import com.fssa.inifiniti.model.Booking;
+
+import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 
-public class TestCompanyFeature {
+ class TestCompanyFeature {
 	 @Test
 		
 	 void testBookingRegisterSuccess() {

@@ -1,16 +1,14 @@
 package com.fssa.inifiniti.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.inifiniti.validation.UserValidator;
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
-public class TestValidEmail {
+ class TestValidEmail {
 	Throwable exception;
 
 	@Test

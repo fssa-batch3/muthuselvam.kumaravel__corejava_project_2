@@ -23,18 +23,18 @@ public static boolean validateCompany(CompanyCard company) throws InvalidCompany
 		
 	}
 
-	public static  boolean validateName(String name) {
+	public static  boolean validateName(String name) throws InvalidCompanyException {
 		boolean match = false;
 			String regex = "^[A-Za-z]\\w{2,29}$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
 			match = m.matches();
 			if (match) {
-				System.out.println("The Company Title is valid.");
+				return match;
 			} else {
-				System.out.println("The Company Title is not valid");
+				throw new InvalidCompanyException("Company title are invalid");
 			}
-		return match;
+		
 	}
 	
 	public static  boolean validateUrl(String url)  {

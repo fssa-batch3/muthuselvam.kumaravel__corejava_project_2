@@ -42,11 +42,11 @@ public class UserValidator {
 			Matcher m = p.matcher(name);
 			match = m.matches();
 			if (match) {
-				System.out.println("The user name is valid.");
+				return match;
 			} else {
 				throw new InvalidUserException("Invalid Username");
 			}
-		return match;
+		
 	}
 
 	public static boolean validatePassword(String password) throws InvalidUserException {
@@ -57,11 +57,11 @@ public class UserValidator {
 
 
 			if (match) {
-				System.out.println("Valid password.");
+				return match;
 			} else {
 				throw new InvalidUserException("Invalid Password");
 			}
-		return match;
+		
 	}
 
 	public static  boolean validateEmail(String email) throws InvalidUserException {
@@ -70,11 +70,11 @@ public class UserValidator {
 			String regex = "^.*@.*\\..*$";
 			isMatch = Pattern.matches(regex, email);
 			if (isMatch) {
-				System.out.println("The email address is: Valid");
+				return isMatch;
 			} else {
 				throw new InvalidUserException("Invalid Email");
 			}
-			return isMatch;
+			
 		
 	}
 
