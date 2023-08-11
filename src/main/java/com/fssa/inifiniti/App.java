@@ -29,7 +29,7 @@ public class App {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/inifiniti","root", "123456");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Unable to connect to the database");
+            throw new SQLException("Unable to connect to the database");
         }
         return  connect ;                          
 	}
