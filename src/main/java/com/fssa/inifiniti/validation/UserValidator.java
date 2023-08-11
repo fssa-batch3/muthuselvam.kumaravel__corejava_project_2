@@ -52,8 +52,8 @@ public class UserValidator {
 	public static boolean validatePassword(String password) throws InvalidUserException {
 		boolean match = false;
 		
-			String pattern_string = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
-			match = Pattern.matches(pattern_string, password);
+			String patternString = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
+			match = Pattern.matches(patternString, password);
 
 
 			if (match) {
