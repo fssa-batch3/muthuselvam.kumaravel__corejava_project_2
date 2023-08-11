@@ -11,19 +11,19 @@ public class App {
 	public static Connection getConnection() throws SQLException{
 
 		Connection connect = null ;
-		String db_Url;
-		String db_User;
-		String db_Password;
+		String dbUrl;
+		String dbUser;
+		String dbPassword;
 
 		if (System.getenv("CI") != null) {
-			db_Url = System.getenv("db_Url");
-			db_User = System.getenv("db_User");
-			db_Password = System.getenv("db_Password");
+			dbUrl = System.getenv("dbUrl");
+			dbUser = System.getenv("dbUser");
+			dbPassword = System.getenv("dbPassword");
 		} else {
 			Dotenv env = Dotenv.load();
-			db_Url = env.get("db_Url");
-			db_User = env.get("db_User");
-			db_Password = env.get("db_Password");
+			dbUrl = env.get("dbUrl");
+			dbUser = env.get("dbUser");
+			dbPassword = env.get("dbPassword");
 		}
         try {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/inifiniti","root", "123456");
