@@ -11,7 +11,7 @@ import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
-public class UserDao {
+public class UserDAO {
 
 	public static Connection getConnection() throws SQLException{
 
@@ -32,10 +32,10 @@ public class UserDao {
 
 	
 	public boolean insertUser(User user) throws DaoException {
-		String insert_query = "INSERT INTO USER (username , email , password) VALUES (?,?,?)";
+		String insertQuery = "INSERT INTO user (username , email , password) VALUES (?,?,?)";
 		try (
 		Connection connection = getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query);
+		PreparedStatement pst = connection.prepareStatement(insertQuery);
 				){
 		pst.setString(1, user.getUserName());
 		pst.setString(2, user.getEmail());
@@ -50,11 +50,11 @@ public class UserDao {
 	
 	public  User findUserByEmail(String email) throws  DaoException {
 		User user = new User();
-		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
+		String insertQuery = "SELECT * FROM user WHERE email=?";
 		try (
 			
 		Connection connection = getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
@@ -69,11 +69,12 @@ public class UserDao {
 		}
 	}
 	
+	
 	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
-		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
+		String insertQuery = "SELECT * FROM user WHERE email=?";
 		try (
 		Connection connection = getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
@@ -86,10 +87,10 @@ public class UserDao {
 	
 	public  boolean setLoggedIn(String email) throws InvalidUserException {
 		
-		String insert_query = "UPDATE USER SET LOGGED_IN ='1' WHERE EMAIL=?";
+		String insertQuery = "UPDATE user SET logged_in ='1' WHERE email=?";
 		try (
 		Connection connection = getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		int count  = pst.executeUpdate();
 		 return (count==1);

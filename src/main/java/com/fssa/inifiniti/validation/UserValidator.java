@@ -20,7 +20,7 @@ public class UserValidator {
 	
 	
 	
-	public static boolean ValidateUser(User user) throws InvalidUserException {
+	public static boolean validateUser(User user) throws InvalidUserException {
 		
 		if( user!=null&&validateName(user.getUserName())&&validateEmail(user.getEmail())&&validatePassword(user.getPassword())) {
 			
@@ -34,22 +34,22 @@ public class UserValidator {
 	
 	
 
-	public static  boolean validateName(String name) {
+	public static  boolean validateName(String name) throws InvalidUserException {
 		boolean match = false;
 		
-			String regex = "^[A-Za-z]\\w{2,29}$";
+			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
 			match = m.matches();
 			if (match) {
 				System.out.println("The user name is valid.");
 			} else {
-				System.out.println("The user name is not valid");
+				throw new InvalidUserException("Invalid Username");
 			}
 		return match;
 	}
 
-	public static boolean validatePassword(String password) {
+	public static boolean validatePassword(String password) throws InvalidUserException {
 		boolean match = false;
 		
 			String pattern_string = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
@@ -59,12 +59,12 @@ public class UserValidator {
 			if (match) {
 				System.out.println("Valid password.");
 			} else {
-				System.out.println("Invalid password.");
+				throw new InvalidUserException("Invalid Password");
 			}
 		return match;
 	}
 
-	public static  boolean validateEmail(String email) {
+	public static  boolean validateEmail(String email) throws InvalidUserException {
 		boolean isMatch = false;
 		
 			String regex = "^.*@.*\\..*$";
@@ -72,7 +72,7 @@ public class UserValidator {
 			if (isMatch) {
 				System.out.println("The email address is: Valid");
 			} else {
-				System.out.println("The email address is: Invalid");
+				throw new InvalidUserException("Invalid Email");
 			}
 			return isMatch;
 		

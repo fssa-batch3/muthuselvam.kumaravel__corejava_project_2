@@ -6,21 +6,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-
 import com.fssa.inifiniti.model.User;
 
 import com.fssa.inifiniti.services.exceptions.ServiceException;
  class TestRegisterFeature {
+	 Throwable exception;
 	@Test
 	  void testRegisterSuccess() {
-		User user1 = new User("muthu123","muthu@gmail.com.com","Muthu@456");
+		User user1 = new User("muthu","ms@gmail.com.com","Muthu@456");
 		UserService  UserService = new UserService();
 		try {
 			assertTrue(UserService.registerUser(user1));
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			e.printStackTrace(); 
+			fail(); 
 		}
 	}
 	
@@ -28,7 +28,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	 void testInvalidPassword() {
 		UserService userService = new UserService();
-		User user = new User("muthu456","sriyaasha@gmail.com","Muthu458");
+		User user = new User("muthu","sriyaasha@gmail.com","Muthu458");
 		
 		
 		try {
@@ -46,7 +46,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	 void testvalidPassword() {
 		UserService userService = new UserService();
-		User user = new User("muthu789","sriyaasha@gmail.com","Muthu@458");
+		User user = new User("muthu","sriyaasha@gmail.com","Muthu@458");
 		
 		
 		try {
@@ -69,9 +69,10 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 
 		}
 	}
+	
+	
 
-
-
+	
 
 
 		

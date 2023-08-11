@@ -1,45 +1,86 @@
 package com.fssa.inifiniti.validation;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.fssa.inifiniti.validationexceptions.InvalidUserException;
+
 class TestValidatePassword {
+Throwable exception;
+	@Test
+	
+	void testValidPassword() throws InvalidUserException {
+		
+		try {
+			assertTrue(UserValidator.validatePassword("Muthu@143"));
+		} catch (InvalidUserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	 
 
 	@Test
 	
-	void testValidPassword() {
+	 void testInvalidPasswordWithoutSpecChar() throws InvalidUserException {
 		
-		assertTrue(UserValidator.validatePassword("Muthu@143"));
+		try {
+			UserValidator.validatePassword("Muthu143");
+			 exception = assertThrows(InvalidUserException.class, () -> {
+				});
+				assertEquals("Invalid Password", exception.getMessage());
+		} catch ( InvalidUserException  e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	@Test
+	
+	 void testInvalidPasswordWithoutNum() throws InvalidUserException {
+		
+		try {
+			UserValidator.validatePassword("Muthu@");
+			 exception = assertThrows(InvalidUserException.class, () -> {
+				});
+				assertEquals("Invalid Password", exception.getMessage());
+		} catch (InvalidUserException e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	
+	 void testInvalidPasswordWithoutCap() throws InvalidUserException{
+		
+		try {
+			UserValidator.validatePassword("muthu@143");
+			 exception = assertThrows(InvalidUserException.class, () -> {
+				});
+				assertEquals("Invalid Password", exception.getMessage());
+		} catch (InvalidUserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Test
-	
-	 void testInvalidPasswordWithoutSpecChar() {
-		
-		assertFalse(UserValidator.validatePassword("Muthu143"));
-	}
-	
-	@Test
-	
-	 void testInvalidPasswordWithoutNum() {
-		
-		assertFalse(UserValidator.validatePassword("Muthu@"));
-	}
-	
-	@Test
-	
-	 void testInvalidPasswordWithoutCap() {
-		
-		assertFalse(UserValidator.validatePassword("muthu@143"));
-	}
 
-	@Test
-
-	 void testInvalidPasswordWithoutsmall() {
+	 void testInvalidPasswordWithoutsmall() throws InvalidUserException{
 	
-	assertFalse(UserValidator.validatePassword("MUTHU@143"));
+	try {
+	UserValidator.validatePassword("MUTHU@143");
+		 exception = assertThrows(InvalidUserException.class, () -> {
+			});
+			assertEquals("Invalid Password", exception.getMessage());
+	} catch (InvalidUserException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 }

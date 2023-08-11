@@ -1,7 +1,7 @@
 package com.fssa.inifiniti.services;
 
 
-import com.fssa.inifiniti.dao.UserDao;
+import com.fssa.inifiniti.dao.UserDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
@@ -11,10 +11,10 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 public class UserService {
 
 public boolean registerUser(User user) throws ServiceException {
-	UserDao userdao =  new UserDao();
+	UserDAO userdao =  new UserDAO();
 	
 	try {
-	if(UserValidator.ValidateUser(user)) {
+	if(UserValidator.validateUser(user)) {
 	if(userdao.emailAlreadyExists(user.getEmail())==false) {
 		if( userdao.insertUser(user)){
 			System.out.println(user.getUserName() + " successful");
@@ -40,8 +40,8 @@ public boolean registerUser(User user) throws ServiceException {
 
 
 
-public static boolean LoginUser(String email, String password) throws ServiceException {
-	UserDao userdao =  new UserDao();
+public static boolean loginUser(String email, String password) throws ServiceException {
+	UserDAO userdao =  new UserDAO();
 	
 	try {
 	UserValidator.ValidateLoginUser(email,password);

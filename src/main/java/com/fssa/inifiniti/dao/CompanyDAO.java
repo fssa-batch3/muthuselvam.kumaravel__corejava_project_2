@@ -8,15 +8,15 @@ import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.validation.CompanyValidator;
 
-public class CompanyDao {
+public class CompanyDAO {
 
 	public boolean insertCompany(CompanyCard companyCard) throws DaoException {
-		String insert_query = "INSERT INTO COMPANY (COMPANY_NAME , IMAGE_URL) VALUES (?,?)";
+		String insertQuery = "INSERT INTO company (company_name , image_url) VALUES (?,?)";
 		CompanyValidator.validateName(companyCard.getCompanyTitle());
 		CompanyValidator.validateUrl(companyCard.getImageUrl());
-		try (
-		Connection connection = UserDao.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query);)
+		try ( 
+		Connection connection = UserDAO.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery);)
 		{
 		pst.setString(1, companyCard.getCompanyTitle());
 		pst.setString(2, companyCard.getImageUrl());

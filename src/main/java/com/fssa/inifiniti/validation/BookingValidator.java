@@ -5,12 +5,13 @@ import java.util.regex.Pattern;
 
 import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
+import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingValidator {
 	
 	
 	
-public static boolean ValidateBooking(Booking booking) throws InvalidBookingException {
+public static boolean validateBooking(Booking booking) throws InvalidBookingException {
 		
 		if( booking!=null&&validateName(booking.getUserName())&&validateEmail(booking.getEmail())&& validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
 			
@@ -22,37 +23,37 @@ public static boolean ValidateBooking(Booking booking) throws InvalidBookingExce
 	}
 
 
-	public static  boolean validateName(String name) {
+	public static  boolean validateName(String name) throws InvalidBookingException {
 		boolean match = false;
 		
-			String regex = "^[A-Za-z]\\w{2,29}$";
+			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
 			match = m.matches();
 			if (match) {
 				System.out.println("The user name is valid.");
 			} else {
-				System.out.println("The user name is not valid");
+				throw new InvalidBookingException("Invalid Name");
 			}
 		return match;
 	}
 	
-	public static  boolean validateDestination(String destination) {
+	public static  boolean validateDestination(String destination) throws InvalidBookingException {
 		boolean match = false;
 		
-			String regex = "^[A-Za-z]\\w{2,29}$";
+			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(destination);
 			match = m.matches();
 			if (match) {
 				System.out.println("destination is valid.");
 			} else {
-				System.out.println("destination is not valid");
+				throw new InvalidBookingException("Invalid destination");
 			}
 		return match;
 	}
 	
-	public static  boolean validateSeatNum(int seatNum) {
+	public static  boolean validateSeatNum(int seatNum) throws InvalidBookingException {
 		boolean match = false;
 		if(seatNum>=1 && seatNum<=7) {
 			match = true;
@@ -60,12 +61,12 @@ public static boolean ValidateBooking(Booking booking) throws InvalidBookingExce
 			if (match) {
 				System.out.println("seatNum is valid.");
 			} else {
-				System.out.println("seatNum is not valid");
+				throw new InvalidBookingException("Invalid Seat Number");
 			}
 		return match;
 	}
 	
-	public static  boolean validateEmail(String email) {
+	public static  boolean validateEmail(String email) throws InvalidBookingException {
 		boolean isMatch = false;
 		
 			String regex = "^.*@.*\\..*$";
@@ -73,7 +74,7 @@ public static boolean ValidateBooking(Booking booking) throws InvalidBookingExce
 			if (isMatch) {
 				System.out.println("The email address is: Valid");
 			} else {
-				System.out.println("The email address is: Invalid");
+				throw new InvalidBookingException("Invalid Email");
 			}
 			return isMatch;
 		

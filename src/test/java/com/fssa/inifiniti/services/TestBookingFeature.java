@@ -31,7 +31,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	@Test
 	
 	 void testSeatNumAlreadyExists() {
-	Booking booking = new Booking(1,"muthu","muthu@gmail.com", "Taramani",4);
+	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",1);
 	        try {
 				assertFalse(BookingService.registerBooking(booking));
 			}  	
@@ -63,7 +63,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	@Test
 
 	 void testDeleteBooking() {
-		Booking booking = new Booking(1,"muthu@gmail.com");
+		Booking booking = new Booking(1,"sriyaasha@gmail.com");
 	        try {
 				assertTrue(BookingService.deleteBooking(booking));
 			}  	
@@ -88,6 +88,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					fail();
+					
 				}
 			
 			

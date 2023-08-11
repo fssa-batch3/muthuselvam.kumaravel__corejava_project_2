@@ -10,12 +10,12 @@ import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
-public class BookingDao {
+public class BookingDAO {
 
 	public boolean createBooking(Booking booking) throws DaoException{
-		String insert_query = "INSERT INTO BOOKINGS (SHUTTLE_ID , USERNAME , EMAIL, DESTINATION , SEAT_NUM ) VALUES (?,?,?,?,?)";
-		try(Connection connection = UserDao.getConnection();
-				PreparedStatement pst = connection.prepareStatement(insert_query)){
+		String insertQuery = "INSERT INTO bookings (shuttleid , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
+		try(Connection connection = UserDAO.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			pst.setInt(1, booking.getShuttle_id());
 			pst.setString(2, booking.getUserName());
 			pst.setString(3, booking.getEmail());
@@ -30,47 +30,47 @@ public class BookingDao {
 		
 	}
 	
-	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
-		String insert_query = "SELECT * FROM USER WHERE EMAIL=?";
+	public  boolean emailAlreadyExists(String email) throws  DaoException {
+		String insertQuery = "SELECT * FROM user WHERE email=?";
 		try (
-		Connection connection = UserDao.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		Connection connection = UserDAO.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
        
 		} catch (SQLException e) {
-			throw new InvalidUserException("Invalid in Email Already Exists");
+			throw new DaoException("Invalid in Email Already Exists");
 			
 		}
 	}
 	
-	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  InvalidBookingException {
-		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=?";
+	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  DaoException {
+		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=?";
 		try 
 			(
-			Connection connection = UserDao.getConnection();
-			PreparedStatement pst = connection.prepareStatement(insert_query))
+			Connection connection = UserDAO.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery))
 				{
 		pst.setInt(1, shuttleId);
 		pst.setInt(2, seatNum);
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
 		} catch (SQLException e) {
-			throw new InvalidBookingException("Invalid in seat num exists");
+			throw new DaoException("Invalid in seat num exists");
 			
 		}
 	}
 	
-	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  InvalidBookingException {
+	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  DaoException {
 		Booking booking = new Booking();
 		
-		String insert_query = "SELECT * FROM BOOKINGS WHERE SHUTTLE_ID=? AND SEAT_NUM=? AND EMAIL=?";
+		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=? AND email=?";
 		try (
 			
-		Connection connection = UserDao.getConnection();
+		Connection connection = UserDAO.getConnection();
 		
-		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setInt(1, shuttleId);
 		pst.setInt(2, seatNum);
 		pst.setString(3, email);
@@ -84,16 +84,16 @@ public class BookingDao {
                    }
         return booking;
 		} catch (SQLException e) {
-			throw new InvalidBookingException(e);
+			throw new DaoException(e);
 			
 		}
 	}
 	
-	public boolean editBooking(Booking booking) throws InvalidBookingException {
-		String insert_query = "UPDATE  BOOKINGS " + "  SET SEAT_NUM=? " + " WHERE  USERNAME=? " + "AND EMAIL=? " + "AND DESTINATION=?"+"AND SHUTTLE_ID=?";
+	public boolean editBooking(Booking booking) throws DaoException {
+		String insertQuery = "UPDATE  bookings  SET seat_num=?  WHERE  username=? AND email=? AND destination=? AND shuttle_id=?";
 		try (
-		Connection connection = UserDao.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query)
+		Connection connection = UserDAO.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
 				){
 		pst.setInt(1, booking.getSeatNum());
 		pst.setString(2, booking.getUserName());
@@ -101,31 +101,31 @@ public class BookingDao {
 		pst.setString(4, booking.getDestination());
 		pst.setInt(5, booking.getShuttle_id());
 		int rows = pst.executeUpdate();
-		return (rows == 1) ;
+		return rows > 0 ;
 		} catch (SQLException e ) {
-			throw new InvalidBookingException(e);
+			throw new DaoException(e);
 		}
 	}
 	
-	public static boolean deleteBooking(int shuttle_id , String email) throws InvalidBookingException {
-		String insert_query = "DELETE FROM  BOOKINGS WHERE EMAIL = ? AND SHUTTLE_ID=?";
+	public  boolean deleteBooking(int shuttle_id , String email) throws DaoException {
+		String insertQuery = "DELETE FROM  bookings WHERE email = ? AND shuttle_id=?";
 		try (
-		Connection connection = UserDao.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insert_query)){
+		Connection connection = UserDAO.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		pst.setInt(2, shuttle_id);
 		int rows = pst.executeUpdate();
 		return (rows == 1) ;
 		} catch (SQLException e ) {
-			throw new InvalidBookingException(e);
+			throw new DaoException(e);
 		}
 	}
 	
-	public static boolean viewBookingsByUser(Booking booking) throws InvalidBookingException {
-		String insert_query = "SELECT * FROM  BOOKINGS WHERE EMAIL = ?";
+	public  boolean viewBookingsByUser(Booking booking) throws DaoException {
+		String insertQuery = "SELECT * FROM  bookings WHERE email = ?";
 		try (
-			Connection connection = UserDao.getConnection();
-			PreparedStatement pst = connection.prepareStatement(insert_query)){
+			Connection connection = UserDAO.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			pst.setString(1, booking.getEmail());
 			StringBuilder str = new StringBuilder();
 			ResultSet rs = pst.executeQuery();
@@ -141,17 +141,17 @@ public class BookingDao {
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new InvalidBookingException(e);
+			throw new DaoException(e);
 		}
 	
 		
 	}
 	
-	public static boolean viewBookingsByAdmin() throws InvalidBookingException {
-		String insert_query = "SELECT * FROM  BOOKINGS";
+	public boolean viewBookingsByAdmin() throws DaoException {
+		String insertQuery = "SELECT * FROM  bookings";
 		try (
-			Connection connection = UserDao.getConnection();
-			PreparedStatement pst = connection.prepareStatement(insert_query)){
+			Connection connection = UserDAO.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				StringBuilder str = new StringBuilder();
@@ -159,14 +159,13 @@ public class BookingDao {
 		           int shuttle_id= rs.getInt("shuttle_id");
 		          int seat_num =rs.getInt("seat_num");
 		          String destination = rs.getString("destination");
-		          
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttle_id).append(", Seat NO: ").append(seat_num).append(", Destination: ").append(destination);
 		            System.out.println(str);
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new InvalidBookingException(e);
+		
+			throw new DaoException(e);
 		}
 	
 		

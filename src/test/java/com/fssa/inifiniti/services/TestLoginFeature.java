@@ -16,7 +16,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	 void testloginSuccess() {
 			try {
-				assertTrue(UserService.LoginUser("sriyaasha@gmail.com","Muthu@456"));
+				assertTrue(UserService.loginUser("sriyaasha@gmail.com","Muthu@456"));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
@@ -26,11 +26,26 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 		
 		
 	}
+
+@Test
+
+void testInvalidloginSuccess() {
+		try {
+			assertFalse(UserService.loginUser("mom@gmail.com","Muthu@456"));
+		}  	
+		 catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+	
+	
+}
 @Test
 
  void testInvalidPassword() {
 	try {
-		assertFalse(UserService.LoginUser("sriyaasha@gmail.com","Muthu#458"));
+		assertFalse(UserService.loginUser("sriyaasha@gmail.com","Muthu#458"));
 	}  	
 	 catch (ServiceException e) {
 		// TODO Auto-generated catch block
@@ -44,7 +59,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
  void testNullInput() {
    
     try {
-		assertFalse(UserService.LoginUser(null,null));
+		assertFalse(UserService.loginUser(null,null));
 	} catch (ServiceException e) {
 		
 		e.printStackTrace();
@@ -55,7 +70,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 
  void testInvalidEmail() {
 	try {
-		assertFalse(UserService.LoginUser("sriyaasha#gmail.com","Muthu@458"));
+		assertFalse(UserService.loginUser("sriyaasha#gmail.com","Muthu@458"));
 	}  	
 	 catch (ServiceException e) {
 		// TODO Auto-generated catch block

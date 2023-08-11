@@ -13,7 +13,7 @@ import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 public class CompanyValidator {
 	
 	
-public static boolean ValidateCompany(CompanyCard company) throws InvalidCompanyException {
+public static boolean validateCompany(CompanyCard company) throws InvalidCompanyException {
 		
 		if(company!=null&&validateName(company.getCompanyTitle()) && validateUrl(company.getImageUrl())  ) {
 			
