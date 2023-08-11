@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
-import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
 public class BookingValidator {
 	

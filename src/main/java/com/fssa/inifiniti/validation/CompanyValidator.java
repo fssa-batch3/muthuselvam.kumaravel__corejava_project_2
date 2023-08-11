@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 
