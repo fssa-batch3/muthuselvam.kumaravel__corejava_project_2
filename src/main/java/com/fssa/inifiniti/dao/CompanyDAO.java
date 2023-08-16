@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.validation.CompanyValidator;
+import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 
 public class CompanyDAO {
 
-	public boolean insertCompany(CompanyCard companyCard) throws DaoException {
+	public boolean insertCompany(CompanyCard companyCard) throws DaoException, InvalidCompanyException {
 		String insertQuery = "INSERT INTO company (company_name , image_url) VALUES (?,?)";
-		// CompanyValidator.validateName(companyCard.getCompanyTitle());
+		 CompanyValidator.validateName(companyCard.getCompanyTitle());
 		CompanyValidator.validateUrl(companyCard.getImageUrl());
 		try ( 
 		Connection connection = UserDAO.getConnection();
