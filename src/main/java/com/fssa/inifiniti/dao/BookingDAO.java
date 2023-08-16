@@ -139,7 +139,7 @@ public class BookingDAO {
 		          String destination = rs.getString(DEST);
 		          
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
-		            System.out.println(str);
+		 
 			}
 			return true;
 		} catch (SQLException e) {
@@ -162,7 +162,7 @@ public class BookingDAO {
 		          int seatNum =rs.getInt(SEATNO);
 		          String destination = rs.getString(DEST);
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
-		            System.out.println(str);
+		           
 			}
 			return true;
 		} catch (SQLException e) {
