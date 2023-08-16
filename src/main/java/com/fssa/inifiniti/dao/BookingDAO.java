@@ -14,7 +14,7 @@ public class BookingDAO {
 		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
 		try(Connection connection = UserDAO.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insertQuery)){
-			pst.setInt(1, booking.getShuttle_id());
+			pst.setInt(1, booking.getShuttleId());
 			pst.setString(2, booking.getUserName());
 			pst.setString(3, booking.getEmail());
 			pst.setString(4, booking.getDestination());
@@ -75,7 +75,7 @@ public class BookingDAO {
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
             booking.setEmail(rs.getString("email"));
-            booking.setShuttle_id(rs.getInt("shuttle_id"));
+            booking.setShuttleId(rs.getInt("shuttle_id"));
             booking.setSeatNum(rs.getInt("seat_num"));
             booking.setDestination(rs.getString("destination"));
             booking.setUserName(rs.getString("username"));
@@ -97,7 +97,7 @@ public class BookingDAO {
 		pst.setString(2, booking.getUserName());
 		pst.setString(3, booking.getEmail());
 		pst.setString(4, booking.getDestination());
-		pst.setInt(5, booking.getShuttle_id());
+		pst.setInt(5, booking.getShuttleId());
 		int rows = pst.executeUpdate();
 		return rows > 0 ;
 		} catch (SQLException e ) {

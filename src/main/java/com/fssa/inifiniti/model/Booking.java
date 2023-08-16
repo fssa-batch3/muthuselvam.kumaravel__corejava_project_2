@@ -47,10 +47,10 @@ public class Booking {
 	}
 	
 	
-	public int getShuttle_id() {
+	public int getShuttleId() {
 		return shuttleId;
 	}
-	public void setShuttle_id(int shuttleId) {
+	public void setShuttleId(int shuttleId) {
 		this.shuttleId = shuttleId;
 	}
 	

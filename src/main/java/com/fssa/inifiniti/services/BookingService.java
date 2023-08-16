@@ -15,7 +15,7 @@ public class BookingService {
 
 		try {
 		BookingValidator.validateBooking(booking);	
-		if(bookingDao.seatNumAlreadyExists(booking.getShuttle_id(), booking.getSeatNum())== true) {
+		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())== true) {
 			System.out.println("Seat num already exists");
 			return false;
 		} else {
@@ -60,7 +60,7 @@ public class BookingService {
 	public static boolean deleteBooking(Booking booking) throws ServiceException {
 		try {
 		if(BookingValidator.validateEmail(booking.getEmail())) {
-			bookingDao.deleteBooking(booking.getShuttle_id(),booking.getEmail());
+			bookingDao.deleteBooking(booking.getShuttleId(),booking.getEmail());
 			System.out.println("Delete Booking : Successful");
 			return true;
 		} else {
