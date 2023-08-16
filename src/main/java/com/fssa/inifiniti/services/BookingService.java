@@ -35,12 +35,12 @@ public class BookingService {
 		}
 	}
 	
-	public static boolean updateBooking(int shuttle_id , String email , int seatNum , int changeSeatNum) throws ServiceException {
+	public static boolean updateBooking(int shuttleId , String email , int seatNum , int changeSeatNum) throws ServiceException {
 		try {
 		BookingValidator.validateSeatNum(seatNum);	
 		BookingValidator.validateSeatNum(changeSeatNum);
 		if(BookingValidator.validateEmail(email)) {
-			Booking booking = bookingDao.findUserForEditSeatNum(shuttle_id, email, seatNum);
+			Booking booking = bookingDao.findUserForEditSeatNum(shuttleId, email, seatNum);
 			booking.setSeatNum(changeSeatNum);
 			bookingDao.editBooking(booking);
 			System.out.println("Edit Seat Num : Successful");
