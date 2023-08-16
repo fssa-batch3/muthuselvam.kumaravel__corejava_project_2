@@ -9,6 +9,10 @@ import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
 
 public class BookingDAO {
+	
+	private static final String shuttle = "shuttle_id";
+	private static final String seatNo = "seat_num";
+	private static final String dest = "destination";
 
 	public boolean createBooking(Booking booking) throws DaoException{
 		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
@@ -75,9 +79,9 @@ public class BookingDAO {
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
             booking.setEmail(rs.getString("email"));
-            booking.setShuttleId(rs.getInt("shuttle_id"));
-            booking.setSeatNum(rs.getInt("seat_num"));
-            booking.setDestination(rs.getString("destination"));
+            booking.setShuttleId(rs.getInt(shuttle));
+            booking.setSeatNum(rs.getInt(seatNo));
+            booking.setDestination(rs.getString(dest));
             booking.setUserName(rs.getString("username"));
                    }
         return booking;
@@ -129,9 +133,9 @@ public class BookingDAO {
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				  String userName = rs.getString("username");
-		           int shuttleId= rs.getInt("shuttle_id");
-		          int seatNum =rs.getInt("seat_num");
-		          String destination = rs.getString("destination");
+		           int shuttleId= rs.getInt(shuttle);
+		          int seatNum =rs.getInt(seatNo);
+		          String destination = rs.getString(dest);
 		          
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
 		            System.out.println(str);
@@ -153,9 +157,9 @@ public class BookingDAO {
 			while (rs.next()) {
 				StringBuilder str = new StringBuilder();
 				  String userName = rs.getString("username");
-		           int shuttleId= rs.getInt("shuttle_id");
-		          int seatNum =rs.getInt("seat_num");
-		          String destination = rs.getString("destination");
+		           int shuttleId= rs.getInt(shuttle);
+		          int seatNum =rs.getInt(seatNo);
+		          String destination = rs.getString(dest);
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
 		            System.out.println(str);
 			}

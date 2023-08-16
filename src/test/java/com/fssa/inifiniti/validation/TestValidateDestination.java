@@ -30,7 +30,7 @@ import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
 	}
 	
 	@Test
-	
+	 
 	 void testInvalidDestination() throws  InvalidBookingException {
 		
 		try {
