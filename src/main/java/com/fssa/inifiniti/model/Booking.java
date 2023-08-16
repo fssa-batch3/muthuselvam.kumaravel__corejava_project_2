@@ -9,8 +9,8 @@ public class Booking {
 	private int seatNum;
 	private int changeSeatNum;
 	
-	public Booking(int shuttle_id, String userName,String email, String destination, int seatNum) {
-		this.shuttleId = shuttle_id;
+	public Booking(int shuttleId, String userName,String email, String destination, int seatNum) {
+		this.shuttleId = shuttleId;
 		this.userName = userName;
 		this.destination = destination;
 		this.email  = email;
@@ -21,13 +21,13 @@ public class Booking {
 		this.email = email;
 	}
 	
-	public Booking(int shuttle_id, String email) {
-		this.shuttleId= shuttle_id;
+	public Booking(int shuttleId, String email) {
+		this.shuttleId= shuttleId;
 		this.email=email;
 	}
 	
-	public Booking (int shuttle_id , String email , int seatNum , int changeSeatNum) {
-		this.shuttleId = shuttle_id;
+	public Booking (int shuttleId , String email , int seatNum , int changeSeatNum) {
+		this.shuttleId = shuttleId;
 		this.email = email;
 		this.seatNum = seatNum;
 		this.changeSeatNum = changeSeatNum;
@@ -50,8 +50,8 @@ public class Booking {
 	public int getShuttle_id() {
 		return shuttleId;
 	}
-	public void setShuttle_id(int shuttle_id) {
-		this.shuttleId = shuttle_id;
+	public void setShuttle_id(int shuttleId) {
+		this.shuttleId = shuttleId;
 	}
 	
 	
@@ -88,7 +88,7 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return "Booking [shuttle_id=" + shuttleId + ", userName=" + userName + ", destination=" + destination
+		return "Booking [shuttleId=" + shuttleId + ", userName=" + userName + ", destination=" + destination
 				+ ", email=" + email + ", seatNum=" + seatNum + ", changeSeatNum=" + changeSeatNum + "]";
 	}
 	
