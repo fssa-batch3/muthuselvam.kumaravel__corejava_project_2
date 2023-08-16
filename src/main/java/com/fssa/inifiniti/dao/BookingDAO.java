@@ -10,9 +10,10 @@ import com.fssa.inifiniti.model.Booking;
 
 public class BookingDAO {
 	
-	private static final String shuttle = "shuttle_id";
-	private static final String seatNo = "seat_num";
-	private static final String dest = "destination";
+	private static final String SHUTTLE = "shuttle_id";
+	private static final String SEATNO = "seat_num";
+	private static final String DEST = "destination";
+	private static final String USER = "username";
 
 	public boolean createBooking(Booking booking) throws DaoException{
 		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
@@ -79,10 +80,10 @@ public class BookingDAO {
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
             booking.setEmail(rs.getString("email"));
-            booking.setShuttleId(rs.getInt(shuttle));
-            booking.setSeatNum(rs.getInt(seatNo));
-            booking.setDestination(rs.getString(dest));
-            booking.setUserName(rs.getString("username"));
+            booking.setShuttleId(rs.getInt(SHUTTLE));
+            booking.setSeatNum(rs.getInt(SEATNO));
+            booking.setDestination(rs.getString(DEST));
+            booking.setUserName(rs.getString(USER));
                    }
         return booking;
 		} catch (SQLException e) {
@@ -132,10 +133,10 @@ public class BookingDAO {
 			StringBuilder str = new StringBuilder();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				  String userName = rs.getString("username");
-		           int shuttleId= rs.getInt(shuttle);
-		          int seatNum =rs.getInt(seatNo);
-		          String destination = rs.getString(dest);
+				  String userName = rs.getString(USER);
+		           int shuttleId= rs.getInt(SHUTTLE);
+		          int seatNum =rs.getInt(SEATNO);
+		          String destination = rs.getString(DEST);
 		          
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
 		            System.out.println(str);
@@ -156,10 +157,10 @@ public class BookingDAO {
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				StringBuilder str = new StringBuilder();
-				  String userName = rs.getString("username");
-		           int shuttleId= rs.getInt(shuttle);
-		          int seatNum =rs.getInt(seatNo);
-		          String destination = rs.getString(dest);
+				  String userName = rs.getString(USER);
+		           int shuttleId= rs.getInt(SHUTTLE);
+		          int seatNum =rs.getInt(SEATNO);
+		          String destination = rs.getString(DEST);
 		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
 		            System.out.println(str);
 			}
