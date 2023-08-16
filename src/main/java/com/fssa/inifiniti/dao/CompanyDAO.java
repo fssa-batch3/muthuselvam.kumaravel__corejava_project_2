@@ -12,7 +12,7 @@ public class CompanyDAO {
 
 	public boolean insertCompany(CompanyCard companyCard) throws DaoException {
 		String insertQuery = "INSERT INTO company (company_name , image_url) VALUES (?,?)";
-		CompanyValidator.validateName(companyCard.getCompanyTitle());
+		// CompanyValidator.validateName(companyCard.getCompanyTitle());
 		CompanyValidator.validateUrl(companyCard.getImageUrl());
 		try ( 
 		Connection connection = UserDAO.getConnection();

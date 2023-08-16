@@ -138,7 +138,6 @@ public class BookingDAO {
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new DaoException(e);
 		}
 	
