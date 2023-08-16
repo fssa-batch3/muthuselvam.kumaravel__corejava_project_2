@@ -2,7 +2,7 @@ package com.fssa.inifiniti.model;
 
 public class Booking {
 
-	private int shuttle_id;
+	private int shuttleId;
 	private String userName;
 	private String destination;
 	private String email;
@@ -10,7 +10,7 @@ public class Booking {
 	private int changeSeatNum;
 	
 	public Booking(int shuttle_id, String userName,String email, String destination, int seatNum) {
-		this.shuttle_id = shuttle_id;
+		this.shuttleId = shuttle_id;
 		this.userName = userName;
 		this.destination = destination;
 		this.email  = email;
@@ -22,12 +22,12 @@ public class Booking {
 	}
 	
 	public Booking(int shuttle_id, String email) {
-		this.shuttle_id= shuttle_id;
+		this.shuttleId= shuttle_id;
 		this.email=email;
 	}
 	
 	public Booking (int shuttle_id , String email , int seatNum , int changeSeatNum) {
-		this.shuttle_id = shuttle_id;
+		this.shuttleId = shuttle_id;
 		this.email = email;
 		this.seatNum = seatNum;
 		this.changeSeatNum = changeSeatNum;
@@ -48,10 +48,10 @@ public class Booking {
 	
 	
 	public int getShuttle_id() {
-		return shuttle_id;
+		return shuttleId;
 	}
 	public void setShuttle_id(int shuttle_id) {
-		this.shuttle_id = shuttle_id;
+		this.shuttleId = shuttle_id;
 	}
 	
 	
@@ -88,7 +88,7 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return "Booking [shuttle_id=" + shuttle_id + ", userName=" + userName + ", destination=" + destination
+		return "Booking [shuttle_id=" + shuttleId + ", userName=" + userName + ", destination=" + destination
 				+ ", email=" + email + ", seatNum=" + seatNum + ", changeSeatNum=" + changeSeatNum + "]";
 	}
 	
