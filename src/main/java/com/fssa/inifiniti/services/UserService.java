@@ -65,5 +65,4 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 		
 		throw new ServiceException(e);
 	}
-}
-}     
+}}  
