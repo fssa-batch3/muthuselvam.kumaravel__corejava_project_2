@@ -22,7 +22,7 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 	}
 
 
-	public static  boolean validateName(String name) throws InvalidBookingException {
+	public static  boolean validateName(String name){
 		
 			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
@@ -32,7 +32,7 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 		
 	}
 	
-	public static  boolean validateDestination(String destination) throws InvalidBookingException {
+	public static  boolean validateDestination(String destination) {
 		
 		
 			String regex = "^[A-Za-z]+$";
@@ -43,7 +43,7 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 		
 	}
 	
-	public static  boolean validateSeatNum(int seatNum) throws InvalidBookingException {
+	public static  boolean validateSeatNum(int seatNum){
 		
 		boolean match = false;
 		if(seatNum>=1 && seatNum<=7) {
@@ -53,7 +53,7 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 				
 	}
 	
-	public static  boolean validateEmail(String email) throws InvalidBookingException {
+	public static  boolean validateEmail(String email){
 		
 		boolean isMatch = false;
 			String regex = "^.*@.*\\..*$";
