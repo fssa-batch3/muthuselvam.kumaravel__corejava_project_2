@@ -15,17 +15,14 @@ public boolean registerUser(User user) throws ServiceException {
 	
 	try {
 	if(UserValidator.validateUser(user)) {
-	if(userdao.emailAlreadyExists(user.getEmail())==false) {
+	if(!userdao.emailAlreadyExists(user.getEmail())) {
 		if( userdao.insertUser(user)){
-			System.out.println(user.getUserName() + " successful");
 			return true;
 		} else {
-			System.out.println("registration not successful");
-			return false;
+			throw new ServiceException("registration not successful");
 		}
 	} else {
-		System.out.println("Email Already Exists");
-		return false;
+		throw new ServiceException("Email Already Exists");
 	}
 	}
 	else {
@@ -49,16 +46,13 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 		if(user.getEmail().equals(email) ){
 			if(user.getPassword().equals(password)) {	
 				userdao.setLoggedIn(email);
-				System.out.println("Login successful");
 				return true;
 			} else {
-				System.out.println("Invalid Password");
-				return false;
+				throw new ServiceException("Invalid Password");
 			}
 			
 		} else {
-			System.out.println("Login not successful");
-			return false;
+			throw new ServiceException("Login not successful");
 		}
 	}
 	 catch (DaoException | InvalidUserException e) {
