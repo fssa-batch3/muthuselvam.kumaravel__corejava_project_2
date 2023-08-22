@@ -41,7 +41,7 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 	UserDAO userdao =  new UserDAO();
 	
 	try {
-	UserValidator.ValidateLoginUser(email,password);
+	UserValidator.validateLoginUser(email,password);
 	 User  user = userdao.findUserByEmail(email);
 		if(user.getEmail().equals(email) ){
 			if(user.getPassword().equals(password)) {	

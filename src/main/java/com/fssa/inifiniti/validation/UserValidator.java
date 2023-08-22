@@ -8,7 +8,7 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
 public class UserValidator {
 	
-	public static boolean ValidateLoginUser(String email, String password) throws InvalidUserException {
+	public static boolean validateLoginUser(String email, String password) throws InvalidUserException {
 		if( email!=null&& password!=null&&validateEmail(email)&&validatePassword(password)) {	
 			return true;
 		} else {
