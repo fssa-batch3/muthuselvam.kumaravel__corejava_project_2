@@ -35,7 +35,8 @@ public static boolean validateCompany(CompanyCard company) throws InvalidCompany
 		boolean match = false;
 		try {
             new URL(url).toURI();
-            return match = true;
+            match = true;
+            return match;
         }
         catch (MalformedURLException|URISyntaxException e) {
             return match;
