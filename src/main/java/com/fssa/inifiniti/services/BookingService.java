@@ -16,15 +16,12 @@ public class BookingService {
 		try {
 		BookingValidator.validateBooking(booking);	
 		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())) {
-			System.out.println("Seat num already exists");
-			return false;
+			throw new  ServiceException("Seat num already exists");
 		} else {
 			if( bookingDao.createBooking(booking)){
-				System.out.println(booking.getUserName() +" and seat num: "+ booking.getSeatNum() + " successful");
 				return true;
 			} else {
-				System.out.println("booking not successful");
-				return false;
+				throw new ServiceException("booking not successful");
 			}
 		} 
 		
@@ -43,11 +40,9 @@ public class BookingService {
 			Booking booking = bookingDao.findUserForEditSeatNum(shuttleId, email, seatNum);
 			booking.setSeatNum(changeSeatNum);
 			bookingDao.editBooking(booking);
-			System.out.println("Edit Seat Num : Successful");
 			return true;
 		} else {
-				System.out.println("Edit Seat Num : Not Successful");
-				return false;
+			throw new ServiceException("Edit Seat Num : Not Successful");
 		}
 		}
 		 catch (DaoException  | InvalidBookingException  e) {
@@ -61,11 +56,9 @@ public class BookingService {
 		try {
 		if(BookingValidator.validateEmail(booking.getEmail())) {
 			bookingDao.deleteBooking(booking.getShuttleId(),booking.getEmail());
-			System.out.println("Delete Booking : Successful");
 			return true;
 		} else {
-				System.out.println("Delete Booking : Not Successful");
-				return false;
+			throw new ServiceException("Delete Booking : Not Successful");
 		}
 		}
 		 catch (DaoException  | InvalidBookingException  e) {
@@ -78,11 +71,9 @@ public class BookingService {
 		try {
 		if(BookingValidator.validateEmail(booking.getEmail())) {
 			bookingDao.viewBookingsByUser(booking);
-			System.out.println("Booking History - User: Successful");
 			return true;
 		} else {
-				System.out.println("Booking History - User: Not Successful");
-				return false;
+			throw new ServiceException("Booking History - User: Not Successful");
 		}
 		}
 		 catch (DaoException  | InvalidBookingException  e) {
@@ -93,7 +84,6 @@ public class BookingService {
 	public static boolean readBookingByAdmin() throws ServiceException {
 		try {
 			bookingDao.viewBookingsByAdmin();
-			System.out.println("Booking History - Admin: Successful");
 			return true;
 		}
 		 catch (DaoException  e) {
