@@ -20,13 +20,13 @@ public class ShuttleDAO {
 		String date = dateFormat.format(shuttle.getDate());
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm");  
 		String time = dateFormat.format(shuttle.getTime());
-		Date dateObj = new Date(00-00-0000);
-		Date timeObj = new Date(00-00);
+		//Date dateObj = new Date(00-00-0000);
+		//Date timeObj = new Date(00-00);
 		try(Connection connection = UserDAO.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			pst.setInt(1, shuttle.getShuttleId());
-			pst.setDate(2, dateObj.valueOf(date));
-			pst.setDate(3, timeObj.valueOf(time));
+			//pst.setDate(2, dateObj.valueOf(date));
+			//pst.setDate(3, timeObj.valueOf(time));
 			int rows = pst.executeUpdate();
 			return (rows == 1) ;
 		} catch (SQLException e) {
