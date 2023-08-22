@@ -1,5 +1,4 @@
 package com.fssa.inifiniti.dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,7 +6,7 @@ import java.sql.SQLException;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.validation.CompanyValidator;
-import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
+
 
 public class CompanyDAO {
 
