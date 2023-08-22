@@ -23,58 +23,42 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 
 
 	public static  boolean validateName(String name) throws InvalidBookingException {
-		boolean match = false;
 		
 			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
-			match = m.matches();
-			if (match) {
-				return match;
-			} else {
-				throw new InvalidBookingException("Invalid Name");
-			}
+			return m.matches();
+			
 		
 	}
 	
 	public static  boolean validateDestination(String destination) throws InvalidBookingException {
-		boolean match = false;
+		
 		
 			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(destination);
-			match = m.matches();
-			if (match) {
-				return match;
-			} else {
-				throw new InvalidBookingException("Invalid destination");
-			}
+		 return m.matches();
+			
 		
 	}
 	
 	public static  boolean validateSeatNum(int seatNum) throws InvalidBookingException {
+		
 		boolean match = false;
 		if(seatNum>=1 && seatNum<=7) {
 			match = true;
 		}
-			if (match) {
 				return match;
-			} else {
-				throw new InvalidBookingException("Invalid Seat Number");
-			}
-		
+				
 	}
 	
 	public static  boolean validateEmail(String email) throws InvalidBookingException {
-		boolean isMatch = false;
 		
+		boolean isMatch = false;
 			String regex = "^.*@.*\\..*$";
 			isMatch = Pattern.matches(regex, email);
-			if (isMatch) {
 				return isMatch;
-			} else {
-				throw new InvalidBookingException("Invalid Email");
-			}
 			
 		
 	}
