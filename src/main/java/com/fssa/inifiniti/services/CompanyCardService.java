@@ -14,15 +14,12 @@ public class CompanyCardService {
 		try {
 		if(CompanyValidator.validateCompany(company)) {
 			if(companyDao.insertCompany(company)){
-				System.out.println(company.getCompanyTitle()+ " registration successful");
 				return true;
 			} else {
-				System.out.println("Company registration not successful");
-				return false;
+				throw new ServiceException("Company registration not successful");
 			}
 		} else {
-			System.out.println("Company details are invalid");
-			return false;
+			throw new ServiceException("Company details are invalid");
 		}
 		}
 		 catch (DaoException | InvalidCompanyException e) {
