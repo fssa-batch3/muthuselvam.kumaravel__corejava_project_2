@@ -45,7 +45,7 @@ public class BookingService {
 			throw new ServiceException("Edit Seat Num : Not Successful");
 		}
 		}
-		 catch (DaoException  | InvalidBookingException  e) {
+		 catch (DaoException   e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -61,7 +61,7 @@ public class BookingService {
 			throw new ServiceException("Delete Booking : Not Successful");
 		}
 		}
-		 catch (DaoException  | InvalidBookingException  e) {
+		 catch (DaoException  e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -76,7 +76,7 @@ public class BookingService {
 			throw new ServiceException("Booking History - User: Not Successful");
 		}
 		}
-		 catch (DaoException  | InvalidBookingException  e) {
+		 catch (DaoException e) {
 			throw new ServiceException(e);
 		}
 	}

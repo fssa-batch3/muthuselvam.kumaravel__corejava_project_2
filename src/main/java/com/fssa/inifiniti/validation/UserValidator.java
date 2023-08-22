@@ -34,48 +34,21 @@ public class UserValidator {
 	
 	
 
-	public static  boolean validateName(String name) throws InvalidUserException {
-		boolean match = false;
-		
+	public static  boolean validateName(String name) {
 			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
-			match = m.matches();
-			if (match) {
-				return match;
-			} else {
-				throw new InvalidUserException("Invalid Username");
-			}
-		
+			return m.matches();
 	}
 
-	public static boolean validatePassword(String password) throws InvalidUserException {
-		boolean match = false;
-		
+	public static boolean validatePassword(String password) {
 			String patternString = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
-			match = Pattern.matches(patternString, password);
-
-
-			if (match) {
-				return match;
-			} else {
-				throw new InvalidUserException("Invalid Password");
-			}
-		
+			return Pattern.matches(patternString, password);
 	}
 
-	public static  boolean validateEmail(String email) throws InvalidUserException {
-		boolean isMatch = false;
-		
+	public static  boolean validateEmail(String email){
 			String regex = "^.*@.*\\..*$";
-			isMatch = Pattern.matches(regex, email);
-			if (isMatch) {
-				return isMatch;
-			} else {
-				throw new InvalidUserException("Invalid Email");
-			}
-			
-		
+			return Pattern.matches(regex, email);		
 	}
 
 }
