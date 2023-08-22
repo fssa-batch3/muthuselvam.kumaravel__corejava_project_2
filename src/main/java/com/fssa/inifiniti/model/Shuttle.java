@@ -1,5 +1,4 @@
 package com.fssa.inifiniti.model;
-import java.time.LocalDate;
 
 public class Shuttle {
 	

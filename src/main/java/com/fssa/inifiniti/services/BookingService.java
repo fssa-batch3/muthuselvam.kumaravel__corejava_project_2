@@ -15,7 +15,7 @@ public class BookingService {
 
 		try {
 		BookingValidator.validateBooking(booking);	
-		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())== true) {
+		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())) {
 			System.out.println("Seat num already exists");
 			return false;
 		} else {
