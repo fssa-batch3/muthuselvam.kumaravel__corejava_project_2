@@ -12,74 +12,57 @@ class TestValidatePassword {
 Throwable exception;
 	@Test
 	
-	void testValidPassword() throws InvalidUserException {
+	void testValidPassword(){
 		
-		try {
+		
 			assertTrue(UserValidator.validatePassword("Muthu@143"));
-		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 	}
 	 
 
 	@Test
 	
-	 void testInvalidPasswordWithoutSpecChar() throws InvalidUserException {
+	 void testInvalidPasswordWithoutSpecChar(){
 		
-		try {
+		
 			UserValidator.validatePassword("Muthu143");
 			 exception = assertThrows(InvalidUserException.class, () -> {
 				});
 				assertEquals("Invalid Password", exception.getMessage());
-		} catch ( InvalidUserException  e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	@Test
 	
-	 void testInvalidPasswordWithoutNum() throws InvalidUserException {
+	 void testInvalidPasswordWithoutNum()  {
 		
-		try {
+		
 			UserValidator.validatePassword("Muthu@");
 			 exception = assertThrows(InvalidUserException.class, () -> {
 				});
 				assertEquals("Invalid Password", exception.getMessage());
-		} catch (InvalidUserException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	@Test
 	
-	 void testInvalidPasswordWithoutCap() throws InvalidUserException{
+	 void testInvalidPasswordWithoutCap() {
 		
-		try {
+		
 			UserValidator.validatePassword("muthu@143");
 			 exception = assertThrows(InvalidUserException.class, () -> {
 				});
 				assertEquals("Invalid Password", exception.getMessage());
-		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	@Test
 
-	 void testInvalidPasswordWithoutsmall() throws InvalidUserException{
+	 void testInvalidPasswordWithoutsmall() {
 	
-	try {
+	
 	UserValidator.validatePassword("MUTHU@143");
 		 exception = assertThrows(InvalidUserException.class, () -> {
 			});
 			assertEquals("Invalid Password", exception.getMessage());
-	} catch (InvalidUserException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	
 }
 }

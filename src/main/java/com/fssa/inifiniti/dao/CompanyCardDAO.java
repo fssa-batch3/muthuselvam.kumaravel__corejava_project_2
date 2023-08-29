@@ -8,7 +8,7 @@ import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.validation.CompanyValidator;
 
 
-public class CompanyDAO {
+public class CompanyCardDAO {
 
 	public boolean insertCompany(CompanyCard companyCard) throws DaoException{
 		String insertQuery = "INSERT INTO company (company_name , image_url) VALUES (?,?)";

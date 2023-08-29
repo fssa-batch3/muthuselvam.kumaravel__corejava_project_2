@@ -43,7 +43,7 @@ public class BookingDAO {
 		 return  rs.next();
        
 		} catch (SQLException e) {
-			throw new DaoException("Invalid in Email Already Exists");
+			throw new DaoException("Email Already Exists");
 			
 		}
 	}
@@ -60,7 +60,7 @@ public class BookingDAO {
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
 		} catch (SQLException e) {
-			throw new DaoException("Invalid in seat num exists");
+			throw new DaoException("Seat num exists");
 			
 		}
 	}

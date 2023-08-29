@@ -14,31 +14,20 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	Throwable exception;
 	@Test
 	
-	 void testValidName() throws InvalidUserException {
+	 void testValidName()  {
 		
-		try {
-			assertTrue(UserValidator.validateName("muthu"));
-		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
+		assertTrue(UserValidator.validateName("muthu"));
 	
 	}
 	
 	@Test
 	
-	 void testInvalidName() throws InvalidUserException {
+	 void testInvalidName() {
 		
-		try {
-			UserValidator.validateName("muthu@");
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Username", exception.getMessage());
-		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		UserValidator.validateName("muthu@");
+		 exception = assertThrows(InvalidUserException.class, () -> {
+			});
+			assertEquals("Invalid Username", exception.getMessage());
 	
 	}
 }

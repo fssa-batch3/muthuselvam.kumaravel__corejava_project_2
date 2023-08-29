@@ -17,31 +17,19 @@ import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
 	
 	@Test
 	
-	 void testValidDestination() throws InvalidBookingException {
-		
-		try {
+	 void testValidDestination() {
 			assertTrue(BookingValidator.validateDestination("taramani"));
-		} catch (InvalidBookingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
-	
 	}
 	
 	@Test
 	 
-	 void testInvalidDestination() throws  InvalidBookingException {
+	 void testInvalidDestination() {
 		
-		try {
+		
 			assertFalse(BookingValidator.validateDestination("taramani2"));
 			 exception = assertThrows(InvalidBookingException.class, () -> {
 				});
 				assertEquals("Invalid destination", exception.getMessage());
-		} catch (InvalidBookingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	
 	}
 

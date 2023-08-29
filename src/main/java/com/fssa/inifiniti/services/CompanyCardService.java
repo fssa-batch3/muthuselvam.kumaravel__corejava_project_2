@@ -1,6 +1,6 @@
 package com.fssa.inifiniti.services;
 
-import com.fssa.inifiniti.dao.CompanyDAO;
+import com.fssa.inifiniti.dao.CompanyCardDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
@@ -10,7 +10,7 @@ import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 public class CompanyCardService {
 	
 	public boolean registerCompany(CompanyCard company) throws ServiceException {
-		CompanyDAO companyDao = new CompanyDAO();
+		CompanyCardDAO companyDao = new CompanyCardDAO();
 		try {
 		if(CompanyValidator.validateCompany(company)) {
 			if(companyDao.insertCompany(company)){

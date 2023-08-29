@@ -13,44 +13,35 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
 	@Test
 		
-		void testValidEmail() throws InvalidUserException {
+		void testValidEmail()  {
 			
-			try {
+			
 				assertTrue(UserValidator.validateEmail("muthu@gmail.com"));
-			} catch (InvalidUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
 
 	@Test
 	
-	void testInvalidEmailWithoutAt() throws InvalidUserException {
+	void testInvalidEmailWithoutAt() {
 		
-		try {
+		
 			UserValidator.validateEmail("muthugmail.com");
 			 exception = assertThrows(InvalidUserException.class, () -> {
 				});
 				assertEquals("Invalid Email", exception.getMessage());
-		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
 @Test
 	
-	void testInvalidEmailWithouDotCom() throws InvalidUserException {
+	void testInvalidEmailWithouDotCom()  {
 		
-		try {
+	
 			UserValidator.validateEmail("muthu@gmail");
 			 exception = assertThrows(InvalidUserException.class, () -> {
 				});
 				assertEquals("Invalid Email", exception.getMessage());
-		} catch (InvalidUserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
 

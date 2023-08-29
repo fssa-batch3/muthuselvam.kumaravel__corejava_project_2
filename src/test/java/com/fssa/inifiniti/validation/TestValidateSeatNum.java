@@ -14,32 +14,23 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	Throwable exception;
 	@Test
 	
-	 void testValidSeatnum() throws InvalidBookingException {
+	 void testValidSeatnum(){
 		
-		try {
+		
 			assertTrue(BookingValidator.validateSeatNum(1));
-		} catch (InvalidBookingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
 	
 	}
 	
 	@Test
 	
-	 void testInvalidSeatNum() throws  InvalidBookingException {
+	 void testInvalidSeatNum()  {
 		
-		try {
+		
 			BookingValidator.validateSeatNum(8);
 			 exception = assertThrows(InvalidUserException.class, () -> {
 				});
 				assertEquals("Invalid Seat Number", exception.getMessage());
-		} catch (InvalidBookingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+		
 	}
 
 }

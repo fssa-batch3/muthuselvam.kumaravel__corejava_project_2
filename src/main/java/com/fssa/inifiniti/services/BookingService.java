@@ -21,7 +21,7 @@ public class BookingService {
 			if( bookingDao.createBooking(booking)){
 				return true;
 			} else {
-				throw new ServiceException("booking not successful");
+				throw new ServiceException("Invalid in Booking Credentials");
 			}
 		} 
 		
