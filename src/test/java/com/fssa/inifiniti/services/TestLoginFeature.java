@@ -15,7 +15,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	 void testloginSuccess() {
 			try {
-				assertTrue(UserService.loginUser("ms@gmail.com.com","Muthu@456"));
+				assertTrue(UserService.loginUser("selvam143@gmail.com","Muthu@143"));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block

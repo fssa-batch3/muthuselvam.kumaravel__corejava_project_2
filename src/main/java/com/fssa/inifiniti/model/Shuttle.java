@@ -3,16 +3,20 @@ package com.fssa.inifiniti.model;
 public class Shuttle {
 	
 	
+	
+
 	private int shuttleId;
+	private String companyName;
 	private String date;
 	private String time;
 	
-	public Shuttle(int shuttleId, String date, String time) {
+	
+	public Shuttle(int shuttleId, String companyName, String date, String time) {
 		this.shuttleId = shuttleId;
+		this.companyName = companyName;
 		this.date = date;
 		this.time = time;
 	}
-	
 	public Shuttle() {
 		
 	}
@@ -34,6 +38,13 @@ public class Shuttle {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	
 

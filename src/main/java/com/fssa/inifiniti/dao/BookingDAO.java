@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
 
@@ -17,7 +18,7 @@ public class BookingDAO {
 
 	public boolean createBooking(Booking booking) throws DaoException{
 		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
-		try(Connection connection = UserDAO.getConnection();
+		try(Connection connection = App.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			pst.setInt(1, booking.getShuttleId());
 			pst.setString(2, booking.getUserName());
@@ -36,7 +37,7 @@ public class BookingDAO {
 	public  boolean emailAlreadyExists(String email) throws  DaoException {
 		String insertQuery = "SELECT * FROM user WHERE email=?";
 		try (
-		Connection connection = UserDAO.getConnection();
+		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
@@ -52,7 +53,7 @@ public class BookingDAO {
 		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=?";
 		try 
 			(
-			Connection connection = UserDAO.getConnection();
+			Connection connection = App.getConnection();
 			PreparedStatement pst = connection.prepareStatement(insertQuery))
 				{
 		pst.setInt(1, shuttleId);
@@ -71,7 +72,7 @@ public class BookingDAO {
 		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=? AND email=?";
 		try (
 			
-		Connection connection = UserDAO.getConnection();
+		Connection connection = App.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setInt(1, shuttleId);
@@ -95,7 +96,7 @@ public class BookingDAO {
 	public boolean editBooking(Booking booking) throws DaoException {
 		String insertQuery = "UPDATE  bookings  SET seat_num=?  WHERE  username=? AND email=? AND destination=? AND shuttle_id=?";
 		try (
-		Connection connection = UserDAO.getConnection();
+		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery)
 				){
 		pst.setInt(1, booking.getSeatNum());
@@ -113,7 +114,7 @@ public class BookingDAO {
 	public  boolean deleteBooking(int shuttleId , String email) throws DaoException {
 		String insertQuery = "DELETE FROM  bookings WHERE email = ? AND shuttle_id=?";
 		try (
-		Connection connection = UserDAO.getConnection();
+		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		pst.setInt(2, shuttleId);
@@ -127,7 +128,7 @@ public class BookingDAO {
 	public  boolean viewBookingsByUser(Booking booking) throws DaoException {
 		String insertQuery = "SELECT * FROM  bookings WHERE email = ?";
 		try (
-			Connection connection = UserDAO.getConnection();
+			Connection connection = App.getConnection();
 			PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			pst.setString(1, booking.getEmail());
 			StringBuilder str = new StringBuilder();
@@ -152,7 +153,7 @@ public class BookingDAO {
 	public boolean viewBookingsByAdmin() throws DaoException {
 		String insertQuery = "SELECT * FROM  bookings";
 		try (
-			Connection connection = UserDAO.getConnection();
+			Connection connection = App.getConnection();
 			PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {

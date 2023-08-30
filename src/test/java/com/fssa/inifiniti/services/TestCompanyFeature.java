@@ -5,14 +5,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import com.fssa.inifiniti.dao.CompanyCardDAO;
+import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 
  class TestCompanyFeature {
 	 @Test
 		
-	 void testBookingRegisterSuccess() {
-	CompanyCard company = new CompanyCard("Zoho","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU");
+	 void testCompanyCardSucess() {
+	CompanyCard company = new CompanyCard("FaceBook","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU");
 	CompanyCardService companyService = new CompanyCardService();
 			try {
 				assertTrue(companyService.registerCompany(company));
@@ -25,5 +27,58 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 		
 		
 	}
+	 
+	 @Test
+		
+	 void testCompanyRead() {
+	
+	CompanyCardService companyService = new CompanyCardService();
+			try {
+				companyService.readCompany();
+			}  	
+			 catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				fail();
+			}
+		
+		
+	}
+	 
+	 @Test
+		
+	 void testEditCompanyCard() {
+	CompanyCard company = new CompanyCard("Sales Force","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU",3);
+	CompanyCardService companyService = new CompanyCardService();
+			try {
+				assertTrue(companyService.updateCompany(company));
+			}  	
+			 catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				fail();
+			}
+		
+		
+	}
+	 
+	 @Test
+		
+	 void testDeleteCompanyCard() {
+	CompanyCard company = new CompanyCard(3);
+	CompanyCardService companyService = new CompanyCardService();
+			try {
+				assertTrue(companyService.deleteCompany(company));
+			}  	
+			 catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				fail();
+			}
+		
+		
+	}
 
+	 
+	
 }
