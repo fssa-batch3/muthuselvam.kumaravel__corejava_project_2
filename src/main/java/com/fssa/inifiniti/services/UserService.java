@@ -59,4 +59,21 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 		
 		throw new ServiceException(e);
 	}
+}
+
+public  User findUserNameByEmail(String email) throws ServiceException {
+	UserDAO userdao =  new UserDAO();
+	UserValidator validate =  new UserValidator();
+	
+	
+	try {
+		 validate.validateEmailId(email);
+		 User  user = userdao.findUserNameByEmail(email);
+			return user;
+		}
+		 catch (DaoException | InvalidUserException e) {
+			
+			throw new ServiceException(e);
+		}
+	
 }}  

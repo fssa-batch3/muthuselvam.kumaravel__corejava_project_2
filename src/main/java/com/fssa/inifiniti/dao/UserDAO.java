@@ -55,6 +55,25 @@ public class UserDAO {
 		}
 	}
 	
+	public  User findUserNameByEmail(String email) throws  DaoException {
+		User user = new User();
+		String insertQuery = "SELECT * FROM user WHERE email=?";
+		try (
+			
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
+		pst.setString(1, email);
+		ResultSet rs = pst.executeQuery();
+		if(rs.next()){
+            user.setUserName(rs.getString("username"));
+                   }
+        return user;
+		} catch (SQLException e) {
+			throw new DaoException("Username Doesn't Exists");
+			
+		}
+	}
+	
 	
 	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
 		String insertQuery = "SELECT * FROM user WHERE email=?";

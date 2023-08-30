@@ -48,7 +48,13 @@ public class UserValidator {
 
 	public static  boolean validateEmail(String email){
 			String regex = "^.*@.*\\..*$";
+			
 			return Pattern.matches(regex, email);		
 	}
+	public   void validateEmailId(String email) throws InvalidUserException{
+		String regex = "^.*@.*\\..*$";
+		if (!Pattern.matches(regex, email))throw new InvalidUserException("Email id is not valid");
+				
+}
 
 }
