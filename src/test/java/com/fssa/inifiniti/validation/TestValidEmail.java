@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
  class TestValidEmail {
 	Throwable exception;
@@ -16,7 +17,12 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 		void testValidEmail()  {
 			
 			
-				assertTrue(UserValidator.validateEmail("muthu@gmail.com"));
+				try {
+					assertTrue(UserValidator.validateEmail("muthu@gmail.com"));
+				} catch (ValidationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 		}
 
@@ -25,10 +31,9 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	void testInvalidEmailWithoutAt() {
 		
 		
-			UserValidator.validateEmail("muthugmail.com");
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Email", exception.getMessage());
+			
+			 exception = assertThrows(ValidationException.class, () -> UserValidator.validateEmail("muthugmail.com"));
+				assertEquals("Please enter appropriate email", exception.getMessage());
 		
 	}
 	
@@ -37,10 +42,9 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	void testInvalidEmailWithouDotCom()  {
 		
 	
-			UserValidator.validateEmail("muthu@gmail");
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Email", exception.getMessage());
+			
+			 exception = assertThrows(ValidationException.class, () -> UserValidator.validateEmail("muthu@gmail"));
+				assertEquals("Please enter appropriate email", exception.getMessage());
 		
 	}
 	

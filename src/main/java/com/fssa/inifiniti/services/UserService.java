@@ -7,6 +7,7 @@ import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 import com.fssa.inifiniti.validation.UserValidator;
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
 public class UserService {
 
@@ -29,7 +30,7 @@ public boolean registerUser(User user) throws ServiceException {
 		return false;
 	}
 	}
-	 catch (DaoException | InvalidUserException e) {
+	 catch (DaoException | InvalidUserException | ValidationException e) {
 		
 		throw new ServiceException(e);
 	}
@@ -55,7 +56,7 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 			return false;
 		}
 	}
-	 catch (DaoException | InvalidUserException e) {
+	 catch (DaoException | InvalidUserException | ValidationException e) {
 		
 		throw new ServiceException(e);
 	}

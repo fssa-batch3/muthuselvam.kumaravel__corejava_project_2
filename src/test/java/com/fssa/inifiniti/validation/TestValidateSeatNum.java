@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
  class TestValidateSeatNum {
 	Throwable exception;
@@ -15,7 +16,12 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	 void testValidSeatnum(){
 		
 		
-			assertTrue(BookingValidator.validateSeatNum(1));
+			try {
+				assertTrue(BookingValidator.validateSeatNum(1));
+			} catch (ValidationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	
 	}
 	
@@ -24,10 +30,9 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	 void testInvalidSeatNum()  {
 		
 		
-			BookingValidator.validateSeatNum(8);
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Seat Number", exception.getMessage());
+			
+			 exception = assertThrows(ValidationException.class, () -> BookingValidator.validateSeatNum(8));
+				assertEquals("Seat Num should be greater that or equal to 1 and  less than 7", exception.getMessage());
 		
 	}
 

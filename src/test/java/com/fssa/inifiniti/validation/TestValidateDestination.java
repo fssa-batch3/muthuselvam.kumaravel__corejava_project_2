@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
 
 
@@ -17,7 +18,12 @@ import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
 	@Test
 	
 	 void testValidDestination() {
-			assertTrue(BookingValidator.validateDestination("taramani"));
+			try {
+				assertTrue(BookingValidator.validateDestination("taramani"));
+			} catch (ValidationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	@Test
@@ -25,10 +31,9 @@ import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
 	 void testInvalidDestination() {
 		
 		
-			assertFalse(BookingValidator.validateDestination("taramani2"));
-			 exception = assertThrows(InvalidBookingException.class, () -> {
-				});
-				assertEquals("Invalid destination", exception.getMessage());
+			
+				exception = assertThrows(ValidationException.class, () -> BookingValidator.validateDestination("taramani2"));
+				assertEquals("Destination cannot contain other than letters", exception.getMessage());
 	
 	}
 

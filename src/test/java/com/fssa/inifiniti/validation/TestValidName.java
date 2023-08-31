@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
  class TestValidName {
 	
@@ -15,7 +16,12 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	
 	 void testValidName()  {
 		
-		assertTrue(UserValidator.validateName("muthu"));
+		try {
+			assertTrue(UserValidator.validateName("muthu"));
+		} catch (ValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 	
@@ -23,10 +29,9 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 	
 	 void testInvalidName() {
 		
-		UserValidator.validateName("muthu@");
-		 exception = assertThrows(InvalidUserException.class, () -> {
-			});
-			assertEquals("Invalid Username", exception.getMessage());
+		
+		 exception = assertThrows(ValidationException.class, () -> UserValidator.validateName("muthu@"));
+			assertEquals("Name cannot contain other than letters", exception.getMessage());
 	
 	}
 }

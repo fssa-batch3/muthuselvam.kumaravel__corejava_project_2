@@ -6,6 +6,7 @@ import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 import com.fssa.inifiniti.validation.BookingValidator;
 import com.fssa.inifiniti.validationexceptions.InvalidBookingException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
 public class BookingService {
 	
@@ -27,8 +28,7 @@ public class BookingService {
 		} 
 		
 		}
-		 catch (DaoException  | InvalidBookingException e) {
-			
+		 catch (DaoException  | ValidationException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -46,7 +46,7 @@ public class BookingService {
 		} 
 		return false;
 		}
-		 catch (DaoException   e) {
+		 catch (DaoException | ValidationException  e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -62,7 +62,7 @@ public class BookingService {
 		}
 		return false;
 		}
-		 catch (DaoException  e) {
+		 catch (DaoException | ValidationException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -76,7 +76,7 @@ public class BookingService {
 		} 
 		return false;
 		}
-		 catch (DaoException e) {
+		 catch (DaoException | ValidationException e) {
 			throw new ServiceException(e);
 		}
 	}

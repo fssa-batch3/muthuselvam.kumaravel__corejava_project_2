@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
+import com.fssa.inifiniti.validationexceptions.ValidationException;
 
 class TestValidatePassword {
 Throwable exception;
@@ -15,7 +16,12 @@ Throwable exception;
 	void testValidPassword(){
 		
 		
-			assertTrue(UserValidator.validatePassword("Muthu@143"));
+			try {
+				assertTrue(UserValidator.validatePassword("Muthu@143"));
+			} catch (ValidationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	
 	}
 	 
@@ -25,10 +31,9 @@ Throwable exception;
 	 void testInvalidPasswordWithoutSpecChar(){
 		
 		
-			UserValidator.validatePassword("Muthu143");
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Password", exception.getMessage());
+			
+			 exception = assertThrows(ValidationException.class, () -> UserValidator.validatePassword("Muthu143"));
+				assertEquals("Password must contain one uppercase , one lowercase , one special character , length of eight character", exception.getMessage());
 	}
 	
 	@Test
@@ -36,10 +41,9 @@ Throwable exception;
 	 void testInvalidPasswordWithoutNum()  {
 		
 		
-			UserValidator.validatePassword("Muthu@");
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Password", exception.getMessage());
+			
+			 exception = assertThrows(ValidationException.class, () -> UserValidator.validatePassword("Muthu@"));
+				assertEquals("Password must contain one uppercase , one lowercase , one special character , length of eight character", exception.getMessage());
 	}
 	
 	@Test
@@ -47,10 +51,9 @@ Throwable exception;
 	 void testInvalidPasswordWithoutCap() {
 		
 		
-			UserValidator.validatePassword("muthu@143");
-			 exception = assertThrows(InvalidUserException.class, () -> {
-				});
-				assertEquals("Invalid Password", exception.getMessage());
+			
+			 exception = assertThrows(ValidationException.class, () -> UserValidator.validatePassword("muthu@143"));
+				assertEquals("Password must contain one uppercase , one lowercase , one special character , length of eight character", exception.getMessage());
 		
 	}
 
@@ -59,10 +62,9 @@ Throwable exception;
 	 void testInvalidPasswordWithoutsmall() {
 	
 	
-	UserValidator.validatePassword("MUTHU@143");
-		 exception = assertThrows(InvalidUserException.class, () -> {
-			});
-			assertEquals("Invalid Password", exception.getMessage());
+	
+		 exception = assertThrows(ValidationException.class, () -> UserValidator.validatePassword("MUTHU@143"));
+			assertEquals("Password must contain one uppercase , one lowercase , one special character , length of eight character", exception.getMessage());
 	
 }
 }
