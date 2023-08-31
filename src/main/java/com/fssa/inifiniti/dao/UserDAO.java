@@ -13,7 +13,7 @@ import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 public class UserDAO {
 
 	
-	private static final String query = "SELECT * FROM user WHERE email=?";
+	private static final String sqlInsertQuery = "SELECT * FROM user WHERE email=?";
 
 	
 	public boolean insertUser(User user) throws DaoException {
@@ -35,7 +35,7 @@ public class UserDAO {
 	
 	public  User findUserByEmail(String email) throws  DaoException {
 		User user = new User();
-		String insertQuery = query;
+		String insertQuery = sqlInsertQuery;
 		try (
 			
 		Connection connection = App.getConnection();
@@ -56,7 +56,7 @@ public class UserDAO {
 	
 	public  User findUserNameByEmail(String email) throws  DaoException {
 		User user = new User();
-		String insertQuery = query;
+		String insertQuery = sqlInsertQuery;
 		try (
 			
 		Connection connection = App.getConnection();
@@ -75,7 +75,7 @@ public class UserDAO {
 	
 	
 	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
-		String insertQuery = query;
+		String insertQuery = sqlInsertQuery;
 		try (
 		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
