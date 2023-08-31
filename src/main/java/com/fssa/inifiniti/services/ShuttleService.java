@@ -15,11 +15,7 @@ public class ShuttleService {
 
 			try {
 			ShuttleValidator.validateShuttle(shuttle);
-				if( shuttleDao.createShuttle(shuttle)){
-					return true;
-				} else {
-					return false;
-				}
+				return shuttleDao.createShuttle(shuttle);
 			}
 			 catch (DaoException  | InvalidShuttleException e) {
 				
