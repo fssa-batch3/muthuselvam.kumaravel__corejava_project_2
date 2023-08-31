@@ -19,13 +19,8 @@ public class BookingService {
 		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())) {
 			return false;
 		} else {
-			if(bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) && bookingDao.createBooking(booking)){
-				return true;
-			} else { 
-			return false;
-			}
+			return bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) && bookingDao.createBooking(booking);
 		} 
-		
 		}
 		 catch (DaoException  | ValidationException e) {
 			throw new ServiceException(e);
