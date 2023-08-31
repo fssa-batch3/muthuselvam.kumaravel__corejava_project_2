@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 import com.fssa.inifiniti.validationexceptions.ValidationException;
 
  class TestValidName {
