@@ -17,11 +17,7 @@ public boolean registerUser(User user) throws ServiceException {
 	try {
 	if(UserValidator.validateUser(user)) {
 	if(!userdao.emailAlreadyExists(user.getEmail())) {
-		if( userdao.insertUser(user)){
-			return true;
-		} else {
-			return false;
-		}
+		return userdao.insertUser(user);
 	} else {
 		return false;
 	}
