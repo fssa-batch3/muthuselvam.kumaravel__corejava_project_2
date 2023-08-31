@@ -18,7 +18,7 @@ public class ShuttleService {
 				if( shuttleDao.createShuttle(shuttle)){
 					return true;
 				} else {
-					throw new ServiceException("Invalid in Shuttle Credentials");
+					return false;
 				}
 			}
 			 catch (DaoException  | InvalidShuttleException e) {

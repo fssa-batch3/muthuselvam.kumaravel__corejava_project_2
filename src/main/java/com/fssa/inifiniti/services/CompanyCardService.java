@@ -4,10 +4,8 @@ import java.util.List;
 
 import com.fssa.inifiniti.dao.CompanyCardDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
-import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
-import com.fssa.inifiniti.validation.BookingValidator;
 import com.fssa.inifiniti.validation.CompanyValidator;
 import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 

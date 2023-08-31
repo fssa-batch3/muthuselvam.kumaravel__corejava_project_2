@@ -61,7 +61,23 @@ public class BookingDAO {
 		ResultSet rs = pst.executeQuery();
 		 return  rs.next();
 		} catch (SQLException e) {
-			throw new DaoException("Seat num exists");
+			throw new DaoException("Seat num already exists");
+			
+		}
+	}
+	
+	public  boolean shuttleIdAlreadyExists(int shuttleId ) throws  DaoException {
+		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? ";
+		try 
+			(
+			Connection connection = App.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery))
+				{
+		pst.setInt(1, shuttleId);
+		ResultSet rs = pst.executeQuery();
+		 return  rs.next();
+		} catch (SQLException e) {
+			throw new DaoException("Shuttle ID num doesn't exists");
 			
 		}
 	}

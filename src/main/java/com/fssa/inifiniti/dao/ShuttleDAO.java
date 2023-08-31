@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
-
 import com.fssa.inifiniti.model.Shuttle;
 
 public class ShuttleDAO {

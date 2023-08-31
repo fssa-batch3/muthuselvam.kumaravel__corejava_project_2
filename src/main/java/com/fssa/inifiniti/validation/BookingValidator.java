@@ -62,4 +62,14 @@ public static boolean validateBooking(Booking booking) throws InvalidBookingExce
 			
 		
 	}
+	
+public static  boolean validateShuttleId(int id){
+		
+		boolean isMatch = false;
+		if(id>=1) {
+			isMatch = true;
+		}
+		return isMatch;
+		
+	}
 }

@@ -1,7 +1,6 @@
 package com.fssa.inifiniti.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,7 +84,7 @@ public class UserDAO {
 		 return  rs.next();
        
 		} catch (SQLException e) {
-			throw new InvalidUserException("Invalid in Email Already Exists");
+			throw new InvalidUserException("Email Already Exists");
 			
 		}
 	}

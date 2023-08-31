@@ -19,10 +19,10 @@ public boolean registerUser(User user) throws ServiceException {
 		if( userdao.insertUser(user)){
 			return true;
 		} else {
-			throw new ServiceException("registration not successful");
+			return false;
 		}
 	} else {
-		throw new ServiceException("Email Already Exists");
+		return false;
 	}
 	}
 	else {
@@ -48,11 +48,11 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 				userdao.setLoggedIn(email);
 				return true;
 			} else {
-				throw new ServiceException("Invalid Password");
+				return false;
 			}
 			
 		} else {
-			throw new ServiceException("Login not successful");
+			return false;
 		}
 	}
 	 catch (DaoException | InvalidUserException e) {

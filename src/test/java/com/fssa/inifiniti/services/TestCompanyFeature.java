@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.inifiniti.dao.CompanyCardDAO;
-import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 

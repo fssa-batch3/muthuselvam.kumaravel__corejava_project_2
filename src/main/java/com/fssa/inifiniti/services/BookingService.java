@@ -15,14 +15,14 @@ public class BookingService {
 
 		try {
 		BookingValidator.validateBooking(booking);	
+		BookingValidator.validateShuttleId(booking.getShuttleId());
 		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())) {
-			throw new  ServiceException("Seat num already exists");
+			return false;
 		} else {
-			if( bookingDao.createBooking(booking)){
+			if(bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) && bookingDao.createBooking(booking)){
 				return true;
-			} else {
-				throw new ServiceException("Invalid in Booking Credentials");
-			}
+			} 
+			return false;
 		} 
 		
 		}
@@ -36,14 +36,14 @@ public class BookingService {
 		try {
 		BookingValidator.validateSeatNum(seatNum);	
 		BookingValidator.validateSeatNum(changeSeatNum);
-		if(BookingValidator.validateEmail(email)) {
+		BookingValidator.validateShuttleId(shuttleId);
+		if(bookingDao.shuttleIdAlreadyExists(shuttleId) && BookingValidator.validateEmail(email)) {
 			Booking booking = bookingDao.findUserForEditSeatNum(shuttleId, email, seatNum);
 			booking.setSeatNum(changeSeatNum);
 			bookingDao.editBooking(booking);
 			return true;
-		} else {
-			throw new ServiceException("Edit Seat Num : Not Successful");
-		}
+		} 
+		return false;
 		}
 		 catch (DaoException   e) {
 			throw new ServiceException(e);
@@ -54,12 +54,12 @@ public class BookingService {
 	
 	public static boolean deleteBooking(Booking booking) throws ServiceException {
 		try {
-		if(BookingValidator.validateEmail(booking.getEmail())) {
+		if(BookingValidator.validateEmail(booking.getEmail()) && BookingValidator.validateShuttleId(booking.getShuttleId())) {
+			bookingDao.shuttleIdAlreadyExists(booking.getShuttleId());
 			bookingDao.deleteBooking(booking.getShuttleId(),booking.getEmail());
 			return true;
-		} else {
-			throw new ServiceException("Delete Booking : Not Successful");
 		}
+		return false;
 		}
 		 catch (DaoException  e) {
 			throw new ServiceException(e);
@@ -72,9 +72,8 @@ public class BookingService {
 		if(BookingValidator.validateEmail(booking.getEmail())) {
 			bookingDao.viewBookingsByUser(booking);
 			return true;
-		} else {
-			throw new ServiceException("Booking History - User: Not Successful");
-		}
+		} 
+		return false;
 		}
 		 catch (DaoException e) {
 			throw new ServiceException(e);
