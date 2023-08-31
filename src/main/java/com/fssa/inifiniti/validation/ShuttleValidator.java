@@ -10,7 +10,7 @@ public class ShuttleValidator {
 
 	public static boolean validateShuttle(Shuttle shuttle) throws InvalidShuttleException {
 
-		if (shuttle != null && ValidateDate(shuttle.getDate()) &&  ValidateTime(shuttle.getTime())) {
+		if (shuttle != null && validateDate(shuttle.getDate()) &&  validateTime(shuttle.getTime())) {
 
 			return true;
 		} else {
@@ -19,14 +19,14 @@ public class ShuttleValidator {
 
 	}
 
-	public static boolean ValidateDate(String d) {
+	public static boolean validateDate(String d) {
 		String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher((CharSequence) d);
 		return matcher.matches();
 	}
 
-	public static boolean ValidateTime(String time) {
+	public static boolean validateTime(String time) {
 		String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(time);

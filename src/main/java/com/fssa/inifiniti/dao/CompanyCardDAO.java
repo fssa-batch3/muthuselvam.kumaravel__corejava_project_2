@@ -68,7 +68,7 @@ public class CompanyCardDAO {
 		return companyCard;
 	}
 	
-	public boolean CompanyIdAlreadyExists(int companyId) throws DaoException {
+	public boolean companyIdAlreadyExists(int companyId) throws DaoException {
 		String insertQuery = "SELECT * FROM company WHERE company_id=?";
 		try (
 		Connection connection = App.getConnection();

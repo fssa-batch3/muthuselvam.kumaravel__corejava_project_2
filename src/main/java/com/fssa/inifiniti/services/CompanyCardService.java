@@ -36,7 +36,7 @@ public class CompanyCardService {
 		CompanyValidator.validateName(companyCard.getCompanyTitle());	
 		CompanyValidator.validateUrl(companyCard.getImageUrl());
 		CompanyCardDAO companyCardDAO = new CompanyCardDAO();
-		if(!companyCardDAO.CompanyIdAlreadyExists(companyCard.getCompanyId())) {
+		if(!companyCardDAO.companyIdAlreadyExists(companyCard.getCompanyId())) {
 			throw new ServiceException("Edit Company : Not Successful");
 		} else {
 			companyCardDAO.editCompany(companyCard);
@@ -53,7 +53,7 @@ public class CompanyCardService {
 			CompanyCardDAO companyDao = new CompanyCardDAO();
 			 List<CompanyCard> companyCard = companyDao.viewCompany();
 			for (CompanyCard i : companyCard ) {
-				System.out.println(i.toString());
+				companyCard.add(i);
 			}
 			return true;
 		}
@@ -65,7 +65,7 @@ public class CompanyCardService {
 	public  boolean deleteCompany(CompanyCard companyCard) throws ServiceException {
 		try {
 		CompanyCardDAO companyCardDAO = new CompanyCardDAO();
-		if(!companyCardDAO.CompanyIdAlreadyExists(companyCard.getCompanyId())) {
+		if(!companyCardDAO.companyIdAlreadyExists(companyCard.getCompanyId())) {
 			throw new ServiceException("Delete Company : Not Successful");
 		} else {
 			companyCardDAO.deleteCompany(companyCard.getCompanyId());

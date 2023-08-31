@@ -21,8 +21,9 @@ public class BookingService {
 		} else {
 			if(bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) && bookingDao.createBooking(booking)){
 				return true;
-			} 
+			} else { 
 			return false;
+			}
 		} 
 		
 		}
