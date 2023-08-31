@@ -20,14 +20,14 @@ public class ShuttleValidator {
 	}
 
 	public static boolean validateDate(String d) {
-		String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+		String regex = "^(3[01]|[12]\\d|0[1-9])/(1[0-2]|0[1-9])/\\d{4}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher((CharSequence) d);
 		return matcher.matches();
 	}
 
 	public static boolean validateTime(String time) {
-		String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+		String regex = "([01]?\\d|2[0-3]):[0-5]\\d";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(time);
 		return m.matches();
