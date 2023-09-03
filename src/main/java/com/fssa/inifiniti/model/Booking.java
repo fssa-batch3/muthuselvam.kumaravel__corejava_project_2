@@ -8,6 +8,7 @@ public class Booking {
 	private String email;
 	private int seatNum;
 	private int changeSeatNum;
+	private int bookingId;
 	
 	public Booking(int shuttleId, String userName,String email, String destination, int seatNum) {
 		this.shuttleId = shuttleId;
@@ -86,11 +87,20 @@ public class Booking {
 		this.changeSeatNum = changeSeatNum;
 	}
 
+	public int getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+	
 	@Override
 	public String toString() {
 		return "Booking [shuttleId=" + shuttleId + ", userName=" + userName + ", destination=" + destination
 				+ ", email=" + email + ", seatNum=" + seatNum + ", changeSeatNum=" + changeSeatNum + "]";
 	}
+
 	
 	
 	

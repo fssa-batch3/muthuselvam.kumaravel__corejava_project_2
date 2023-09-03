@@ -63,7 +63,7 @@ public class CompanyCardDAO {
 				companyCard.add(company);
 			}
 		} catch (SQLException e ) {
-			throw new DaoException(e);
+			throw new DaoException("Unable to View the Company");
 		}
 		return companyCard;
 	}

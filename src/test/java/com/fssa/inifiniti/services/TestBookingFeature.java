@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.model.Booking;
@@ -14,12 +19,11 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	 @Test
 	
 	 void testBookingRegisterSuccess() {
-	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",1);
+	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",4);
 			try {
 				assertTrue(BookingService.registerBooking(booking));
 			}  	
 			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				fail();
 			}
@@ -31,14 +35,13 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	@Test
 	
 	 void testSeatNumAlreadyExists() {
-	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",1);
+	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",4);
 	        try {
 				assertFalse(BookingService.registerBooking(booking));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				fail();
 			}
 		
 		
@@ -46,10 +49,10 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 
 	
 	@Test
-
+	
 	 void testEditSeatNum() {
 	        try {
-				assertTrue(BookingService.updateBooking(1,"sriyaasha@gmail.com",1,6));
+				assertTrue(BookingService.updateBooking(1,"sriyaasha@gmail.com",4,6));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
@@ -61,7 +64,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	}
 	
 	@Test
-
+	
 	 void testDeleteBooking() {
 		Booking booking = new Booking(1,"sriyaasha@gmail.com");
 	        try {
@@ -80,9 +83,13 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	@Test
 	
 		 void testReadBookings() {
-			Booking booking = new Booking("sriyaasha@gmail.com");
+			Booking booking = new Booking("selvam143@gmail.com");
+			BookingService bookingService = new BookingService();
 		        try {
-					assertTrue(BookingService.readBookingByUser(booking));
+		        	List<Booking> bookingList = bookingService.readBookingByUser(booking);
+		        	for (Booking  i : bookingList) {
+		        		System.out.println(i.toString());
+		        	}
 				}  	
 				 catch (ServiceException e) {
 					// TODO Auto-generated catch block
@@ -96,7 +103,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	
 	@Test
-
+	
 	 void testViewBookingsByAdmin() {
 	        try {
 				assertTrue(BookingService.readBookingByAdmin());

@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
-
+import java.util.*;
  class TestCompanyFeature {
 	 @Test
 		
 	 void testCompanyCardSucess() {
-	CompanyCard company = new CompanyCard("FaceBook","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU");
+	CompanyCard company = new CompanyCard("AirBNB","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU");
 	CompanyCardService companyService = new CompanyCardService();
 			try {
 				assertTrue(companyService.registerCompany(company));
@@ -32,7 +32,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	CompanyCardService companyService = new CompanyCardService();
 			try {
-				companyService.readCompany();
+				List<CompanyCard> result = companyService.readCompany();
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block

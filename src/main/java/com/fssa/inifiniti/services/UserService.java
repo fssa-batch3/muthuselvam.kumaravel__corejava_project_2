@@ -15,20 +15,20 @@ public boolean registerUser(User user) throws ServiceException {
 	UserDAO userdao =  new UserDAO();
 	
 	try {
-	if(UserValidator.validateUser(user)) {
-	if(!userdao.emailAlreadyExists(user.getEmail())) {
-		return userdao.insertUser(user);
-	} else {
-		return false;
-	}
-	}
-	else {
-		return false;
-	}
-	}
-	 catch (DaoException | InvalidUserException | ValidationException e) {
 		
-		throw new ServiceException(e);
+		if(user != null) {
+	UserValidator.validateName(user.getUserName());
+	UserValidator.validateEmail(user.getEmail());
+	UserValidator.validatePassword(user.getPassword());
+		}
+	
+	return userdao.emailAlreadyExists(user.getEmail()) &&
+		    userdao.insertUser(user);
+	
+	}
+	 catch (DaoException  | ValidationException e) {
+		
+		throw new ServiceException(e.getMessage());
 	}
 }
 
@@ -38,21 +38,20 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 	UserDAO userdao =  new UserDAO();
 	
 	try {
-	UserValidator.validateLoginUser(email,password);
+	UserValidator.validateEmail(email);
+	UserValidator.validatePassword(password);
 	 User  user = userdao.findUserByEmail(email);
-		if(user.getEmail().equals(email) ){
-			if(user.getPassword().equals(password)) {	
-				userdao.setLoggedIn(email);
-				return true;
-			} else {
-				return false;
-			}
-			
-		} else {
-			return false;
-		}
+	 if( email.equals(user.getEmail())){
+		if(	password.equals(user.getPassword())) {
+		 return true;
+	 } else {
+		 throw new DaoException("Invalid Password");
+		 }
+	 } else {
+		 throw new DaoException("Invalid Email");
+	 }
 	}
-	 catch (DaoException | InvalidUserException | ValidationException e) {
+	 catch (DaoException | ValidationException e) {
 		
 		throw new ServiceException(e);
 	}

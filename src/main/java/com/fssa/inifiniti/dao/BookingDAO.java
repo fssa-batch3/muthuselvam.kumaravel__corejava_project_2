@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
@@ -26,9 +28,9 @@ public class BookingDAO {
 			pst.setString(4, booking.getDestination());
 			pst.setInt(5, booking.getSeatNum());
 			int rows = pst.executeUpdate();
-			return (rows == 1) ;
+			return (rows >0 );
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new DaoException("Invalid in create booking");
 			
 		}
 		
@@ -59,15 +61,40 @@ public class BookingDAO {
 		pst.setInt(1, shuttleId);
 		pst.setInt(2, seatNum);
 		ResultSet rs = pst.executeQuery();
-		 return  rs.next();
+		  if( rs.next()) {
+			  return true;
+		  } else {
+			  throw new SQLException("Seat num already exists");
+		  }
 		} catch (SQLException e) {
 			throw new DaoException("Seat num already exists");
 			
 		}
 	}
 	
+	public  boolean seatNumAlreadyExistsInSameShuttle(int shuttleId , int seatNum) throws  DaoException {
+		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=?";
+		try 
+			(
+			Connection connection = App.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery))
+				{
+		pst.setInt(1, shuttleId);
+		pst.setInt(2, seatNum);
+		ResultSet rs = pst.executeQuery();
+		  if( rs.next()) {
+			  throw new SQLException("Seat num already exists in this shuttle");
+		  } else {
+			  return true;
+		  }
+		} catch (SQLException e) {
+			throw new DaoException(e);
+			
+		}
+	}
+	
 	public  boolean shuttleIdAlreadyExists(int shuttleId ) throws  DaoException {
-		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? ";
+		String insertQuery = "SELECT * FROM shuttle WHERE shuttle_id=? ";
 		try 
 			(
 			Connection connection = App.getConnection();
@@ -127,6 +154,22 @@ public class BookingDAO {
 		}
 	}
 	
+	public boolean editBookingByBookingId(int seatNum , String destination , int bookingId) throws DaoException {
+		String insertQuery = "UPDATE  bookings  SET seat_num=?,   destination=? WHERE booking_id=?";
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+		pst.setInt(1, seatNum);
+		pst.setString(2, destination);
+		pst.setInt(3, bookingId);
+		int rows = pst.executeUpdate();
+		return rows > 0 ;
+		} catch (SQLException e ) {
+			throw new DaoException(e);
+		}
+	}
+	
 	public  boolean deleteBooking(int shuttleId , String email) throws DaoException {
 		String insertQuery = "DELETE FROM  bookings WHERE email = ? AND shuttle_id=?";
 		try (
@@ -141,26 +184,45 @@ public class BookingDAO {
 		}
 	}
 	
-	public  boolean viewBookingsByUser(Booking booking) throws DaoException {
+	public  boolean deleteBookingByBookingId(int bookingId) throws DaoException {
+		String insertQuery = "DELETE FROM  bookings WHERE booking_id=?";
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)){
+		pst.setInt(1, bookingId);
+		int rows = pst.executeUpdate();
+		return (rows == 1) ;
+		} catch (SQLException e ) {
+			throw new DaoException("Invalid in delete by Booking ID");
+		}
+	}
+	
+	public  List<Booking> viewBookingsByUser(Booking booking) throws DaoException {
 		String insertQuery = "SELECT * FROM  bookings WHERE email = ?";
 		try (
 			Connection connection = App.getConnection();
 			PreparedStatement pst = connection.prepareStatement(insertQuery)){
+			List<Booking> bookingListByUser = new ArrayList<>();
 			pst.setString(1, booking.getEmail());
 			StringBuilder str = new StringBuilder();
 			ResultSet rs = pst.executeQuery();
-			while (rs.next()) {
-				  String userName = rs.getString(USER);
-		           int shuttleId= rs.getInt(SHUTTLE);
-		          int seatNum =rs.getInt(SEATNO);
-		          String destination = rs.getString(DEST);
-		          
-		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
-		 
-			}
-			return true;
+			
+				while (rs.next()) {
+					Booking bookingObj = new Booking();
+					bookingObj.setBookingId(rs.getInt("booking_id"));
+					bookingObj.setUserName(rs.getString(USER));
+					bookingObj.setEmail(rs.getString("email"));
+					bookingObj.setShuttleId(rs.getInt(SHUTTLE)); 
+					bookingObj.setSeatNum(rs.getInt(SEATNO));
+					bookingObj.setDestination(rs.getString(DEST));
+			          bookingListByUser.add(bookingObj);
+				} 
+				return  bookingListByUser;
+			
+			
+			
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new DaoException("Unable to view the booking by user's email");
 		}
 	
 		

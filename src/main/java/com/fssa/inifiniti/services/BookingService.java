@@ -1,5 +1,7 @@
 package com.fssa.inifiniti.services;
 
+import java.util.List;
+
 import com.fssa.inifiniti.dao.BookingDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
@@ -16,12 +18,11 @@ public class BookingService {
 		try {
 		BookingValidator.validateBooking(booking);	
 		BookingValidator.validateShuttleId(booking.getShuttleId());
-		if(bookingDao.seatNumAlreadyExists(booking.getShuttleId(), booking.getSeatNum())) {
-			return false;
-		} else {
-			return bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) && bookingDao.createBooking(booking);
+		return 	bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) &&
+			    bookingDao.seatNumAlreadyExistsInSameShuttle(booking.getShuttleId(), booking.getSeatNum()) && 
+				bookingDao.createBooking(booking);
+		
 		} 
-		}
 		 catch (DaoException  | ValidationException e) {
 			throw new ServiceException(e);
 		}
@@ -44,6 +45,19 @@ public class BookingService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	public boolean updateBookingByBookingId(int bookingId , String destination , int seatNum , int shuttleId) throws ServiceException {
+		try {
+		BookingValidator.validateSeatNum(seatNum);	
+		BookingValidator.validateDestination(destination);	
+		BookingValidator.validateShuttleId(shuttleId);
+			BookingDAO bookingDao = new BookingDAO();
+			return bookingDao.editBookingByBookingId(seatNum, destination, bookingId);
+		}
+		 catch (DaoException | ValidationException  e) {
+			throw new ServiceException(e);
+		}
+	}
 
 	
 	
@@ -60,19 +74,31 @@ public class BookingService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	public static boolean deleteBookingByBookingId(int bookingId) throws ServiceException {
+		try {
+			return bookingDao.deleteBookingByBookingId(bookingId);
+		}
+		 catch (DaoException  e) {
+			throw new ServiceException(e);
+		}
+	}
 
 	
-	public static boolean readBookingByUser(Booking booking) throws ServiceException {
+	public List<Booking> readBookingByUser(Booking booking) throws ServiceException {
 		try {
-		if(BookingValidator.validateEmail(booking.getEmail())) {
-			bookingDao.viewBookingsByUser(booking);
-			return true;
+			if( BookingValidator.validateEmail(booking.getEmail())) {
+			return  bookingDao.viewBookingsByUser(booking);
+			} else {
+				throw new DaoException("Invalid Email");
+			}
+			
 		} 
-		return false;
-		}
+		
 		 catch (DaoException | ValidationException e) {
 			throw new ServiceException(e);
 		}
+		
 	}
 	
 	public static boolean readBookingByAdmin() throws ServiceException {

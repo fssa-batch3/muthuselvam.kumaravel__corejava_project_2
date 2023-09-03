@@ -48,14 +48,11 @@ public class CompanyCardService {
 		}
 	}
 	
-	public  boolean readCompany() throws ServiceException {
+	public  List<CompanyCard> readCompany() throws ServiceException {
 		try {
 			CompanyCardDAO companyDao = new CompanyCardDAO();
 			 List<CompanyCard> companyCard = companyDao.viewCompany();
-			for (CompanyCard i : companyCard ) {
-				companyCard.add(i);
-			}
-			return true;
+			return companyCard;
 		}
 		 catch (DaoException  e) {
 			throw new ServiceException(e);

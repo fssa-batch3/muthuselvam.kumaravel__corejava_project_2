@@ -26,9 +26,14 @@ public class UserDAO {
 		pst.setString(2, user.getEmail());
 		pst.setString(3, user.getPassword());
 		int rows = pst.executeUpdate();
-		return (rows == 1); }
-		catch (SQLException e ) {
+		if (rows == 1){
+			return true;
+		} else {
 			throw new DaoException("Invalid details for register");
+		}
+		}
+		catch (SQLException e ) {
+			throw new DaoException(e);
 		}
 	}
 	
@@ -46,10 +51,12 @@ public class UserDAO {
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setLoggedIn(rs.getBoolean("logged_in"));
+                   } else {
+                	   throw new DaoException("Email Doesn't Exists");
                    }
         return user;
 		} catch (SQLException e) {
-			throw new DaoException("Email Doesn't Exists");
+			throw new DaoException(e);
 			
 		}
 	}
@@ -74,22 +81,27 @@ public class UserDAO {
 	}
 	
 	
-	public  boolean emailAlreadyExists(String email) throws  InvalidUserException {
+	public  boolean emailAlreadyExists(String email) throws  DaoException {
 		String insertQuery = SQLINSERTQUERY;
 		try (
 		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		ResultSet rs = pst.executeQuery();
-		 return  rs.next();
-       
+		 if(  rs.next()) {
+			 throw new DaoException("Email Already Exists"); 
+		 } else {
+			 return true;
+		 }
 		} catch (SQLException e) {
-			throw new InvalidUserException("Email Already Exists");
+			throw new DaoException(e);
 			
 		}
 	}
 	
-	public  boolean setLoggedIn(String email) throws InvalidUserException {
+	
+	
+public  boolean setLoggedIn(String email) throws DaoException {
 		
 		String insertQuery = "UPDATE user SET logged_in ='1' WHERE email=?";
 		try (
@@ -97,9 +109,13 @@ public class UserDAO {
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
 		int count  = pst.executeUpdate();
-		 return (count==1);
+		 if (count==1) {
+			 return true;
+		 } else {
+			 throw new DaoException("Invalid in logging In");
+		 }
 		} catch (SQLException e) {
-			throw new InvalidUserException("Invalid in logging In");
+			throw new DaoException(e);
 		}
 		
 	}

@@ -13,7 +13,6 @@ public class BookingValidator {
 public static boolean validateBooking(Booking booking) throws ValidationException {
 		
 		if( booking!=null&&validateName(booking.getUserName())&&validateEmail(booking.getEmail())&& validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
-			
 			return true;
 		} else {
 			throw new ValidationException("Booking details are invalid");
@@ -23,21 +22,23 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 
 
 	public static  boolean validateName(String name) throws ValidationException{
-		
+		if(name != null) {
 			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(name);
 			if( m.matches()) {
 				  return true;
 			  }else {
-				  throw new ValidationException("Name cannot contain other than letters");
+				  throw new ValidationException("Username cannot contain other than letters");
+			  }} else {
+				  throw new ValidationException("Username cannot be null");
 			  }
 		
 	}
 	
 	public static  boolean validateDestination(String destination) throws ValidationException {
 		
-		
+		if(destination != null) {
 			String regex = "^[A-Za-z]+$";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(destination);
@@ -46,7 +47,10 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 		  }else {
 			  throw new ValidationException("Destination cannot contain other than letters");
 		  }
-			
+		} else {
+			  throw new ValidationException("destination cannot be null");
+		  }
+	
 		
 	}
 	
@@ -65,7 +69,7 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 	}
 	
 	public static  boolean validateEmail(String email) throws ValidationException{
-		
+		if(email != null) {
 		boolean isMatch = false;
 			String regex = "^.*@.*\\..*$";
 			isMatch = Pattern.matches(regex, email);
@@ -73,6 +77,8 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 					  return true;
 				  }else {
 					  throw new ValidationException("Please enter appropriate email");
+				  }} else {
+					  throw new ValidationException("email cannot be null");
 				  }
 			
 		
