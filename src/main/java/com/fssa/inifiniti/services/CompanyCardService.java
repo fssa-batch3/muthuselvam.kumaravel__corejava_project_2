@@ -1,7 +1,6 @@
 package com.fssa.inifiniti.services;
 
 import java.util.List;
-import java.util.ArrayList;
 import com.fssa.inifiniti.dao.CompanyCardDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
