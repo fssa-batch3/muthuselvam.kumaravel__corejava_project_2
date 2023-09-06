@@ -6,7 +6,7 @@ public class User {
 	private String email;
 	private String password;
 	private boolean loggedIn ;
-	
+	private int id;
 
 	public User(String username,String email , String password) {
 		this.userName = username;
@@ -55,5 +55,13 @@ public class User {
 
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

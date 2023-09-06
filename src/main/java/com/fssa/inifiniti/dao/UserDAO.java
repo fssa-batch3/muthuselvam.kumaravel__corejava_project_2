@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
+import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
@@ -52,7 +55,7 @@ public class UserDAO {
             user.setPassword(rs.getString("password"));
             user.setLoggedIn(rs.getBoolean("logged_in"));
                    } else {
-                	   throw new DaoException("Email Doesn't Exists");
+                	   throw new DaoException("Email is not registered");
                    }
         return user;
 		} catch (SQLException e) {
@@ -97,6 +100,28 @@ public class UserDAO {
 			throw new DaoException(e);
 			
 		}
+	}
+	
+	public List<User> viewAllUser() throws DaoException {
+		String insertQuery = "SELECT * FROM  user";
+		  List<User> users = new ArrayList<>();
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			ResultSet rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				User  user = new User();
+				user.setId(rs.getInt("id"));
+				user.setUserName(rs.getString("username"));			
+				user.setEmail(rs.getString("email"));
+				users.add(user);
+			}
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the user");
+		}
+		return users;
 	}
 	
 	

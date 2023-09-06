@@ -228,25 +228,27 @@ public class BookingDAO {
 		
 	}
 	
-	public boolean viewBookingsByAdmin() throws DaoException {
+	public List<Booking> viewBookingsByAdmin() throws DaoException {
 		String insertQuery = "SELECT * FROM  bookings";
+		List<Booking> bookings = new ArrayList<Booking>();
 		try (
 			Connection connection = App.getConnection();
 			PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				StringBuilder str = new StringBuilder();
-				  String userName = rs.getString(USER);
-		           int shuttleId= rs.getInt(SHUTTLE);
-		          int seatNum =rs.getInt(SEATNO);
-		          String destination = rs.getString(DEST);
-		          str.append("Name: ").append(userName).append(", Shuttle ID: ").append(shuttleId).append(", Seat NO: ").append(seatNum).append(", Destination: ").append(destination);
+				Booking booking = new Booking();
+				 booking.setUserName( rs.getString(USER));
+		           booking.setShuttleId(rs.getInt(SHUTTLE));
+		           booking.setEmail(rs.getString("email"));
+		          booking.setSeatNum(rs.getInt(SEATNO));
+		          booking.setDestination(rs.getString(DEST));
+		          bookings.add(booking);
 		           
 			}
-			return true;
+			return bookings;
 		} catch (SQLException e) {
 		
-			throw new DaoException(e);
+			throw new DaoException("Unable to view all the bookings");
 		}
 	
 		

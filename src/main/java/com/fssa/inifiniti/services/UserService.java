@@ -1,6 +1,8 @@
 package com.fssa.inifiniti.services;
 
 
+import java.util.List;
+
 import com.fssa.inifiniti.dao.UserDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.User;
@@ -16,13 +18,10 @@ public boolean registerUser(User user) throws ServiceException {
 	
 	try {
 		
-		if(user != null) {
 	UserValidator.validateName(user.getUserName());
 	UserValidator.validateEmail(user.getEmail());
 	UserValidator.validatePassword(user.getPassword());
-		}
-	
-	return userdao.emailAlreadyExists(user.getEmail()) &&
+	return user != null && userdao.emailAlreadyExists(user.getEmail()) &&
 		    userdao.insertUser(user);
 	
 	}
@@ -72,4 +71,20 @@ public  User findUserNameByEmail(String email) throws ServiceException {
 			throw new ServiceException(e);
 		}
 	
-}}  
+}
+
+
+public  List<User> readUserByAdmin() throws ServiceException {
+	UserDAO userDao =  new UserDAO();
+	try {
+		return userDao.viewAllUser();
+	}
+	 catch (DaoException  e) {
+		throw new ServiceException(e);
+	}
+	
+}
+
+
+
+}  

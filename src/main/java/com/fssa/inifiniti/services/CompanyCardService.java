@@ -18,10 +18,10 @@ public class CompanyCardService {
 			if(companyDao.insertCompany(company)){
 				return true;
 			} else {
-				throw new ServiceException("Company registration not successful");
+				throw new DaoException("Company registration not successful");
 			}
 		} else {
-			throw new ServiceException("Company details are invalid");
+			throw new DaoException("Company details are invalid");
 		}
 		}
 		 catch (DaoException | InvalidCompanyException e) {
@@ -37,7 +37,7 @@ public class CompanyCardService {
 		CompanyValidator.validateUrl(companyCard.getImageUrl());
 		CompanyCardDAO companyCardDAO = new CompanyCardDAO();
 		if(!companyCardDAO.companyIdAlreadyExists(companyCard.getCompanyId())) {
-			throw new ServiceException("Edit Company : Not Successful");
+			throw new DaoException("Edit Company : Not Successful");
 		} else {
 			companyCardDAO.editCompany(companyCard);
 			return true;
@@ -63,7 +63,7 @@ public class CompanyCardService {
 		try {
 		CompanyCardDAO companyCardDAO = new CompanyCardDAO();
 		if(!companyCardDAO.companyIdAlreadyExists(companyCard.getCompanyId())) {
-			throw new ServiceException("Delete Company : Not Successful");
+			throw new DaoException("Delete Company : Not Successful");
 		} else {
 			companyCardDAO.deleteCompany(companyCard.getCompanyId());
 			return true;

@@ -1,5 +1,6 @@
 package com.fssa.inifiniti.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fssa.inifiniti.dao.BookingDAO;
@@ -101,10 +102,10 @@ public class BookingService {
 		
 	}
 	
-	public static boolean readBookingByAdmin() throws ServiceException {
+	public  List<Booking> readBookingByAdmin() throws ServiceException {
+		List<Booking> bookings = new ArrayList<>();
 		try {
-			bookingDao.viewBookingsByAdmin();
-			return true;
+		return bookings = bookingDao.viewBookingsByAdmin();
 		}
 		 catch (DaoException  e) {
 			throw new ServiceException(e);
