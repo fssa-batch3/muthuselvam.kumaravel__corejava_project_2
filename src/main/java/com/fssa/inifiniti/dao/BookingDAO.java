@@ -17,7 +17,9 @@ public class BookingDAO {
 	private static final String SEATNO = "seat_num";
 	private static final String DEST = "destination";
 	private static final String USER = "username";
-
+	private static final String EMAIL = "email";
+	
+	
 	public boolean createBooking(Booking booking) throws DaoException{
 		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
 		try(Connection connection = App.getConnection();
@@ -123,7 +125,7 @@ public class BookingDAO {
 		pst.setString(3, email);
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
-            booking.setEmail(rs.getString("email"));
+            booking.setEmail(rs.getString(EMAIL));
             booking.setShuttleId(rs.getInt(SHUTTLE));
             booking.setSeatNum(rs.getInt(SEATNO));
             booking.setDestination(rs.getString(DEST));
@@ -204,14 +206,13 @@ public class BookingDAO {
 			PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			List<Booking> bookingListByUser = new ArrayList<>();
 			pst.setString(1, booking.getEmail());
-			StringBuilder str = new StringBuilder();
 			ResultSet rs = pst.executeQuery();
 			
 				while (rs.next()) {
 					Booking bookingObj = new Booking();
 					bookingObj.setBookingId(rs.getInt("booking_id"));
 					bookingObj.setUserName(rs.getString(USER));
-					bookingObj.setEmail(rs.getString("email"));
+					bookingObj.setEmail(rs.getString(EMAIL));
 					bookingObj.setShuttleId(rs.getInt(SHUTTLE)); 
 					bookingObj.setSeatNum(rs.getInt(SEATNO));
 					bookingObj.setDestination(rs.getString(DEST));
@@ -239,7 +240,7 @@ public class BookingDAO {
 				Booking booking = new Booking();
 				 booking.setUserName( rs.getString(USER));
 		           booking.setShuttleId(rs.getInt(SHUTTLE));
-		           booking.setEmail(rs.getString("email"));
+		           booking.setEmail(rs.getString(EMAIL));
 		          booking.setSeatNum(rs.getInt(SEATNO));
 		          booking.setDestination(rs.getString(DEST));
 		          bookings.add(booking);

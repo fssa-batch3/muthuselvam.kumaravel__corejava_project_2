@@ -22,7 +22,7 @@ public class ShuttleValidator {
 	public static boolean validateDate(String d) {
 		String regex = "^(3[01]|[12]\\d|0[1-9])/(1[0-2]|0[1-9])/\\d{4}$";
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher((CharSequence) d);
+		Matcher matcher = pattern.matcher(d);
 		return matcher.matches();
 	}
 

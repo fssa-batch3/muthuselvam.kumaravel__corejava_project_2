@@ -2,10 +2,8 @@ package com.fssa.inifiniti.services;
 
 import java.util.List;
 
-import com.fssa.inifiniti.dao.CompanyCardDAO;
 import com.fssa.inifiniti.dao.ShuttleDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
-import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.model.Shuttle;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 import com.fssa.inifiniti.validation.ShuttleValidator;
@@ -31,8 +29,7 @@ public class ShuttleService {
 		public  List<Shuttle> readShuttleTimeAndDate(String name) throws ServiceException {
 			try {
 				ShuttleDAO shuttleDAO = new ShuttleDAO();
-				 List<Shuttle> shuttle = shuttleDAO.viewShuttleTimeAndDate(name);
-				return shuttle;
+				return shuttleDAO.viewShuttleTimeAndDate(name);
 			}
 			 catch (DaoException  e) {
 				throw new ServiceException(e);
@@ -42,8 +39,7 @@ public class ShuttleService {
 		public  Shuttle readIdByShuttleTimeAndDateAndCompanyName(String date , String time , String name) throws ServiceException {
 			try {
 				ShuttleDAO shuttleDAO = new ShuttleDAO();
-				 Shuttle shuttle = shuttleDAO.getIdByShuttleDateAndTime(date, time, name);
-				return shuttle;
+				return shuttleDAO.getIdByShuttleDateAndTime(date, time, name);
 			}
 			 catch (DaoException  e) {
 				throw new ServiceException(e);

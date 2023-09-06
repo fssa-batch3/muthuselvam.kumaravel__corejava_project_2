@@ -106,7 +106,8 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	 void testViewBookingsByAdmin() {
 	        try {
-				assertTrue(BookingService.readBookingByAdmin());
+	        	BookingService bookingService = new BookingService();
+				bookingService.readBookingByAdmin();
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block

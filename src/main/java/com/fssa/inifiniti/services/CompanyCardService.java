@@ -1,7 +1,7 @@
 package com.fssa.inifiniti.services;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import com.fssa.inifiniti.dao.CompanyCardDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
@@ -51,8 +51,7 @@ public class CompanyCardService {
 	public  List<CompanyCard> readCompany() throws ServiceException {
 		try {
 			CompanyCardDAO companyDao = new CompanyCardDAO();
-			 List<CompanyCard> companyCard = companyDao.viewCompany();
-			return companyCard;
+			 return  companyDao.viewCompany();
 		}
 		 catch (DaoException  e) {
 			throw new ServiceException(e);

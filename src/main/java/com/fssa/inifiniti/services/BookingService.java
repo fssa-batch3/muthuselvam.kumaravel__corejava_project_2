@@ -52,7 +52,6 @@ public class BookingService {
 		BookingValidator.validateSeatNum(seatNum);	
 		BookingValidator.validateDestination(destination);	
 		BookingValidator.validateShuttleId(shuttleId);
-			BookingDAO bookingDao = new BookingDAO();
 			return bookingDao.editBookingByBookingId(seatNum, destination, bookingId);
 		}
 		 catch (DaoException | ValidationException  e) {
@@ -103,9 +102,8 @@ public class BookingService {
 	}
 	
 	public  List<Booking> readBookingByAdmin() throws ServiceException {
-		List<Booking> bookings = new ArrayList<>();
 		try {
-		return bookings = bookingDao.viewBookingsByAdmin();
+		return bookingDao.viewBookingsByAdmin();
 		}
 		 catch (DaoException  e) {
 			throw new ServiceException(e);

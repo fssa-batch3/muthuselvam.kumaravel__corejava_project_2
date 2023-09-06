@@ -9,9 +9,7 @@ import java.util.List;
 
 import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
-import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.model.User;
-import com.fssa.inifiniti.validationexceptions.InvalidUserException;
 
 public class UserDAO {
 

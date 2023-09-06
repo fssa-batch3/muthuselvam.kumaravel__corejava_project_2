@@ -63,8 +63,7 @@ public  User findUserNameByEmail(String email) throws ServiceException {
 	
 	try {
 		 validate.validateEmailId(email);
-		 User  user = userdao.findUserNameByEmail(email);
-			return user;
+		return userdao.findUserNameByEmail(email);
 		}
 		 catch (DaoException | InvalidUserException e) {
 			
