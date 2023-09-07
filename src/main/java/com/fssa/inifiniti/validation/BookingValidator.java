@@ -14,24 +14,41 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 public class BookingValidator {
 	
 	
-	 /**
-     * Validates a booking, checking that user name, email, destination, and seat number are valid.
-     *
-     * @param booking The booking to be validated.
-     * @return True if the booking is valid; otherwise, false.
-     * @throws ValidationException If the booking details are invalid.
-     */
+	/**
+	 * Validates the attributes of a Booking object.
+	 *
+	 * @param booking The Booking object to validate.
+	 * @return true if all attributes of the Booking object are valid, otherwise false.
+	 * @throws ValidationException If any attribute of the Booking object is invalid.
+	 */
 	
 public static boolean validateBooking(Booking booking) throws ValidationException {
 		
-		if( booking!=null&&validateName(booking.getUserName())&&validateEmail(booking.getEmail())&& validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
-			return true;
-		} else { 
-			throw new ValidationException("Booking details are invalid");
-		}
-		
+	validateBookingNotNull(booking);
+	validateName(booking.getUserName());
+	validateEmail(booking.getEmail());
+	validateDestination(booking.getDestination());
+	validateSeatNum(booking.getSeatNum());
+	
+	return true;
 	}
 
+
+/**
+ * Validates if a Booking object is not null.
+ *
+ * @param booking The Booking object to validate.
+ * @return true if the Booking object is not null, otherwise false.
+ * @throws ValidationException If the Booking object is null.
+ */
+
+
+public static boolean validateBookingNotNull(Booking booking)throws ValidationException{
+	if(booking == null) {
+		throw new ValidationException("Booking is null");
+	}
+	return true;
+}
 
 /**
  * Validates a user name, ensuring it contains only letters.
