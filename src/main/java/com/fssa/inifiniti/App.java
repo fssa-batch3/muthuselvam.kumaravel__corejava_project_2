@@ -30,7 +30,6 @@ public class App {
             Class.forName("com.mysql.cj.jdbc.Driver");
              connect = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         }  catch (SQLException | ClassNotFoundException e) {
-        	 e.printStackTrace();
           throw new SQLException("Unable to connect to the database");
         }
         return  connect ;     
