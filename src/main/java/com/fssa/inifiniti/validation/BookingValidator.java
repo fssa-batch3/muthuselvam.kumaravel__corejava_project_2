@@ -6,20 +6,40 @@ import java.util.regex.Pattern;
 import com.fssa.inifiniti.model.Booking;
 import com.fssa.inifiniti.validationexceptions.ValidationException;
 
+/**
+ * The BookingValidator class provides methods for validating booking-related information.
+ * It includes methods for validating user names, email addresses, destinations, seat numbers, and shuttle IDs.
+ */
+
 public class BookingValidator {
 	
 	
+	 /**
+     * Validates a booking, checking that user name, email, destination, and seat number are valid.
+     *
+     * @param booking The booking to be validated.
+     * @return True if the booking is valid; otherwise, false.
+     * @throws ValidationException If the booking details are invalid.
+     */
 	
 public static boolean validateBooking(Booking booking) throws ValidationException {
 		
 		if( booking!=null&&validateName(booking.getUserName())&&validateEmail(booking.getEmail())&& validateDestination(booking.getDestination())&&validateSeatNum(booking.getSeatNum())) {
 			return true;
-		} else {
+		} else { 
 			throw new ValidationException("Booking details are invalid");
 		}
 		
 	}
 
+
+/**
+ * Validates a user name, ensuring it contains only letters.
+ *
+ * @param name The user name to be validated.
+ * @return True if the user name is valid; otherwise, false.
+ * @throws ValidationException If the user name is invalid.
+ */
 
 	public static  boolean validateName(String name) throws ValidationException{
 		if(name != null) {
@@ -35,6 +55,14 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 			  }
 		
 	}
+	
+	/**
+     * Validates a destination, ensuring it contains only letters.
+     *
+     * @param destination The destination to be validated.
+     * @return True if the destination is valid; otherwise, false.
+     * @throws ValidationException If the destination is invalid.
+     */
 	
 	public static  boolean validateDestination(String destination) throws ValidationException {
 		
@@ -54,6 +82,14 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 		
 	}
 	
+	 /**
+     * Validates a seat number, ensuring it is within the valid range (1 to 7).
+     *
+     * @param seatNum The seat number to be validated.
+     * @return True if the seat number is valid; otherwise, false.
+     * @throws ValidationException If the seat number is invalid.
+     */
+	
 	public static  boolean validateSeatNum(int seatNum) throws ValidationException{
 		
 		boolean match = false;
@@ -65,24 +101,39 @@ public static boolean validateBooking(Booking booking) throws ValidationExceptio
 				  }else {
 					  throw new ValidationException("Seat Num should be greater that or equal to 1 and  less than 7");
 				  }
-				
+				 
 	}
+	 
+	 /**
+     * Validates an email address using a regular expression pattern.
+     *
+     * @param email The email address to be validated.
+     * @return True if the email address is valid; otherwise, false.
+     * @throws ValidationException If the email address is invalid.
+     */
 	
-	public static  boolean validateEmail(String email) throws ValidationException{
-		if(email != null) {
-		boolean isMatch = false;
-			String regex = "^.*@.*\\..*$";
-			isMatch = Pattern.matches(regex, email);
-				if( isMatch) {
-					  return true;
-				  }else {
-					  throw new ValidationException("Please enter appropriate email");
-				  }} else {
-					  throw new ValidationException("email cannot be null");
-				  }
-			
-		
+	public static boolean validateEmail(String email) throws ValidationException {
+	    if (email != null) {
+	        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+	        Pattern pattern = Pattern.compile(regex);
+	        Matcher matcher = pattern.matcher(email);
+	        
+	        if (matcher.matches()) {
+	            return true;
+	        } else {
+	            throw new ValidationException("Please enter a valid email address");
+	        }
+	    } else {
+	        throw new ValidationException("Email cannot be null");
+	    }
 	}
+	  /**
+     * Validates a shuttle ID, ensuring it is greater than or equal to 1.
+     *
+     * @param id The shuttle ID to be validated.
+     * @return True if the shuttle ID is valid; otherwise, false.
+     * @throws ValidationException If the shuttle ID is invalid.
+     */
 	
 public static  boolean validateShuttleId(int id) throws ValidationException{
 		
