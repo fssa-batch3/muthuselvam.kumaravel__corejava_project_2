@@ -14,6 +14,12 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 
 public class UserValidator {
 	
+	
+	/**
+	 * Error message for when email is null.
+	 */
+	public static final String EMAIL_NULL_ERROR = "Email cannot be null";
+	
 	/**
 	 * Validates the login credentials of a user.
 	 *
@@ -63,7 +69,7 @@ public class UserValidator {
 	
 	public static boolean validateEmailNotNull(String email) throws ValidationException {
 		if(email == null) {
-			throw new ValidationException("Email cannot be null");
+			throw new ValidationException(EMAIL_NULL_ERROR);
 		}
 		return true;
 	}
@@ -156,7 +162,7 @@ public class UserValidator {
 	            throw new ValidationException("Please enter a valid email address");
 	        }
 	    } else {
-	        throw new ValidationException("Email cannot be null");
+	        throw new ValidationException(EMAIL_NULL_ERROR);
 	    }
 	}
 	
@@ -179,7 +185,7 @@ public class UserValidator {
 	            throw new ValidationException("Please enter a valid email address");
 	        }
 	    } else {
-	        throw new ValidationException("Email cannot be null");
+	        throw new ValidationException(EMAIL_NULL_ERROR);
 	    }
 	}
 
