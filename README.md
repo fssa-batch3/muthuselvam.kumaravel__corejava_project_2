@@ -3,4 +3,4 @@
 [Milestones](https://github.com/fssa-batch3/sec_a_muthuselvam.kumaravel__corejava_project_2/milestones) 
 
 ### ER DIAGRAM :
-[![HDDkuA7.png](https://iili.io/HDDkuA7.png)](https://freeimage.host/)
+[![J90DmR1.md.png](https://iili.io/J90DmR1.md.png)](https://freeimage.host/i/J90DmR1)
