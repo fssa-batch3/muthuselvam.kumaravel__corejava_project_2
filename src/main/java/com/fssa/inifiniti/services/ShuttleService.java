@@ -67,4 +67,15 @@ public class ShuttleService {
 				throw new ServiceException(e);
 			}
 		}
+		
+		
+		public  List<Shuttle> readAllTime() throws ServiceException {
+			try {
+				ShuttleDAO shuttleDAO = new ShuttleDAO();
+				return shuttleDAO.getAllTime();
+			}
+			 catch (DaoException  e) {
+				throw new ServiceException(e);
+			}
+		}
 }

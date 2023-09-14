@@ -95,5 +95,24 @@ public class ShuttleDAO {
 		
 	}
 	
+	public List<Shuttle> getAllTime() throws DaoException {
+		String insertQuery = "SELECT time  FROM  shuttle ";
+		  List<Shuttle> shuttleList = new ArrayList<>();
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				Shuttle  shuttle = new Shuttle();
+				shuttle.setTime(rs.getString("time"));
+				shuttleList.add(shuttle);
+			}
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the time of shuttle");
+		}
+		return shuttleList;
+	}
+	
 	
 }

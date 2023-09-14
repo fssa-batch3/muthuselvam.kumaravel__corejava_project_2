@@ -125,4 +125,60 @@ public  List<User> readUserByAdmin() throws ServiceException {
 
 
 
+
+public  boolean updateUser(User user) throws ServiceException {
+	UserDAO userdao =  new UserDAO();
+	
+	try {
+		
+		if(user == null) {
+			throw new ValidationException("User cannot be null");
+		}
+	UserValidator.validateEmail(user.getEmail());
+	UserValidator.validateFirstName(user.getFirstName());
+	UserValidator.validateLastName(user.getLastName());
+	UserValidator.validateLocation(user.getLocation());
+	 return userdao.editUser(user);
+	}
+	 catch (DaoException | ValidationException e) {
+		
+		throw new ServiceException(e.getMessage());
+	}
+}
+
+
+public  User getUserByEmail(String email) throws ServiceException {
+	UserDAO userdao =  new UserDAO();
+	UserValidator userValidator =  new UserValidator();
+	
+	
+	try {
+		userValidator.validateEmailId(email);
+		return userdao.getUserByEmail(email);
+		}
+		 catch (DaoException  | ValidationException e) {
+			
+			throw new ServiceException(e);
+		}
+	
+}
+
+public  boolean checkColumnHasNullValues(String email) throws ServiceException {
+	UserDAO userdao =  new UserDAO();
+	
+	try {
+		
+		if(email == null) {
+			throw new ValidationException("Email cannot be null");
+		}
+	UserValidator.validateEmail(email);
+	 return userdao.checkColumnHasNullValues(email);
+	}
+	 catch (DaoException | ValidationException e) {
+		throw new ServiceException(e.getMessage());
+	}
+}
+
+
+
 }  

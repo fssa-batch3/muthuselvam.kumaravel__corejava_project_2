@@ -188,5 +188,63 @@ public class UserValidator {
 	        throw new ValidationException(EMAIL_NULL_ERROR);
 	    }
 	}
+	
+	public static boolean validateFirstName(String firstName) throws ValidationException {
+        // First name should contain only letters and be between 2 and 50 characters
+		if(firstName == null || firstName.trim().isEmpty()) {
+			throw new ValidationException("first name cannot be null");
+		}
+        String regex = "^[A-Za-z]{2,50}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(firstName);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            throw new ValidationException("First name should contain only letters and be between 2 and 50 characters");
+        }
+    }
+
+    public static boolean validateLastName(String lastName) throws ValidationException {
+        // Last name should contain only letters and be between 2 and 50 characters
+    	if(lastName == null || lastName.trim().isEmpty()) {
+			throw new ValidationException("last name cannot be null");
+		}
+        String regex = "^[A-Za-z]{2,50}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(lastName);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            throw new ValidationException("Last name should contain only letters and be between 2 and 50 characters");
+        }
+    }
+
+    public static boolean validatePhoneNumber(String phoneNumber) throws ValidationException {
+        // Phone number should contain only digits and dashes, and be between 7 and 15 characters
+    	if(phoneNumber == null || phoneNumber.trim().isEmpty()) {
+			throw new ValidationException("phone number cannot be null");
+		}
+    	 String trimmedString = phoneNumber.trim();
+         int lengthWithTrim = trimmedString.length();
+        if (lengthWithTrim == 10) {
+            return true;
+        } else {
+            throw new ValidationException("Phone number should contain only numbers, and be 10 characters");
+        }
+    }
+
+    public static boolean validateLocation(String location) throws ValidationException {
+        // Location can contain letters, digits, spaces, and special characters, up to 100 characters
+    	if(location == null || location.trim().isEmpty()) {
+			throw new ValidationException("location cannot be null");
+		}
+        String regex = "^[A-Za-z0-9\\s\\-.,()\\/]{1,100}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(location);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            throw new ValidationException("Location can contain letters, digits, spaces, and special characters, up to 100 characters");
+        }    }
 
 }

@@ -13,7 +13,6 @@ import com.fssa.inifiniti.model.User;
 
 public class UserDAO {
 
-	
 	private static final String SQLINSERTQUERY = "SELECT * FROM user WHERE email=?";
 
 	/**
@@ -21,143 +20,145 @@ public class UserDAO {
 	 *
 	 * @param user The User object containing user details to be inserted.
 	 * @return True if the user insertion is successful, false otherwise.
-	 * @throws DaoException If an error occurs during the insertion process or if the user details are invalid.
+	 * @throws DaoException If an error occurs during the insertion process or if
+	 *                      the user details are invalid.
 	 */
-	
+
 	public boolean insertUser(User user) throws DaoException {
 		String insertQuery = "INSERT INTO user (username , email , password) VALUES (?,?,?)";
-		try (
-		Connection connection = App.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insertQuery);
-				){
-		pst.setString(1, user.getUserName());
-		pst.setString(2, user.getEmail());
-		pst.setString(3, user.getPassword());
-		int rows = pst.executeUpdate();
-		if (rows == 1){
-			return true;
-		} else {
-			throw new DaoException("Invalid details for register");
-		}
-		}
-		catch (SQLException e ) {
+		try (Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery);) {
+			pst.setString(1, user.getUserName());
+			pst.setString(2, user.getEmail());
+			pst.setString(3, user.getPassword());
+			int rows = pst.executeUpdate();
+			if (rows == 1) {
+				return true;
+			} else {
+				throw new DaoException("Invalid details for register");
+			}
+		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
 	}
-	
+
 	/**
 	 * Retrieves user information by email.
 	 *
 	 * @param email The email address of the user to retrieve.
-	 * @return A User object containing user details if the email is registered; otherwise, an exception is thrown.
-	 * @throws DaoException If an error occurs during the retrieval process or if the email is not registered.
+	 * @return A User object containing user details if the email is registered;
+	 *         otherwise, an exception is thrown.
+	 * @throws DaoException If an error occurs during the retrieval process or if
+	 *                      the email is not registered.
 	 */
-	
-	public  User findUserByEmail(String email) throws  DaoException {
+
+	public User findUserByEmail(String email) throws DaoException {
 		User user = new User();
 		String insertQuery = SQLINSERTQUERY;
 		try (
-			 
-		Connection connection = App.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insertQuery)){
-		pst.setString(1, email);
-		ResultSet rs = pst.executeQuery();
-		if(rs.next()){
-            user.setEmail(rs.getString("email"));
-            user.setPassword(rs.getString("password"));
-            user.setLoggedIn(rs.getBoolean("logged_in"));
-                   } else {
-                	   throw new DaoException("Email is not registered");
-                   }
-        return user;
+
+				Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)) {
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setLoggedIn(rs.getBoolean("logged_in"));
+			} else {
+				throw new DaoException("Email is not registered");
+			}
+			return user;
 		} catch (SQLException e) {
 			throw new DaoException(e);
-			
+
 		}
 	}
-	
+
 	/**
 	 * Retrieves the username associated with the provided email.
 	 *
 	 * @param email The email address for which to retrieve the associated username.
-	 * @return A User object containing the username if the email is registered; otherwise, an exception is thrown.
-	 * @throws DaoException If an error occurs during the retrieval process or if the email is not registered.
+	 * @return A User object containing the username if the email is registered;
+	 *         otherwise, an exception is thrown.
+	 * @throws DaoException If an error occurs during the retrieval process or if
+	 *                      the email is not registered.
 	 */
-	
-	public  User findUserNameByEmail(String email) throws  DaoException {
+
+	public User findUserNameByEmail(String email) throws DaoException {
 		User user = new User();
 		String insertQuery = SQLINSERTQUERY;
 		try (
-			
-		Connection connection = App.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insertQuery)){
-		pst.setString(1, email);
-		ResultSet rs = pst.executeQuery();
-		if(rs.next()){
-            user.setUserName(rs.getString("username"));
-                   }
-        return user;
+
+				Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)) {
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				user.setUserName(rs.getString("username"));
+			}
+			return user;
 		} catch (SQLException e) {
 			throw new DaoException("Username Doesn't Exists");
-			
+
 		}
 	}
-	
+
 	/**
 	 * Checks if an email address already exists in the database.
 	 *
 	 * @param email The email address to check for existence.
-	 * @return True if the email address does not exist in the database; otherwise, an exception is thrown.
-	 * @throws DaoException If an error occurs during the existence check process or if the email already exists.
+	 * @return True if the email address does not exist in the database; otherwise,
+	 *         an exception is thrown.
+	 * @throws DaoException If an error occurs during the existence check process or
+	 *                      if the email already exists.
 	 */
-	
-	public  boolean emailAlreadyExists(String email) throws  DaoException {
+
+	public boolean emailAlreadyExists(String email) throws DaoException {
 		String insertQuery = SQLINSERTQUERY;
-		try (
-		Connection connection = App.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insertQuery)){
-		pst.setString(1, email);
-		ResultSet rs = pst.executeQuery();
-		 if(  rs.next()) {
-			 throw new DaoException("Email Already Exists"); 
-		 } else {
-			 return true;
-		 }
+		try (Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)) {
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				throw new DaoException("Email Already Exists");
+			} else {
+				return true;
+			}
 		} catch (SQLException e) {
 			throw new DaoException(e);
-			
+
 		}
 	}
-	
+
 	/**
 	 * Retrieves a list of all users in the database.
 	 *
-	 * @return A list of User objects containing information about all registered users.
+	 * @return A list of User objects containing information about all registered
+	 *         users.
 	 * @throws DaoException If an error occurs during the retrieval process.
 	 */
-	
+
 	public List<User> viewAllUser() throws DaoException {
 		String insertQuery = "SELECT * FROM  user";
-		  List<User> users = new ArrayList<>();
-		try (
-		Connection connection = App.getConnection();
-		PreparedStatement pst = connection.prepareStatement(insertQuery)
-				){
+		List<User> users = new ArrayList<>();
+		try (Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)) {
 			ResultSet rs = pst.executeQuery();
-			
+
 			while (rs.next()) {
-				User  user = new User();
+				User user = new User();
 				user.setId(rs.getInt("id"));
-				user.setUserName(rs.getString("username"));			
+				user.setUserName(rs.getString("username"));
 				user.setEmail(rs.getString("email"));
 				users.add(user);
 			}
-		} catch (SQLException e ) {
+		} catch (SQLException e) {
 			throw new DaoException("Unable to View the user");
 		}
 		return users;
 	}
-	
+
 	/**
 	 * Sets the "logged_in" status for a user in the database.
 	 *
@@ -184,8 +185,83 @@ public  boolean setLoggedIn(String email) throws DaoException {
 		}
 		
 	}
+
+	public boolean editUser(User user) throws DaoException{
+		String insertQuery = "UPDATE user SET first_name=?, last_name=?, phone_number=?, location=? WHERE email=?";
+
+		try (
+				Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)){
+				pst.setString(1, user.getFirstName());
+				pst.setString(2, user.getLastName());
+				pst.setString(3, user.getPhoneNumber());
+				pst.setString(4, user.getLocation());
+				pst.setString(5, user.getEmail());
+				int count  = pst.executeUpdate();
+				 if (count==1) {
+					 return true;
+				 } else {
+					 throw new DaoException("Invalid in edit profile");
+				 }
+				} catch (SQLException e) {
+					throw new DaoException(e);
+				}
+}
 	
 	
+	public User getUserByEmail(String email) throws DaoException {
+		User user = new User();
+		String insertQuery = SQLINSERTQUERY;
+		try (
+
+				Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)) {
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				user.setFirstName(rs.getString("first_name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setLocation(rs.getString("location"));
+				user.setPhoneNumber(rs.getString("phone_number"));
+			}
+			return user;
+		} catch (SQLException e) {
+			throw new DaoException("User Doesn't Exists");
+
+		}
+	}
+	
+	
+	
+	public boolean checkColumnHasNullValues(String email) throws DaoException {
+        String query = "SELECT first_name , last_name , location , phone_number FROM user  WHERE email = ?";
+        try (Connection connection = App.getConnection();
+        		PreparedStatement pst = connection.prepareStatement(query)) {
+        	
+            pst.setString(1, email);
+            try (ResultSet resultSet = pst.executeQuery()) {
+                if (resultSet.next()) {
+                    int columnCount = resultSet.getMetaData().getColumnCount();
+                    boolean hasNullValue = false;
+
+                    for (int i = 1; i <= columnCount; i++) {
+                        Object columnValue = resultSet.getObject(i);
+
+                        if (columnValue == null) {
+                            hasNullValue = true;
+                            break; 
+                        }
+                    }
+
+                    return !hasNullValue; // Return true if there are no null values
+                } else {
+                    return false; // Email not found in the table
+                }
+            }
+        } catch (SQLException e) {
+        	throw new DaoException("Email Doesn't Exists");
+        }
+    }
 	
 
 }
