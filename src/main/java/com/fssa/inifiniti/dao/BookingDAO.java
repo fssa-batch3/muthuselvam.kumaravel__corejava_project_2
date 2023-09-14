@@ -11,15 +11,25 @@ import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
 
+/**
+ * This class provides data access methods related to bookings.
+ */
+
 public class BookingDAO {
-	
+	 // Constants for column names in the database
 	private static final String SHUTTLE = "shuttle_id";
 	private static final String SEATNO = "seat_num";
 	private static final String DEST = "destination";
 	private static final String USER = "username";
 	private static final String EMAIL = "email";
 	
-	
+	 /**
+     * Creates a new booking record in the database.
+     *
+     * @param booking The booking object to be created.
+     * @return True if the booking was successfully created, false otherwise.
+     * @throws DaoException If an error occurs during database interaction.
+     */
 	public boolean createBooking(Booking booking) throws DaoException{
 		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
 		try(Connection connection = App.getConnection();
@@ -29,7 +39,7 @@ public class BookingDAO {
 			pst.setString(3, booking.getEmail());
 			pst.setString(4, booking.getDestination());
 			pst.setInt(5, booking.getSeatNum());
-			int rows = pst.executeUpdate();
+			int rows = pst.executeUpdate(); 
 			return (rows >0 );
 		} catch (SQLException e) {
 			throw new DaoException("Invalid in create booking");
@@ -38,6 +48,13 @@ public class BookingDAO {
 		
 	}
 	
+	 /**
+     * Checks if an email address already exists in the user table.
+     *
+     * @param email The email address to check.
+     * @return True if the email address already exists, false otherwise.
+     * @throws DaoException If an error occurs during database interaction.
+     */
 	public  boolean emailAlreadyExists(String email) throws  DaoException {
 		String insertQuery = "SELECT * FROM user WHERE email=?";
 		try (
@@ -52,7 +69,14 @@ public class BookingDAO {
 			
 		}
 	}
-	
+	 /**
+     * Checks if a seat number already exists in the bookings table.
+     *
+     * @param shuttleId The shuttle ID.
+     * @param seatNum   The seat number to check.
+     * @return True if the seat number already exists, false otherwise.
+     * @throws DaoException If an error occurs during database interaction.
+     */
 	public  boolean seatNumAlreadyExists(int shuttleId , int seatNum) throws  DaoException {
 		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=?";
 		try 
@@ -74,6 +98,15 @@ public class BookingDAO {
 		}
 	}
 	
+	/**
+	 * Checks if a seat number already exists in the same shuttle.
+	 *
+	 * @param shuttleId The ID of the shuttle to check.
+	 * @param seatNum   The seat number to check.
+	 * @return True if the seat number already exists in the same shuttle, false otherwise.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
+	
 	public  boolean seatNumAlreadyExistsInSameShuttle(int shuttleId , int seatNum) throws  DaoException {
 		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=?";
 		try 
@@ -87,13 +120,20 @@ public class BookingDAO {
 		  if( rs.next()) {
 			  throw new SQLException("Seat num already exists in this shuttle");
 		  } else {
-			  return true;
-		  }
+			  return true; 
+		  } 
 		} catch (SQLException e) {
-			throw new DaoException(e);
-			
+			throw new DaoException(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Checks if a shuttle ID already exists in the database.
+	 *
+	 * @param shuttleId The ID of the shuttle to check.
+	 * @return True if the shuttle ID already exists, false otherwise.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
 	
 	public  boolean shuttleIdAlreadyExists(int shuttleId ) throws  DaoException {
 		String insertQuery = "SELECT * FROM shuttle WHERE shuttle_id=? ";
@@ -111,17 +151,27 @@ public class BookingDAO {
 		}
 	}
 	
+	/**
+	 * Retrieves booking information for a specific user with a given shuttle ID, email, and seat number.
+	 *
+	 * @param shuttleId The ID of the shuttle.
+	 * @param email     The email address of the user.
+	 * @param seatNum   The seat number to search for.
+	 * @return A Booking object containing the user's booking information, or null if not found.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
+	
 	public  Booking findUserForEditSeatNum(int shuttleId ,String email,  int seatNum ) throws  DaoException {
 		Booking booking = new Booking();
 		
 		String insertQuery = "SELECT * FROM bookings WHERE shuttle_id=? AND seat_num=? AND email=?";
 		try (
-			
+			 
 		Connection connection = App.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setInt(1, shuttleId);
-		pst.setInt(2, seatNum);
+		pst.setInt(2, seatNum); 
 		pst.setString(3, email);
 		ResultSet rs = pst.executeQuery();
 		if(rs.next()){
@@ -137,6 +187,14 @@ public class BookingDAO {
 			
 		}
 	}
+	
+	/**
+	 * Updates the seat number of a booking for a specific user with matching username, email, destination, and shuttle ID.
+	 *
+	 * @param booking The Booking object containing the updated seat number and identification information.
+	 * @return True if the booking was successfully updated, false otherwise.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
 	
 	public boolean editBooking(Booking booking) throws DaoException {
 		String insertQuery = "UPDATE  bookings  SET seat_num=?  WHERE  username=? AND email=? AND destination=? AND shuttle_id=?";
@@ -156,6 +214,16 @@ public class BookingDAO {
 		}
 	}
 	
+	/**
+	 * Updates the seat number and destination of a booking by its booking ID.
+	 *
+	 * @param seatNum     The new seat number for the booking.
+	 * @param destination The new destination for the booking.
+	 * @param bookingId   The unique ID of the booking to be updated.
+	 * @return True if the booking was successfully updated, false otherwise.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
+	
 	public boolean editBookingByBookingId(int seatNum , String destination , int bookingId) throws DaoException {
 		String insertQuery = "UPDATE  bookings  SET seat_num=?,   destination=? WHERE booking_id=?";
 		try (
@@ -170,7 +238,16 @@ public class BookingDAO {
 		} catch (SQLException e ) {
 			throw new DaoException(e);
 		}
-	}
+	} 
+	
+	/**
+	 * Deletes a booking with a specific email address and shuttle ID.
+	 *
+	 * @param shuttleId The ID of the shuttle associated with the booking to be deleted.
+	 * @param email     The email address of the user associated with the booking to be deleted.
+	 * @return True if the booking was successfully deleted, false otherwise.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
 	
 	public  boolean deleteBooking(int shuttleId , String email) throws DaoException {
 		String insertQuery = "DELETE FROM  bookings WHERE email = ? AND shuttle_id=?";
@@ -186,6 +263,14 @@ public class BookingDAO {
 		}
 	}
 	
+	/**
+	 * Deletes a booking by its unique booking ID.
+	 *
+	 * @param bookingId The unique ID of the booking to be deleted.
+	 * @return True if the booking was successfully deleted, false otherwise.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
+	
 	public  boolean deleteBookingByBookingId(int bookingId) throws DaoException {
 		String insertQuery = "DELETE FROM  bookings WHERE booking_id=?";
 		try (
@@ -198,6 +283,14 @@ public class BookingDAO {
 			throw new DaoException("Invalid in delete by Booking ID");
 		}
 	}
+	
+	/**
+	 * Retrieves a list of bookings associated with a specific user's email address.
+	 *
+	 * @param booking The Booking object containing the user's email address.
+	 * @return A list of Booking objects representing the bookings associated with the user.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
 	
 	public  List<Booking> viewBookingsByUser(Booking booking) throws DaoException {
 		String insertQuery = "SELECT * FROM  bookings WHERE email = ?";
@@ -228,6 +321,13 @@ public class BookingDAO {
 	
 		
 	}
+	
+	/**
+	 * Retrieves a list of all bookings in the system, intended for use by administrators.
+	 *
+	 * @return A list of Booking objects representing all bookings in the system.
+	 * @throws DaoException If an error occurs during database interaction.
+	 */
 	
 	public List<Booking> viewBookingsByAdmin() throws DaoException {
 		String insertQuery = "SELECT * FROM  bookings";

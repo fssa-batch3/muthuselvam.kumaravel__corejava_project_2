@@ -15,7 +15,7 @@ public class App {
 	 *
 	 * @return A Connection object representing the database connection.
 	 * @throws SQLException If an SQL error occurs during the connection attempt.
-	 */
+	 */ 
 	
 	public static Connection getConnection() throws SQLException{
 

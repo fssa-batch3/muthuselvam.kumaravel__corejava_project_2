@@ -184,7 +184,7 @@ public class UserValidator {
 	        } else {
 	            throw new ValidationException("Please enter a valid email address");
 	        }
-	    } else {
+	    } else { 
 	        throw new ValidationException(EMAIL_NULL_ERROR);
 	    }
 	}

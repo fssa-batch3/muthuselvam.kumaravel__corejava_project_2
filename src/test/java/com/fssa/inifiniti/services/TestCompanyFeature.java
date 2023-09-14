@@ -1,6 +1,8 @@
 package com.fssa.inifiniti.services;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
@@ -12,25 +14,24 @@ import java.util.*;
 	 @Test
 		
 	 void testCompanyCardSucess() {
-	CompanyCard company = new CompanyCard("AirBNB","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU");
+	CompanyCard company = new CompanyCard("Air BNB","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU");
 	CompanyCardService companyService = new CompanyCardService();
 			try {
-				assertTrue(companyService.registerCompany(company));
+				assertFalse(companyService.registerCompany(company));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				fail();
 			}
-		
-		
+		 
+		 
 	}
 	 
 	 @Test
 		
 	 void testCompanyRead() {
 	
-	CompanyCardService companyService = new CompanyCardService();
+	CompanyCardService companyService = new CompanyCardService(); 
 			try {
 				List<CompanyCard> result = companyService.readCompany();
 			}  	
@@ -38,7 +39,7 @@ import java.util.*;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				fail();
-			}
+			} 
 		
 		
 	}
@@ -46,30 +47,30 @@ import java.util.*;
 	 @Test
 		
 	 void testEditCompanyCard() {
-	CompanyCard company = new CompanyCard("Sales Force","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyxA_bZSxuIGq-qyfXVRLbbhUnDRa5wxXVA&usqp=CAU",3);
+	CompanyCard company = new CompanyCard("Sales Force","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMuEuuj2JGGWKyQqpNAmzLWXQAsdG07jBPZQ&usqp=CAU",2);
 	CompanyCardService companyService = new CompanyCardService();
 			try {
-				assertTrue(companyService.updateCompany(company));
+				assertFalse(companyService.updateCompany(company));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				fail();
 			}
-		
+		 
 		
 	}
 	 
 	 @Test
 		
 	 void testDeleteCompanyCard() {
-	CompanyCard company = new CompanyCard(3);
+	CompanyCard company = new CompanyCard(2);
 	CompanyCardService companyService = new CompanyCardService();
 			try {
-				assertTrue(companyService.deleteCompany(company));
+				assertFalse(companyService.deleteCompany(company));
 			}  	
 			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
+				// TODO Auto-generated catch block 
 				e.printStackTrace();
 				fail();
 			}

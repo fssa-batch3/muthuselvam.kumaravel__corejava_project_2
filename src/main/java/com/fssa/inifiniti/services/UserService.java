@@ -23,7 +23,7 @@ public class UserService {
 public boolean registerUser(User user) throws ServiceException {
 	UserDAO userdao =  new UserDAO();
 	
-	try { 
+	try {  
 		
 		if(user == null) {
 			throw new ValidationException("User cannot be null");

@@ -10,6 +10,14 @@ import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 
 public class CompanyCardService {
 	
+	/**
+	 * Registers a new company by validating and inserting its details into the database.
+	 *
+	 * @param company The CompanyCard object containing company information to be registered.
+	 * @return True if the company registration is successful, false otherwise.
+	 * @throws ServiceException If an error occurs during the registration process.
+	 */
+	
 	public boolean registerCompany(CompanyCard company) throws ServiceException {
 		CompanyCardDAO companyDao = new CompanyCardDAO();
 		try {
@@ -24,11 +32,18 @@ public class CompanyCardService {
 		}
 		}
 		 catch (DaoException | InvalidCompanyException e) {
-			
+			 
 			throw new ServiceException(e);
 		}
 	}
 
+	/**
+	 * Updates an existing company's details in the database after validation.
+	 *
+	 * @param companyCard The CompanyCard object containing updated company information.
+	 * @return True if the company details are successfully updated, false otherwise.
+	 * @throws ServiceException If an error occurs during the update process.
+	 */
 	
 	public  boolean updateCompany(CompanyCard companyCard) throws ServiceException {
 		try {
@@ -47,15 +62,29 @@ public class CompanyCardService {
 		}
 	}
 	
+	/**
+	 * Retrieves a list of all company records from the database.
+	 *
+	 * @return A list of CompanyCard objects representing all companies in the database.
+	 * @throws ServiceException If an error occurs during the retrieval process.
+	 */
 	public  List<CompanyCard> readCompany() throws ServiceException {
 		try {
 			CompanyCardDAO companyDao = new CompanyCardDAO();
 			 return  companyDao.viewCompany();
 		}
-		 catch (DaoException  e) {
+		 catch (DaoException  e) { 
 			throw new ServiceException(e);
 		}
 	}
+	
+	/**
+	 * Deletes an existing company record from the database after validation.
+	 *
+	 * @param companyCard The CompanyCard object containing the company's ID to be deleted.
+	 * @return True if the company is successfully deleted, false otherwise.
+	 * @throws ServiceException If an error occurs during the deletion process.
+	 */
 	
 	public  boolean deleteCompany(CompanyCard companyCard) throws ServiceException {
 		try {
@@ -65,9 +94,9 @@ public class CompanyCardService {
 		} else {
 			companyCardDAO.deleteCompany(companyCard.getCompanyId());
 			return true;
+		} 
 		}
-		}
-		 catch (DaoException   e) {
+		 catch (DaoException   e) { 
 			throw new ServiceException(e);
 		}
 	}

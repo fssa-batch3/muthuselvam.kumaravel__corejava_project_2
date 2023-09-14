@@ -10,9 +10,10 @@ import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
  class TestRegisterFeature {
 	 Throwable exception;
+	  
 	@Test
 	  void testRegisterSuccess() {
-		User user1 = new User("muthu","ms@gmail.com.com","Muthu@456");
+		User user1 = new User("lakshmi","lakshmi@gmail.com","Lakshmi@123");
 		UserService  UserService = new UserService();
 		try {
 			assertTrue(UserService.registerUser(user1));
@@ -21,13 +22,30 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 			e.printStackTrace(); 
 			fail(); 
 		}
-	}
-	
+	}   
+	 
 	@Test
-	
+	 
 	 void testInvalidPassword() {
 		UserService userService = new UserService();
 		User user = new User("muthu","sriyaasha@gmail.com","Muthu458");
+		
+		
+		try {
+			
+			assertFalse(userService.registerUser(user));
+			
+		} catch (ServiceException e) {
+			e.getStackTrace();
+			
+		}
+		
+	}
+	@Test
+	
+	 void testInvalidUsername() {
+		UserService userService = new UserService();
+		User user = new User("muthu123","sriyaasha@gmail.com","Muthu458");
 		
 		
 		try {
@@ -52,7 +70,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 			
 			assertFalse(userService.registerUser(user));
 		} catch (ServiceException e) {
-			System.out.println(e.getStackTrace());
+			e.printStackTrace();
 			
 		}
 	}
@@ -67,7 +85,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 			e.printStackTrace();
 
 		}
-	}
+	} 
 	
 	
 	

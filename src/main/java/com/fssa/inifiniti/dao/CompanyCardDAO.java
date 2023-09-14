@@ -13,6 +13,14 @@ import com.fssa.inifiniti.validation.CompanyValidator;
 
 public class CompanyCardDAO {
 
+	/**
+	 * Inserts a new company record into the database.
+	 *
+	 * @param companyCard The CompanyCard object containing company information.
+	 * @return True if the company is successfully inserted, false otherwise.
+	 * @throws DaoException If an error occurs during the insertion process.
+	 */
+	
 	public boolean insertCompany(CompanyCard companyCard) throws DaoException{
 		String insertQuery = "INSERT INTO company (company_name , image_url) VALUES (?,?)";
 		 CompanyValidator.validateName(companyCard.getCompanyTitle());
@@ -30,6 +38,14 @@ public class CompanyCardDAO {
 		}
 	}
 	
+	/**
+	 * Updates an existing company record in the database.
+	 *
+	 * @param companyCard The CompanyCard object containing updated company information.
+	 * @return True if the company is successfully updated, false otherwise.
+	 * @throws DaoException If an error occurs during the update process.
+	 */
+	
 	public boolean editCompany(CompanyCard companyCard) throws DaoException {
 		String insertQuery = "UPDATE  company  SET company_name=? , image_url=? WHERE company_id=?";
 		try (
@@ -44,7 +60,14 @@ public class CompanyCardDAO {
 		} catch (SQLException e ) {
 			throw new DaoException(e);
 		}
-	}
+	} 
+	
+	/**
+	 * Retrieves a list of all company records from the database.
+	 *
+	 * @return A list of CompanyCard objects representing all companies in the database.
+	 * @throws DaoException If an error occurs during the retrieval process.
+	 */
 	
 	public List<CompanyCard> viewCompany() throws DaoException {
 		String insertQuery = "SELECT * FROM  company";
@@ -68,6 +91,14 @@ public class CompanyCardDAO {
 		return companyCard;
 	}
 	
+	/**
+	 * Checks if a company with the given company ID already exists in the database.
+	 *
+	 * @param companyId The ID of the company to be checked.
+	 * @return True if the company ID exists, false otherwise.
+	 * @throws DaoException If an error occurs during the database query.
+	 */
+	
 	public boolean companyIdAlreadyExists(int companyId) throws DaoException {
 		String insertQuery = "SELECT * FROM company WHERE company_id=?";
 		try (
@@ -81,6 +112,14 @@ public class CompanyCardDAO {
 			throw new DaoException("Company ID Doesn't Exists");
 		}
 	}
+	
+	/**
+	 * Deletes a company record from the database based on its company ID.
+	 *
+	 * @param companyId The ID of the company to be deleted.
+	 * @return True if the company is successfully deleted, false otherwise.
+	 * @throws DaoException If an error occurs during the deletion process.
+	 */
 	
 	public  boolean deleteCompany(int companyId) throws DaoException {
 		String insertQuery = "DELETE FROM  company WHERE company_id=?";

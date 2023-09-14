@@ -13,20 +13,38 @@ public class BookingService {
 	
 	 public static final BookingDAO bookingDao = new BookingDAO();
 
+	 /**
+	  * Registers a new booking in the system.
+	  *
+	  * @param booking The Booking object to be registered.
+	  * @return True if the booking is successfully registered, false otherwise.
+	  * @throws ServiceException If an error occurs during the registration process.
+	  */ 
+	  
 	public static boolean registerBooking(Booking booking) throws ServiceException {
 
-		try {
+		try { 
 		BookingValidator.validateBooking(booking);	
 		BookingValidator.validateShuttleId(booking.getShuttleId());
 		return 	bookingDao.shuttleIdAlreadyExists(booking.getShuttleId()) &&
 			    bookingDao.seatNumAlreadyExistsInSameShuttle(booking.getShuttleId(), booking.getSeatNum()) && 
 				bookingDao.createBooking(booking);
-		
 		} 
-		 catch (DaoException  | ValidationException e) {
-			throw new ServiceException(e);
+		 catch (DaoException  | ValidationException e) { 
+			throw new ServiceException(e.getMessage());
 		}
-	}
+	} 
+	
+	/**
+	 * Updates an existing booking in the system with a new seat number.
+	 *
+	 * @param shuttleId The ID of the shuttle for the booking.
+	 * @param email The email of the user making the booking.
+	 * @param seatNum The current seat number to be updated.
+	 * @param changeSeatNum The new seat number to replace the current one.
+	 * @return True if the booking is successfully updated, false otherwise.
+	 * @throws ServiceException If an error occurs during the update process.
+	 */
 	
 	public static boolean updateBooking(int shuttleId , String email , int seatNum , int changeSeatNum) throws ServiceException {
 		try {
@@ -38,7 +56,7 @@ public class BookingService {
 			booking.setSeatNum(changeSeatNum);
 			bookingDao.editBooking(booking);
 			return true;
-		} 
+		}  
 		return false;
 		}
 		 catch (DaoException | ValidationException  e) {
@@ -46,19 +64,36 @@ public class BookingService {
 		}
 	}
 	
+	/**
+	 * Updates an existing booking in the system by booking ID with a new seat number and destination.
+	 *
+	 * @param bookingId The ID of the booking to be updated.
+	 * @param destination The new destination for the booking.
+	 * @param seatNum The new seat number to replace the current one.
+	 * @param shuttleId The ID of the shuttle for the booking.
+	 * @return True if the booking is successfully updated, false otherwise.
+	 * @throws ServiceException If an error occurs during the update process.
+	 */
+	
 	public boolean updateBookingByBookingId(int bookingId , String destination , int seatNum , int shuttleId) throws ServiceException {
 		try {
 		BookingValidator.validateSeatNum(seatNum);	
 		BookingValidator.validateDestination(destination);	
 		BookingValidator.validateShuttleId(shuttleId);
-			return bookingDao.editBookingByBookingId(seatNum, destination, bookingId);
+			return bookingDao.seatNumAlreadyExistsInSameShuttle(shuttleId, seatNum) && 				  				 					 				   bookingDao.editBookingByBookingId(seatNum, destination, bookingId);
 		}
 		 catch (DaoException | ValidationException  e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
-
-	
+ 
+	/**
+	 * Deletes a booking from the system based on user email and shuttle ID.
+	 *
+	 * @param booking The Booking object containing email and shuttle ID for deletion.
+	 * @return True if the booking is successfully deleted, false otherwise.
+	 * @throws ServiceException If an error occurs during the deletion process.
+	 */
 	
 	public static boolean deleteBooking(Booking booking) throws ServiceException {
 		try {
@@ -74,6 +109,14 @@ public class BookingService {
 		}
 	}
 	
+	/**
+	 * Deletes a booking from the system by booking ID.
+	 *
+	 * @param bookingId The ID of the booking to be deleted.
+	 * @return True if the booking is successfully deleted, false otherwise.
+	 * @throws ServiceException If an error occurs during the deletion process.
+	 */
+	
 	public static boolean deleteBookingByBookingId(int bookingId) throws ServiceException {
 		try {
 			return bookingDao.deleteBookingByBookingId(bookingId);
@@ -83,6 +126,13 @@ public class BookingService {
 		}
 	}
 
+	/**
+	 * Retrieves a list of bookings by user email.
+	 *
+	 * @param booking The Booking object containing the user's email.
+	 * @return A list of Booking objects associated with the user's email.
+	 * @throws ServiceException If an error occurs during the retrieval process.
+	 */
 	
 	public List<Booking> readBookingByUser(Booking booking) throws ServiceException {
 		try {
@@ -99,6 +149,13 @@ public class BookingService {
 		}
 		
 	}
+	
+	/**
+	 * Retrieves a list of all bookings in the system, intended for use by administrators.
+	 *
+	 * @return A list of Booking objects representing all bookings in the system.
+	 * @throws ServiceException If an error occurs during the retrieval process.
+	 */
 	
 	public  List<Booking> readBookingByAdmin() throws ServiceException {
 		try {

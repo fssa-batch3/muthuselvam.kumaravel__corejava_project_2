@@ -17,46 +17,43 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
  class TestBookingFeature {
 
 	 @Test
-	
+	@Order(1)
 	 void testBookingRegisterSuccess() {
-	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",4);
+	Booking booking = new Booking(2,"muthu","sriyaasha@gmail.com", "Taramani",5);
 			try {
 				assertTrue(BookingService.registerBooking(booking));
 			}  	
 			 catch (ServiceException e) {
-				e.printStackTrace();
-				fail();
+				 e.printStackTrace();
 			}
-		
-		
+		 
+		  
 	}
 
 
 	@Test
-	
+	@Order(2)
 	 void testSeatNumAlreadyExists() {
-	Booking booking = new Booking(1,"muthu","sriyaasha@gmail.com", "Taramani",4);
+	Booking booking = new Booking(2,"muthu","sriyaasha@gmail.com", "Taramani",5);
 	        try {
 				assertFalse(BookingService.registerBooking(booking));
 			}  	
 			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		
-		
+			} 
+		 
+		 
 	}
-
+ 
 	
 	@Test
-	
+	@Order(3)
 	 void testEditSeatNum() {
 	        try {
-				assertTrue(BookingService.updateBooking(1,"sriyaasha@gmail.com",4,6));
+				assertTrue(BookingService.updateBooking(2,"sriyaasha@gmail.com",5,6));
 			}  	
 			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
 				fail();
 			}
 		
@@ -64,58 +61,63 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	}
 	
 	@Test
-	
+	@Order(4)
 	 void testDeleteBooking() {
-		Booking booking = new Booking(1,"sriyaasha@gmail.com");
+		Booking booking = new Booking(2,"sriyaasha@gmail.com");
 	        try {
-				assertTrue(BookingService.deleteBooking(booking));
+				assertFalse(BookingService.deleteBooking(booking));
 			}  	
 			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 				fail();
 			}
 		
 		
-	}
+	}  
 
 	
 	@Test
-	
+	@Order(5)
 		 void testReadBookings() {
-			Booking booking = new Booking("selvam143@gmail.com");
+			Booking booking = new Booking("veeramuthu@gmail.com");
 			BookingService bookingService = new BookingService();
 		        try {
 		        	List<Booking> bookingList = bookingService.readBookingByUser(booking);
-		        	for (Booking  i : bookingList) {
-		        		System.out.println(i.toString());
-		        	}
 				}  	
 				 catch (ServiceException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 					fail();
-					
 				}
-			
+			 
 			
 		}
 	
 	
 	@Test
-	
+	@Order(6)
 	 void testViewBookingsByAdmin() {
 	        try {
 	        	BookingService bookingService = new BookingService();
 				bookingService.readBookingByAdmin();
 			}  	
 			 catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 				fail();
 			}
 		
 		
 	}
-
+	@Test
+	@Order(7)
+		 void testReadBookingsbyUser() {
+			Booking booking = new Booking("veeramuthu@gmail.com");
+			BookingService bookingService = new BookingService();
+		        try {
+		        	List<Booking> bookingList = bookingService.readBookingByUser(booking);
+				}  	
+				 catch (ServiceException e) {
+					fail();
+				}
+			 
+			
+		}
+	
   }

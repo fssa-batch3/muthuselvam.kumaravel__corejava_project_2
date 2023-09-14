@@ -15,7 +15,7 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 	
 	 void testloginSuccess() {
 			try {
-				assertTrue(UserService.loginUser("selvam143@gmail.com","Muthu@143"));
+				assertTrue(UserService.loginUser("veeramuthu@gmail.com","Veeramuthu@143"));
 			}  	
 			 catch (ServiceException e) {
 				// TODO Auto-generated catch block
@@ -23,20 +23,20 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 				fail();
 			}
 		
-		
+		  
 	}
 
-@Test
+@Test 
 
 void testInvalidloginSuccess() {
 		try {
-			assertFalse(UserService.loginUser("mom@gmail.com","Muthu@456"));
+			assertFalse(UserService.loginUser("joel@gmail.com","Muthu@456"));
 		}  	
 		 catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-		}
+		} 
 	
 	
 }

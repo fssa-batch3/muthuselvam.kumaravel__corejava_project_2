@@ -17,7 +17,7 @@ class TestShuttleFeature {
 	 @Test
 		
 	 void testShuttleRegisterSuccess() {
-	Shuttle shuttle = new Shuttle(2,"FRESHWORKS", "29/08/2023" , "20:00");
+	Shuttle shuttle = new Shuttle(16,"FRESHWORKS", "08/09/2023" , "18:00");
 	ShuttleService shuttleService = new ShuttleService();
 			try {
 				assertTrue(shuttleService.registerShuttle(shuttle));
@@ -29,10 +29,10 @@ class TestShuttleFeature {
 			}
 		
 		
-	}
+	} 
 	 
 	 @Test
-		
+		 
 	 void testNullInput() {
 	Shuttle shuttle =  null;
 	ShuttleService shuttleService = new ShuttleService();

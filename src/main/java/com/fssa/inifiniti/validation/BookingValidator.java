@@ -13,19 +13,19 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 
 public class BookingValidator {
 	
-	
+	 
 	/**
 	 * Validates the attributes of a Booking object.
 	 *
 	 * @param booking The Booking object to validate.
 	 * @return true if all attributes of the Booking object are valid, otherwise false.
 	 * @throws ValidationException If any attribute of the Booking object is invalid.
-	 */
+	 */ 
 	
 public static boolean validateBooking(Booking booking) throws ValidationException {
 		
 	validateBookingNotNull(booking);
-	validateName(booking.getUserName());
+	validateName(booking.getUserName()); 
 	validateEmail(booking.getEmail());
 	validateDestination(booking.getDestination());
 	validateSeatNum(booking.getSeatNum());
@@ -109,7 +109,7 @@ public static boolean validateBookingNotNull(Booking booking)throws ValidationEx
 	
 	public static  boolean validateSeatNum(int seatNum) throws ValidationException{
 		
-		boolean match = false;
+		boolean match = false; 
 		if(seatNum>=1 && seatNum<=7) {
 			match = true;
 		}

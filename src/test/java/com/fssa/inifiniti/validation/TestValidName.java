@@ -22,7 +22,7 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 			e.printStackTrace();
 		}
 	
-	}
+	} 
 	
 	@Test
 	
@@ -30,6 +30,36 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 		
 		
 		 exception = assertThrows(ValidationException.class, () -> UserValidator.validateName("muthu@"));
+			assertEquals("Name cannot contain other than letters", exception.getMessage());
+	
+	}
+	
+	@Test
+	
+	 void testInvalidNameWithSpaces() {
+		
+		
+		 exception = assertThrows(ValidationException.class, () -> UserValidator.validateName("muthu selvam"));
+			assertEquals("Name cannot contain other than letters", exception.getMessage());
+	
+	}
+	
+	@Test
+	
+	 void testInvalidNameWithNum() {
+		
+		
+		 exception = assertThrows(ValidationException.class, () -> UserValidator.validateName("12345"));
+			assertEquals("Name cannot contain other than letters", exception.getMessage());
+	
+	}
+	
+	@Test
+	
+	 void testInvalidNameWithEmpty() {
+		
+		
+		 exception = assertThrows(ValidationException.class, () -> UserValidator.validateName("  "));
 			assertEquals("Name cannot contain other than letters", exception.getMessage());
 	
 	}

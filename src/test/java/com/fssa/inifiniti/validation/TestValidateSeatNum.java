@@ -21,7 +21,7 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	
+	 
 	}
 	
 	@Test
@@ -34,5 +34,35 @@ import com.fssa.inifiniti.validationexceptions.ValidationException;
 				assertEquals("Seat Num should be greater that or equal to 1 and  less than 7", exception.getMessage());
 		
 	}
-
+	@Test
+	
+	 void testInvalidSeatNumWithNegativeNum()  {
+		
+		
+			
+			 exception = assertThrows(ValidationException.class, () -> BookingValidator.validateSeatNum(-1));
+				assertEquals("Seat Num should be greater that or equal to 1 and  less than 7", exception.getMessage());
+		
+	}
+	@Test
+	
+	 void testInvalidSeatNumWithExceedingNum()  {
+		
+		
+			
+			 exception = assertThrows(ValidationException.class, () -> BookingValidator.validateSeatNum(10));
+				assertEquals("Seat Num should be greater that or equal to 1 and  less than 7", exception.getMessage());
+		
+	}
+	
+	@Test
+	
+	 void testInvalidSeatNumWithZero()  {
+		
+		
+			
+			 exception = assertThrows(ValidationException.class, () -> BookingValidator.validateSeatNum(0));
+				assertEquals("Seat Num should be greater that or equal to 1 and  less than 7", exception.getMessage());
+		
+	}
 }

@@ -13,6 +13,13 @@ import com.fssa.inifiniti.model.Shuttle;
 
 public class ShuttleDAO {
 
+	/**
+	 * Inserts a new shuttle record into the database.
+	 *
+	 * @param shuttle The Shuttle object containing shuttle details to be inserted.
+	 * @return True if the shuttle creation is successful, false otherwise.
+	 * @throws DaoException If an error occurs during the insertion process.
+	 */
 	public  boolean createShuttle(Shuttle shuttle) throws DaoException{
 		String insertQuery = "INSERT INTO shuttle (shuttle_id ,company_name ,  date , time ) VALUES (?,?,?,?)";
 		try(Connection connection = App.getConnection();
@@ -20,14 +27,22 @@ public class ShuttleDAO {
 			pst.setInt(1, shuttle.getShuttleId());
 			pst.setString(2, shuttle.getCompanyName());
 			pst.setString(3, shuttle.getDate());
-			pst.setString(4, shuttle.getTime());
+			pst.setString(4, shuttle.getTime()); 
 			int rows = pst.executeUpdate();
 			return (rows == 1) ;
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new DaoException(e); 
 		}
 		
 	}
+	
+	/**
+	 * Retrieves a list of shuttle times and dates for a specific company from the database.
+	 *
+	 * @param title The company name for which shuttle times and dates are to be retrieved.
+	 * @return A list of Shuttle objects representing time and date information for the company's shuttles.
+	 * @throws DaoException If an error occurs during the retrieval process.
+	 */
 	
 	public List<Shuttle> viewShuttleTimeAndDate(String title) throws DaoException {
 		String insertQuery = "SELECT time , date FROM  shuttle where company_name=?";
@@ -50,6 +65,15 @@ public class ShuttleDAO {
 		return shuttleList;
 	}
 	
+	/**
+	 * Retrieves the shuttle ID based on the specified date, time, and company name.
+	 *
+	 * @param date        The date of the shuttle.
+	 * @param time        The time of the shuttle.
+	 * @param companyName The name of the company associated with the shuttle.
+	 * @return A Shuttle object containing the shuttle ID.
+	 * @throws DaoException If an error occurs during the retrieval process or if the company name is incorrect.
+	 */
 	
 	public  Shuttle getIdByShuttleDateAndTime(String date ,String time , String companyName) throws DaoException{
 		String insertQuery = "SELECT shuttle_id from shuttle where date=? and time=? and company_name=?";

@@ -16,6 +16,13 @@ public class UserDAO {
 	
 	private static final String SQLINSERTQUERY = "SELECT * FROM user WHERE email=?";
 
+	/**
+	 * Inserts a new user into the database.
+	 *
+	 * @param user The User object containing user details to be inserted.
+	 * @return True if the user insertion is successful, false otherwise.
+	 * @throws DaoException If an error occurs during the insertion process or if the user details are invalid.
+	 */
 	
 	public boolean insertUser(User user) throws DaoException {
 		String insertQuery = "INSERT INTO user (username , email , password) VALUES (?,?,?)";
@@ -38,12 +45,19 @@ public class UserDAO {
 		}
 	}
 	
+	/**
+	 * Retrieves user information by email.
+	 *
+	 * @param email The email address of the user to retrieve.
+	 * @return A User object containing user details if the email is registered; otherwise, an exception is thrown.
+	 * @throws DaoException If an error occurs during the retrieval process or if the email is not registered.
+	 */
 	
 	public  User findUserByEmail(String email) throws  DaoException {
 		User user = new User();
 		String insertQuery = SQLINSERTQUERY;
 		try (
-			
+			 
 		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery)){
 		pst.setString(1, email);
@@ -61,6 +75,14 @@ public class UserDAO {
 			
 		}
 	}
+	
+	/**
+	 * Retrieves the username associated with the provided email.
+	 *
+	 * @param email The email address for which to retrieve the associated username.
+	 * @return A User object containing the username if the email is registered; otherwise, an exception is thrown.
+	 * @throws DaoException If an error occurs during the retrieval process or if the email is not registered.
+	 */
 	
 	public  User findUserNameByEmail(String email) throws  DaoException {
 		User user = new User();
@@ -81,6 +103,13 @@ public class UserDAO {
 		}
 	}
 	
+	/**
+	 * Checks if an email address already exists in the database.
+	 *
+	 * @param email The email address to check for existence.
+	 * @return True if the email address does not exist in the database; otherwise, an exception is thrown.
+	 * @throws DaoException If an error occurs during the existence check process or if the email already exists.
+	 */
 	
 	public  boolean emailAlreadyExists(String email) throws  DaoException {
 		String insertQuery = SQLINSERTQUERY;
@@ -99,6 +128,13 @@ public class UserDAO {
 			
 		}
 	}
+	
+	/**
+	 * Retrieves a list of all users in the database.
+	 *
+	 * @return A list of User objects containing information about all registered users.
+	 * @throws DaoException If an error occurs during the retrieval process.
+	 */
 	
 	public List<User> viewAllUser() throws DaoException {
 		String insertQuery = "SELECT * FROM  user";
@@ -122,7 +158,13 @@ public class UserDAO {
 		return users;
 	}
 	
-	
+	/**
+	 * Sets the "logged_in" status for a user in the database.
+	 *
+	 * @param email The email address of the user to update the "logged_in" status.
+	 * @return True if the status update is successful; otherwise, an exception is thrown.
+	 * @throws DaoException If an error occurs during the status update process or if the email is not found.
+	 */
 	
 public  boolean setLoggedIn(String email) throws DaoException {
 		
