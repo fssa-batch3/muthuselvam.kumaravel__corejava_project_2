@@ -116,4 +116,24 @@ public class ShuttleDAO {
 	}
 	
 	
+	public List<String> viewTimeByCompanyAndDate(String company , String date) throws DaoException {
+		String insertQuery = "SELECT time FROM  shuttle where company_name=?  AND date = ?";
+		  List<String> shuttleList = new ArrayList<>();
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			pst.setString(1,company);
+			pst.setString(2,date);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				shuttleList.add(rs.getString("time"));
+				
+			}
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the time and date of shuttle");
+		}
+		return shuttleList;
+	}
+	
 }

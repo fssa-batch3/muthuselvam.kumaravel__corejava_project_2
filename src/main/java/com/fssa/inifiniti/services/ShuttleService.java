@@ -79,6 +79,16 @@ public class ShuttleService {
 			}
 		}
 		
+		public  List<String> readTimeByCompanyDate(String company , String date) throws ServiceException {
+			try {
+				ShuttleDAO shuttleDAO = new ShuttleDAO();
+				return shuttleDAO.viewTimeByCompanyAndDate(company , date);
+			}
+			 catch (DaoException  e) {
+				throw new ServiceException(e);
+			}
+		}
+		
 		
 
 }

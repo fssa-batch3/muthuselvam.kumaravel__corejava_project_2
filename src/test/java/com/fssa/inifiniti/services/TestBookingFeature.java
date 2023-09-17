@@ -119,5 +119,18 @@ import com.fssa.inifiniti.services.exceptions.ServiceException;
 			 
 			
 		}
+	@Test
+	 void testreadRowCount() {
+		 BookingService bookingService = new BookingService();
+			        try {
+			         int count = 	bookingService.readRowCountByShuttleId(1);
+			         System.out.println(count);
+					}  	
+					 catch (ServiceException e) {
+						e.printStackTrace();
+					} 
+				 
+				 
+			}
 	
   }

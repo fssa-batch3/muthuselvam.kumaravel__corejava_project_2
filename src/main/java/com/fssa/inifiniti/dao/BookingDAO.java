@@ -395,5 +395,26 @@ public class BookingDAO {
 		
 	}
 	
+	public int getRowCountByShuttleId(int shuttleId) throws DaoException {
+		String insertQuery = "SELECT * FROM  bookings where shuttle_id=?";
+		try (
+			Connection connection = App.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery)){
+			pst.setInt(1, shuttleId);
+			ResultSet rs = pst.executeQuery();
+			int rowCount = 0;
+			while (rs.next()) {
+			    rowCount++;
+			}
+			return rowCount ;
+
+		} catch (SQLException e) {
+		e.printStackTrace();
+			throw new DaoException("Unable to view all the bookings");
+		}
+	
+		
+	}
+	
 
 }

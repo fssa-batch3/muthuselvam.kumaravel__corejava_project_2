@@ -200,5 +200,16 @@ public class BookingService {
 			throw new ServiceException(e.getMessage());
 		}
 	} 
+	
+	
+	public  int readRowCountByShuttleId(int shuttleId) throws ServiceException {
+		try {
+		return bookingDao.getRowCountByShuttleId(shuttleId);
+		}
+		 catch (DaoException  e) {
+			 e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
 
 }
