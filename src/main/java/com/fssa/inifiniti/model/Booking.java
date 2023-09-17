@@ -13,7 +13,7 @@ public class Booking {
 	private int seatNum;
 	private int changeSeatNum;
 	private int bookingId;
-	
+	private int userId;
 	
 	/**
 	 * Initializes a new booking with the provided information.
@@ -24,7 +24,7 @@ public class Booking {
 	 * @param destination The destination of the shuttle service.
 	 * @param seatNum The seat number selected for the booking.
 	 */
-	public Booking(int shuttleId, String userName,String email, String destination, int seatNum) {
+	public Booking(int shuttleId, String userName,String email, String destination, int seatNum ) {
 		this.shuttleId = shuttleId;
 		this.userName = userName;
 		this.destination = destination;
@@ -222,7 +222,16 @@ public class Booking {
 	@Override
 	public String toString() {
 		return "Booking [shuttleId=" + shuttleId + ", userName=" + userName + ", destination=" + destination
-				+ ", email=" + email + ", seatNum=" + seatNum + ", changeSeatNum=" + changeSeatNum + "]";
+				+ ", email=" + email + ", seatNum=" + seatNum + ", changeSeatNum=" + changeSeatNum + ", bookingId="
+				+ bookingId + ", userId=" + userId + "]";
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	

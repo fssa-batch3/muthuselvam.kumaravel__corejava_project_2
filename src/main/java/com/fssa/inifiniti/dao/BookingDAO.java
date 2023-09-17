@@ -31,7 +31,7 @@ public class BookingDAO {
      * @throws DaoException If an error occurs during database interaction.
      */
 	public boolean createBooking(Booking booking) throws DaoException{
-		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num ) VALUES (?,?,?,?,?)";
+		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num) VALUES (?,?,?,?,?)";
 		try(Connection connection = App.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insertQuery)){
 			pst.setInt(1, booking.getShuttleId());
@@ -375,6 +375,25 @@ public class BookingDAO {
 	    }
 	}
 	
+	
+	public boolean createBookingWithUserId(Booking booking) throws DaoException{
+		String insertQuery = "INSERT INTO bookings (shuttle_id , username , email, destination , seat_num , user_id) VALUES (?,?,?,?,?,?)";
+		try(Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)){
+			pst.setInt(1, booking.getShuttleId());
+			pst.setString(2, booking.getUserName());
+			pst.setString(3, booking.getEmail());
+			pst.setString(4, booking.getDestination());
+			pst.setInt(5, booking.getSeatNum());
+			pst.setInt(6, booking.getUserId());
+			int rows = pst.executeUpdate(); 
+			return (rows >0 );
+		} catch (SQLException e) {
+			throw new DaoException("Invalid in create booking");
+			
+		}
+		
+	}
 	
 
 }

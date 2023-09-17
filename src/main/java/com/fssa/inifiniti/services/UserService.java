@@ -180,5 +180,20 @@ public  boolean checkColumnHasNullValues(String email) throws ServiceException {
 }
 
 
+public  User getUserIdByEmail(String email) throws ServiceException {
+	UserDAO userdao =  new UserDAO();
+	UserValidator userValidator =  new UserValidator();
+	
+	
+	try {
+		userValidator.validateEmailId(email);
+		return userdao.readUserIdByEmail(email);
+		}
+		 catch (DaoException  | ValidationException e) {
+			
+			throw new ServiceException(e);
+		}
+	
+}
 
 }  

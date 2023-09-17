@@ -5,6 +5,7 @@ import java.util.List;
 import com.fssa.inifiniti.dao.BookingDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.Booking;
+import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
 import com.fssa.inifiniti.validation.BookingValidator;
 import com.fssa.inifiniti.validationexceptions.ValidationException;
@@ -175,5 +176,29 @@ public class BookingService {
 		}
 	}
 	
+	
+	public  boolean registerBookingWithUserId(Booking booking) throws ServiceException {
+
+		try { 
+			UserService userService = new UserService();
+			User user = new User();
+			User user2 = new User();
+		BookingValidator.validateEmail(booking.getEmail());	
+		BookingValidator.validateDestination(booking.getDestination());
+		Booking bookingObj = new Booking();
+		bookingObj.setEmail(booking.getEmail());
+		bookingObj.setDestination(booking.getDestination());
+		bookingObj.setSeatNum(booking.getSeatNum());
+		bookingObj.setShuttleId(booking.getShuttleId());
+		user = userService.findUserNameByEmail(booking.getEmail());
+		bookingObj.setUserName(user.getUserName());
+		user2 = userService.getUserIdByEmail(booking.getEmail());
+		bookingObj.setUserId(user2.getId());
+		return  bookingDao.createBookingWithUserId(bookingObj);
+		} 
+		 catch (DaoException  | ValidationException e) { 
+			throw new ServiceException(e.getMessage());
+		}
+	} 
 
 }

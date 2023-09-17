@@ -263,5 +263,22 @@ public  boolean setLoggedIn(String email) throws DaoException {
         }
     }
 	
+	
+	public User readUserIdByEmail(String email) throws DaoException {
+		String insertQuery = "SELECT id FROM  user where  email = ?";
+		User user = new User();
+		try (Connection connection = App.getConnection();
+				PreparedStatement pst = connection.prepareStatement(insertQuery)) {
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				user.setId(rs.getInt("id"));
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Unable to View the user");
+		}
+		return user;
+	}
 
 }
