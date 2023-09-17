@@ -187,7 +187,7 @@ public  boolean setLoggedIn(String email) throws DaoException {
 	}
 
 	public boolean editUser(User user) throws DaoException{
-		String insertQuery = "UPDATE user SET first_name=?, last_name=?, phone_number=?, location=? WHERE email=?";
+		String insertQuery = "UPDATE user SET firstname=?, lastname=?, phonenumber=?, location=? WHERE email=?";
 
 		try (
 				Connection connection = App.getConnection();
@@ -219,10 +219,10 @@ public  boolean setLoggedIn(String email) throws DaoException {
 			pst.setString(1, email);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				user.setFirstName(rs.getString("first_name"));
-				user.setLastName(rs.getString("last_name"));
+				user.setFirstName(rs.getString("firstname"));
+				user.setLastName(rs.getString("lastname"));
 				user.setLocation(rs.getString("location"));
-				user.setPhoneNumber(rs.getString("phone_number"));
+				user.setPhoneNumber(rs.getString("phonenumber"));
 			}
 			return user;
 		} catch (SQLException e) {
@@ -234,7 +234,7 @@ public  boolean setLoggedIn(String email) throws DaoException {
 	
 	
 	public boolean checkColumnHasNullValues(String email) throws DaoException {
-        String query = "SELECT first_name , last_name , location , phone_number FROM user  WHERE email = ?";
+        String query = "SELECT firstname , lastname , location , phonenumber FROM user  WHERE email = ?";
         try (Connection connection = App.getConnection();
         		PreparedStatement pst = connection.prepareStatement(query)) {
         	

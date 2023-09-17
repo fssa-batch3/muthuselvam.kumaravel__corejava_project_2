@@ -96,7 +96,7 @@ public class ShuttleDAO {
 	}
 	
 	public List<Shuttle> getAllTime() throws DaoException {
-		String insertQuery = "SELECT time  FROM  shuttle ";
+		String insertQuery = "SELECT time , date FROM  shuttle ";
 		  List<Shuttle> shuttleList = new ArrayList<>();
 		try (
 		Connection connection = App.getConnection();
@@ -106,6 +106,7 @@ public class ShuttleDAO {
 			while (rs.next()) {
 				Shuttle  shuttle = new Shuttle();
 				shuttle.setTime(rs.getString("time"));
+				shuttle.setDate(rs.getString("date"));
 				shuttleList.add(shuttle);
 			}
 		} catch (SQLException e ) {

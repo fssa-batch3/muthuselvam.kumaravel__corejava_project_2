@@ -357,5 +357,24 @@ public class BookingDAO {
 	
 	
 	
+	public List<Integer> readSeatNumByShuttleId(int shuttleId) throws DaoException {
+	    String insertQuery = "SELECT seat_num FROM bookings WHERE shuttle_id = ?";
+	    List<Integer> bookings = new ArrayList<>();
+	    try (
+	        Connection connection = App.getConnection();
+	        PreparedStatement pst = connection.prepareStatement(insertQuery)
+	    ) {
+	        pst.setInt(1, shuttleId);
+	        ResultSet rs = pst.executeQuery();
+	        while (rs.next()) {
+	            bookings.add(rs.getInt("seat_num"));
+	        }
+	        return bookings;
+	    } catch (SQLException e) {
+	        throw new DaoException("Unable to view all the seat num");
+	    }
+	}
+	
+	
 
 }

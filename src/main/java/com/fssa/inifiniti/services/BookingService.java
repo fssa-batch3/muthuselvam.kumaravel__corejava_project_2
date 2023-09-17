@@ -165,5 +165,15 @@ public class BookingService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	public  List<Integer> readSeatNumByshuttleId(int shuttleId) throws ServiceException {
+		try {
+		return bookingDao.readSeatNumByShuttleId(shuttleId);
+		}
+		 catch (DaoException  e) {
+			throw new ServiceException(e);
+		}
+	}
+	
 
 }
