@@ -136,4 +136,25 @@ public class ShuttleDAO {
 		return shuttleList;
 	}
 	
+	
+	public Shuttle viewDateAndTimeByShuttleId(int id) throws DaoException {
+		String insertQuery = "SELECT time , date FROM  shuttle where shuttle_id=?";
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			Shuttle  shuttle = new Shuttle();
+			pst.setInt(1,id);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				shuttle.setDate(rs.getString("date"));
+				shuttle.setTime(rs.getString("time"));
+			}
+			return shuttle;
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the time and date of shuttle");
+		}
+		
+	}
+	
 }

@@ -89,6 +89,16 @@ public class ShuttleService {
 			}
 		}
 		
+		public  Shuttle readDateAndTimeByShuttleId(int id) throws ServiceException {
+			try {
+				ShuttleDAO shuttleDAO = new ShuttleDAO();
+				return shuttleDAO.viewDateAndTimeByShuttleId(id);
+			}
+			 catch (DaoException  e) {
+				throw new ServiceException(e);
+			}
+		}
+		
 		
 
 }
