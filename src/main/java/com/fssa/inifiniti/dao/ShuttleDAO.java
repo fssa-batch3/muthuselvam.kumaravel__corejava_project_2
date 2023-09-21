@@ -21,13 +21,12 @@ public class ShuttleDAO {
 	 * @throws DaoException If an error occurs during the insertion process.
 	 */
 	public  boolean createShuttle(Shuttle shuttle) throws DaoException{
-		String insertQuery = "INSERT INTO shuttle (shuttle_id ,company_name ,  date , time ) VALUES (?,?,?,?)";
+		String insertQuery = "INSERT INTO shuttle (company_name ,  date , time ) VALUES (?,?,?)";
 		try(Connection connection = App.getConnection();
 				PreparedStatement pst = connection.prepareStatement(insertQuery)){
-			pst.setInt(1, shuttle.getShuttleId());
-			pst.setString(2, shuttle.getCompanyName());
-			pst.setString(3, shuttle.getDate());
-			pst.setString(4, shuttle.getTime()); 
+			pst.setString(1, shuttle.getCompanyName());
+			pst.setString(2, shuttle.getDate());
+			pst.setString(3, shuttle.getTime()); 
 			int rows = pst.executeUpdate();
 			return (rows == 1) ;
 		} catch (SQLException e) {
@@ -45,7 +44,7 @@ public class ShuttleDAO {
 	 */
 	
 	public List<Shuttle> viewShuttleTimeAndDate(String title) throws DaoException {
-		String insertQuery = "SELECT time , date FROM  shuttle where company_name=?";
+		String insertQuery = "SELECT shuttle_id , time , date FROM  shuttle where company_name=?";
 		  List<Shuttle> shuttleList = new ArrayList<>();
 		try (
 		Connection connection = App.getConnection();
@@ -55,6 +54,7 @@ public class ShuttleDAO {
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				Shuttle  shuttle = new Shuttle();
+				shuttle.setShuttleId(rs.getInt("shuttle_id"));
 				shuttle.setDate(rs.getString("date"));
 				shuttle.setTime(rs.getString("time"));
 				shuttleList.add(shuttle);
@@ -151,6 +151,38 @@ public class ShuttleDAO {
 				shuttle.setTime(rs.getString("time"));
 			}
 			return shuttle;
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the time and date of shuttle");
+		}
+		
+	}
+	
+	public boolean updateDateAndTimeByShuttleId(int id,String time , String date) throws DaoException {
+		String insertQuery = "UPDATE shuttle SET time=? , date=? where shuttle_id=?";
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			pst.setString(1,time);
+			pst.setString(2, date);
+			pst.setInt(3, id);;
+			int rows = pst.executeUpdate();
+			return rows > 0 ;
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the time and date of shuttle");
+		}
+		
+	}
+	
+	public boolean deleteDateAndTimeByShuttleId(int id) throws DaoException {
+		String insertQuery = "DELETE FROM shuttle where shuttle_id=?";
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			pst.setInt(1, id);
+			int rows = pst.executeUpdate();
+			return rows > 0 ;
 		} catch (SQLException e ) {
 			throw new DaoException("Unable to View the time and date of shuttle");
 		}

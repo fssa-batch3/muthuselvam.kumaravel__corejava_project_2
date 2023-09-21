@@ -21,7 +21,6 @@ public class ShuttleService {
 	  * @throws ServiceException If an error occurs during the registration process or if the shuttle details are invalid.
 	  */
 		public  boolean registerShuttle(Shuttle shuttle) throws ServiceException {
- 
 			try {
 			ShuttleValidator.validateShuttle(shuttle);
 				return shuttleDao.createShuttle(shuttle); 
@@ -99,6 +98,29 @@ public class ShuttleService {
 			}
 		}
 		
-		
+		public  boolean updateDateAndTimeByShuttleId(int id , String date , String time) throws ServiceException {
+			 
+			try {
+			ShuttleValidator.validateDate(date);
+			ShuttleValidator.validateTime(time);
+				return shuttleDao.updateDateAndTimeByShuttleId(id, time, date); 
+			}
+			 catch (DaoException e) {
+				
+				throw new ServiceException(e.getMessage());
+			}
+		}
+
+		public  boolean deleteDateAndTimeByShuttleId(int id ) throws ServiceException {
+			 
+			try {
+			
+				return shuttleDao.deleteDateAndTimeByShuttleId(id); 
+			}
+			 catch (DaoException e) {
+				
+				throw new ServiceException(e.getMessage());
+			}
+		}
 
 }

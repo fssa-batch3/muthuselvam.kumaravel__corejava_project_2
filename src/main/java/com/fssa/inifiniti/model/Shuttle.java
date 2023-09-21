@@ -35,8 +35,7 @@ public class Shuttle {
 	 * @param time         The time when the shuttle service is scheduled.
 	 */
 	
-	public Shuttle(int shuttleId, String companyName, String date, String time) {
-		this.shuttleId = shuttleId;
+	public Shuttle( String companyName, String date, String time) {
 		this.companyName = companyName;
 		this.date = date;
 		this.time = time;
