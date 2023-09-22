@@ -416,5 +416,22 @@ public class BookingDAO {
 		
 	}
 	
+	
+	public boolean checkExistingBookingInSmaeShuttle(int shuttleId , String email) throws DaoException {
+		String insertQuery = "SELECT * FROM  bookings where shuttle_id=? AND email=?";
+		try (
+			Connection connection = App.getConnection();
+			PreparedStatement pst = connection.prepareStatement(insertQuery)){
+			pst.setInt(1, shuttleId);
+			pst.setString(2,email);
+			ResultSet rs = pst.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+		e.printStackTrace();
+			throw new DaoException("Unable to view all the bookings");
+		}
+	
+		
+	}
 
 }

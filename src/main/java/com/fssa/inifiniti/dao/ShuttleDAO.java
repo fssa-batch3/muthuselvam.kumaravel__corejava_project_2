@@ -189,4 +189,19 @@ public class ShuttleDAO {
 		
 	}
 	
+	public boolean checkBookingAlreadyExistsinSameShuttle(int id) throws DaoException {
+		String insertQuery = "DELETE FROM shuttle where shuttle_id=?";
+		try (
+		Connection connection = App.getConnection();
+		PreparedStatement pst = connection.prepareStatement(insertQuery)
+				){
+			pst.setInt(1, id);
+			int rows = pst.executeUpdate();
+			return rows > 0 ;
+		} catch (SQLException e ) {
+			throw new DaoException("Unable to View the time and date of shuttle");
+		}
+		
+	}
+	
 }

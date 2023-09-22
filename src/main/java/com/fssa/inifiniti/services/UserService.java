@@ -62,17 +62,15 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 		if(password == null || password.trim().isEmpty()) {
 			throw new ValidationException("Password cannot be null");
 		}
-	UserValidator.validateEmail(email);
-	UserValidator.validatePassword(password);
 	 User  user = userdao.findUserByEmail(email);
 	 if( email.equals(user.getEmail())){
 		if(	password.equals(user.getPassword())) {
 		 return true;
 	 } else {
-		 throw new DaoException("Invalid Password");
+		 throw new DaoException("Invalid Credentials");
 		 } 
 	 } else {
-		 throw new DaoException("Invalid Email");
+		 throw new DaoException("Invalid Credentials");
 	 }
 	}
 	 catch (DaoException | ValidationException e) {
