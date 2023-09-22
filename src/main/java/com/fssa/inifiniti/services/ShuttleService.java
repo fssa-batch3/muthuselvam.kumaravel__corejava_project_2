@@ -106,7 +106,6 @@ public class ShuttleService {
 				return shuttleDao.updateDateAndTimeByShuttleId(id, time, date); 
 			}
 			 catch (DaoException e) {
-				
 				throw new ServiceException(e.getMessage());
 			}
 		}
@@ -114,7 +113,6 @@ public class ShuttleService {
 		public  boolean deleteDateAndTimeByShuttleId(int id ) throws ServiceException {
 			 
 			try {
-			
 				return shuttleDao.deleteDateAndTimeByShuttleId(id); 
 			}
 			 catch (DaoException e) {

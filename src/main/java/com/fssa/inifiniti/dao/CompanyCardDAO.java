@@ -10,6 +10,7 @@ import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.CompanyCard;
 import com.fssa.inifiniti.validation.CompanyValidator;
+import com.fssa.inifiniti.validationexceptions.InvalidCompanyException;
 
 public class CompanyCardDAO {
 
@@ -23,18 +24,20 @@ public class CompanyCardDAO {
 	
 	public boolean insertCompany(CompanyCard companyCard) throws DaoException{
 		String insertQuery = "INSERT INTO company (company_name , image_url) VALUES (?,?)";
-		 CompanyValidator.validateName(companyCard.getCompanyTitle());
-		CompanyValidator.validateUrl(companyCard.getImageUrl());
+		 
 		try ( 
+				
 		Connection connection = App.getConnection();
 		PreparedStatement pst = connection.prepareStatement(insertQuery);)
 		{
+			CompanyValidator.validateName(companyCard.getCompanyTitle());
+			CompanyValidator.validateUrl(companyCard.getImageUrl());
 		pst.setString(1, companyCard.getCompanyTitle());
 		pst.setString(2, companyCard.getImageUrl());
 		int rows = pst.executeUpdate();
 		return (rows == 1) ;
-		} catch (SQLException e) {
-			throw new DaoException(e);
+		} catch (SQLException | InvalidCompanyException  e) {
+			throw new DaoException(e.getMessage());
 		}
 	}
 	
@@ -58,7 +61,7 @@ public class CompanyCardDAO {
 		int rows = pst.executeUpdate();
 		return rows > 0 ;
 		} catch (SQLException e ) {
-			throw new DaoException(e);
+			throw new DaoException(e.getMessage());
 		}
 	} 
 	

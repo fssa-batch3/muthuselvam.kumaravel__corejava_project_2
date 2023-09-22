@@ -33,7 +33,7 @@ public class CompanyCardService {
 		}
 		 catch (DaoException | InvalidCompanyException e) {
 			 
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -57,8 +57,8 @@ public class CompanyCardService {
 			return true;
 		}
 		}
-		 catch (DaoException   e) {
-			throw new ServiceException(e);
+		 catch (DaoException | InvalidCompanyException   e) {
+			throw new ServiceException(e.getMessage());
 		}
 	}
 	

@@ -40,13 +40,18 @@ public class CompanyValidator {
 	 *
 	 * @param name The company name to be validated.
 	 * @return True if the company name is valid; otherwise, false.
+	 * @throws InvalidCompanyException 
 	 */
 
-	public static boolean validateName(String name) {
+	public static boolean validateName(String name) throws InvalidCompanyException {
 		String regex = "^[A-Za-z]\\w{2,29}$";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(name);
-		return m.matches();
+		if ( m.matches()) {
+			return true;
+		}else {
+			throw new InvalidCompanyException("Company name is invalid");
+		}
 
 	}
 
@@ -55,15 +60,16 @@ public class CompanyValidator {
      *
      * @param url The image URL to be validated.
      * @return True if the URL is valid; otherwise, false.
+	 * @throws InvalidCompanyException 
      */
-	public static boolean validateUrl(String url) {
+	public static boolean validateUrl(String url) throws InvalidCompanyException {
 		boolean match = false;
 		try {
 			new URL(url).toURI();
 			match = true;
 			return match;
 		} catch (MalformedURLException | URISyntaxException e) {
-			return match;
+			throw new InvalidCompanyException("Company logo url is invalid");
 		}
 	}
 
