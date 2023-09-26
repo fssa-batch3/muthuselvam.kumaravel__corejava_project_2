@@ -37,7 +37,7 @@ public class User {
 	private String lastName;
 	private String location ;
 	private String phoneNumber ; 
-	
+	private String salt;
 	
 	
 	public User(String email, String firstName, String lastName, String location, String phoneNumber) {
@@ -224,5 +224,15 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+
+	public String getSalt() {
+		return salt;
+	}
+
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 }

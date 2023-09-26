@@ -1,12 +1,13 @@
 package com.fssa.inifiniti.dao;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.fssa.inifiniti.util.PasswordUtil;
 import com.fssa.inifiniti.App;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.User;
@@ -25,21 +26,24 @@ public class UserDAO {
 	 */
 
 	public boolean insertUser(User user) throws DaoException {
-		String insertQuery = "INSERT INTO user (username , email , password) VALUES (?,?,?)";
+		String insertQuery = "INSERT INTO user (username , email , password, salt) VALUES (?,?,?,?)";
 		try (Connection connection = App.getConnection();
-				PreparedStatement pst = connection.prepareStatement(insertQuery);) {
-			pst.setString(1, user.getUserName());
-			pst.setString(2, user.getEmail());
-			pst.setString(3, user.getPassword());
-			int rows = pst.executeUpdate();
-			if (rows == 1) {
-				return true;
-			} else {
-				throw new DaoException("Invalid details for register");
-			}
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		}
+		         PreparedStatement pst = connection.prepareStatement(insertQuery);) {
+
+		        pst.setString(1, user.getUserName());
+		        pst.setString(2, user.getEmail());
+		        pst.setString(3, user.getPassword());
+		        pst.setString(4, user.getSalt());
+
+		        int rows = pst.executeUpdate();
+		        if (rows == 1) {
+		            return true;
+		        } else {
+		            throw new DaoException("Invalid details for registration");
+		        }
+		    } catch (SQLException  e) {
+		        throw new DaoException(e);
+		    }
 	}
 
 	/**
@@ -65,6 +69,7 @@ public class UserDAO {
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 				user.setLoggedIn(rs.getBoolean("logged_in"));
+				user.setSalt(rs.getString("salt"));
 			} else {
 				throw new DaoException("Email is not registered");
 			}

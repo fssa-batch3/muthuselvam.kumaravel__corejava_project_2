@@ -1,12 +1,14 @@
 package com.fssa.inifiniti.services;
 
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import com.fssa.inifiniti.dao.UserDAO;
 import com.fssa.inifiniti.dao.exceptions.DaoException;
 import com.fssa.inifiniti.model.User;
 import com.fssa.inifiniti.services.exceptions.ServiceException;
+import com.fssa.inifiniti.util.PasswordUtil;
 import com.fssa.inifiniti.validation.UserValidator;
 import com.fssa.inifiniti.validationexceptions.ValidationException;
 
@@ -29,14 +31,22 @@ public boolean registerUser(User user) throws ServiceException {
 			throw new ValidationException("User cannot be null");
 		}
 		
+		
 	UserValidator.validateName(user.getUserName());
 	UserValidator.validateEmail(user.getEmail());
 	UserValidator.validatePassword(user.getPassword());
+	
+	
+	 byte[] salt = PasswordUtil.getSalt();
+     String saltedString = PasswordUtil.byteArrayToHexString(salt);
+     user.setSalt(saltedString);
+     String hashedPassword = PasswordUtil.getSecurePassword(user.getPassword(), salt);
+     user.setPassword(hashedPassword);
 	return  userdao.emailAlreadyExists(user.getEmail()) &&
 		    userdao.insertUser(user);
 	
 	}
-	 catch (DaoException  | ValidationException e) {
+	 catch (DaoException  | ValidationException | NoSuchAlgorithmException e) {
 		
 		throw new ServiceException(e.getMessage());
 	}
@@ -63,8 +73,10 @@ public static boolean loginUser(String email, String password) throws ServiceExc
 			throw new ValidationException("Password cannot be null");
 		}
 	 User  user = userdao.findUserByEmail(email);
+	 byte[] salt = PasswordUtil.hexStringToByteArray(user.getSalt());
+	 String saltedPassword = PasswordUtil.getSecurePassword(password, salt);
 	 if( email.equals(user.getEmail())){
-		if(	password.equals(user.getPassword())) {
+		if(	saltedPassword.equals(user.getPassword())) {
 		 return true;
 	 } else {
 		 throw new DaoException("Invalid Credentials");
