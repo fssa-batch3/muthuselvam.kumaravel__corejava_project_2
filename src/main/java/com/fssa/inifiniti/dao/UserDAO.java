@@ -71,7 +71,7 @@ public class UserDAO {
 				user.setLoggedIn(rs.getBoolean("logged_in"));
 				user.setSalt(rs.getString("salt"));
 			} else {
-				throw new DaoException("Email is not registered");
+				throw new DaoException("Invalid Credentials");
 			}
 			return user;
 		} catch (SQLException e) {
